@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Model
 {
+    using Model;
     public class Entrenador
     {
         public int Id { get; set; }

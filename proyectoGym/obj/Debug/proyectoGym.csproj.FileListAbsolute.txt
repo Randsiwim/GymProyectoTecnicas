@@ -1,0 +1,11 @@
+C:\Users\Portatil_12\source\repos\proyectoGym\proyectoGym\obj\Debug\proyectoGym.csproj.AssemblyReference.cache
+C:\Users\Portatil_12\source\repos\proyectoGym\proyectoGym\obj\Debug\proyectoGym.FormLogin.resources
+C:\Users\Portatil_12\source\repos\proyectoGym\proyectoGym\obj\Debug\proyectoGym.FormMain.resources
+C:\Users\Portatil_12\source\repos\proyectoGym\proyectoGym\obj\Debug\proyectoGym.Properties.Resources.resources
+C:\Users\Portatil_12\source\repos\proyectoGym\proyectoGym\obj\Debug\proyectoGym.csproj.GenerateResource.cache
+C:\Users\Portatil_12\source\repos\proyectoGym\proyectoGym\obj\Debug\proyectoGym.csproj.CoreCompileInputs.cache
+C:\Users\Portatil_12\source\repos\proyectoGym\proyectoGym\bin\Debug\proyectoGym.exe.config
+C:\Users\Portatil_12\source\repos\proyectoGym\proyectoGym\bin\Debug\proyectoGym.exe
+C:\Users\Portatil_12\source\repos\proyectoGym\proyectoGym\bin\Debug\proyectoGym.pdb
+C:\Users\Portatil_12\source\repos\proyectoGym\proyectoGym\obj\Debug\proyectoGym.exe
+C:\Users\Portatil_12\source\repos\proyectoGym\proyectoGym\obj\Debug\proyectoGym.pdb

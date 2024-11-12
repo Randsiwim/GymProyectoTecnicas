@@ -4,8 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace Model
 {
+    using Model;
+
+
     public class Clase
     {
         public int Id { get; set; }
