@@ -26,7 +26,7 @@ namespace proyectoGym
             {
                 MessageBox.Show("Inicio de sesión exitoso!");
                 this.Hide(); // Oculta el formulario de login
-                FormMain mainForm = new FormMain(); // Crea una instancia del formulario principal
+                FormMain mainForm = new FormMain(); 
                 mainForm.Show(); // Muestra el formulario principal
             }
             else

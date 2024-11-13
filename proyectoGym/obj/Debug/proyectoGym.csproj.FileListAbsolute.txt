@@ -9,3 +9,7 @@ C:\Users\Portatil_12\source\repos\proyectoGym\proyectoGym\bin\Debug\proyectoGym.
 C:\Users\Portatil_12\source\repos\proyectoGym\proyectoGym\bin\Debug\proyectoGym.pdb
 C:\Users\Portatil_12\source\repos\proyectoGym\proyectoGym\obj\Debug\proyectoGym.exe
 C:\Users\Portatil_12\source\repos\proyectoGym\proyectoGym\obj\Debug\proyectoGym.pdb
+C:\Users\Portatil_12\source\repos\proyectoGym\proyectoGym\obj\Debug\proyectoGym.FormUsuarios.resources
+C:\Users\Portatil_12\source\repos\proyectoGym\proyectoGym\obj\Debug\proyectoGym.FormClases.resources
+C:\Users\Portatil_12\source\repos\proyectoGym\proyectoGym\obj\Debug\proyectoGym.FormInventario.resources
+C:\Users\Portatil_12\source\repos\proyectoGym\proyectoGym\obj\Debug\proyectoGym.FormMembresias.resources

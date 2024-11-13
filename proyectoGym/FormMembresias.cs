@@ -16,5 +16,27 @@ namespace proyectoGym
         {
             InitializeComponent();
         }
+
+        private void btnRenovarMembresia_Click(object sender, EventArgs e)
+        {
+            if (dgvMembresias.SelectedRows.Count > 0)
+            {
+                var clienteSeleccionado = (Cliente)dgvMembresias.SelectedRows[0].DataBoundItem;
+                
+                MessageBox.Show("Membresía renovada correctamente.");
+                CargarMembresias();
+            }
+            else
+            {
+                MessageBox.Show("Seleccione un cliente para renovar su membresía.");
+            }
+        }
+
+        private void CargarMembresias()
+        {
+            dgvMembresias.DataSource = null;
+            dgvMembresias.DataSource = listaClientes; 
+        }
+
     }
 }
