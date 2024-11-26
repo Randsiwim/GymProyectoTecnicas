@@ -7,17 +7,20 @@ using System.Threading.Tasks;
 
 namespace Model
 {
-    using Model;
-
-
     public class Clase
     {
-        public int Id { get; set; }
-        public string Nombre { get; set; }
-        public DateTime Horario { get; set; }
-        public int CupoMaximo { get; set; }
-        public Entrenador EntrenadorAsignado { get; set; }
-        public List<Cliente> Reservas { get; set; }  // Clientes que reservaron
-    }
+        public int Id { get; set; } // Identificador único de la clase
+        public string Nombre { get; set; } // Nombre de la clase
+        public DateTime Horario { get; set; } // Fecha y hora de la clase
+        public int CupoMaximo { get; set; } // Máximo de clientes permitidos
+        public string EntrenadorAsignado { get; set; } // Nombre del entrenador
+        public List<string> Reservas { get; set; } // Lista de nombres de clientes que reservaron
 
+        // Constructor para inicializar la lista de reservas
+        public Clase()
+        {
+            Reservas = new List<string>();
+        }
+    }
 }
+

@@ -1,6 +1,6 @@
 ﻿namespace proyectoGym
 {
-    partial class FormClases
+    partial class FormClase
     {
         /// <summary>
         /// Required designer variable.
