@@ -60,5 +60,15 @@ namespace proyectoGym
                 MessageBox.Show("Seleccione una clase para reservar.");
             }
         }
+
+        private void btnVerReservas_Click(object sender, EventArgs e)
+        {
+            
+            FormReservas formReservas = new FormReservas();
+
+            // Mostrar el formulario de reservas como una ventana modal
+            formReservas.ShowDialog();
+        }
+
     }
 }

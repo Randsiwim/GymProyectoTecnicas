@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.btnRenovarMembresia = new System.Windows.Forms.Button();
-            this.btnMembresiasVencidas = new System.Windows.Forms.Button();
             this.dgvMembresias = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMembresias)).BeginInit();
@@ -37,21 +36,13 @@
             // 
             // btnRenovarMembresia
             // 
-            this.btnRenovarMembresia.Location = new System.Drawing.Point(369, 132);
+            this.btnRenovarMembresia.Location = new System.Drawing.Point(437, 123);
             this.btnRenovarMembresia.Name = "btnRenovarMembresia";
             this.btnRenovarMembresia.Size = new System.Drawing.Size(126, 23);
             this.btnRenovarMembresia.TabIndex = 0;
             this.btnRenovarMembresia.Text = "Renovar";
             this.btnRenovarMembresia.UseVisualStyleBackColor = true;
-            // 
-            // btnMembresiasVencidas
-            // 
-            this.btnMembresiasVencidas.Location = new System.Drawing.Point(369, 206);
-            this.btnMembresiasVencidas.Name = "btnMembresiasVencidas";
-            this.btnMembresiasVencidas.Size = new System.Drawing.Size(126, 23);
-            this.btnMembresiasVencidas.TabIndex = 1;
-            this.btnMembresiasVencidas.Text = "Ver Membresias";
-            this.btnMembresiasVencidas.UseVisualStyleBackColor = true;
+            this.btnRenovarMembresia.Click += new System.EventHandler(this.btnRenovarMembresia_Click);
             // 
             // dgvMembresias
             // 
@@ -77,7 +68,6 @@
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dgvMembresias);
-            this.Controls.Add(this.btnMembresiasVencidas);
             this.Controls.Add(this.btnRenovarMembresia);
             this.Name = "FormMembresias";
             this.Text = "FormMembresias";
@@ -90,7 +80,6 @@
         #endregion
 
         private System.Windows.Forms.Button btnRenovarMembresia;
-        private System.Windows.Forms.Button btnMembresiasVencidas;
         private System.Windows.Forms.DataGridView dgvMembresias;
         private System.Windows.Forms.Label label1;
     }

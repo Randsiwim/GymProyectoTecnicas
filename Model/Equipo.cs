@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace Model
 {
-    using Model;
     public class Equipo
     {
         public int Id { get; set; }
@@ -14,7 +13,8 @@ namespace Model
         public DateTime FechaCompra { get; set; }
         public int VidaUtilMeses { get; set; }
         public bool EnUso { get; set; }
-        // Método para verificar vida útil
+        public string Estado { get; set; } // Nuevo: Estado del equipo (e.g., "Bueno", "Malo", etc.)
+        public int Cantidad { get; set; } // Nuevo: Cantidad disponible del equipo
     }
-
 }
+

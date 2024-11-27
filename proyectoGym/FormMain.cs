@@ -7,6 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Model;
+using proyectoGym; 
+
 
 namespace proyectoGym
 {
@@ -32,7 +35,7 @@ namespace proyectoGym
 
         private void btnClases_Click(object sender, EventArgs e)
         {
-            FormClases formClases = new FormClases();
+            FormClase formClases = new FormClase();
             formClases.Show(); 
         }
 
@@ -54,6 +57,10 @@ namespace proyectoGym
             formReportes.Show(); 
         }
 
-
+        private void btnFacturas_Click(object sender, EventArgs e)
+        {
+            FormFacturacion formFactura = new FormFacturacion();
+            formFactura.Show();
+        }
     }
 }

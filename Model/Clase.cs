@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Model.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,6 +22,15 @@ namespace Model
         {
             Reservas = new List<string>();
         }
+
+    }
+    public class Reserva
+    {
+        public int Id { get; set; }
+        public Clase Clase { get; set; } // Clase asociada a la reserva
+        public Cliente Cliente { get; set; } // Cliente que realiza la reserva
+        public DateTime FechaReserva { get; set; }
+        public DateTime FechaHoraReserva { get; set; } // Fecha y hora de la clase reservada
     }
 }
 

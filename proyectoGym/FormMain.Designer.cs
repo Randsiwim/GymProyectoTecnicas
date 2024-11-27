@@ -34,11 +34,12 @@
             this.btnInventario = new System.Windows.Forms.Button();
             this.btnReportes = new System.Windows.Forms.Button();
             this.btnReservas = new System.Windows.Forms.Button();
+            this.btnFacturas = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnUsuarios
             // 
-            this.btnUsuarios.Location = new System.Drawing.Point(29, 50);
+            this.btnUsuarios.Location = new System.Drawing.Point(29, 25);
             this.btnUsuarios.Name = "btnUsuarios";
             this.btnUsuarios.Size = new System.Drawing.Size(161, 23);
             this.btnUsuarios.TabIndex = 0;
@@ -48,7 +49,7 @@
             // 
             // btnMembresias
             // 
-            this.btnMembresias.Location = new System.Drawing.Point(29, 123);
+            this.btnMembresias.Location = new System.Drawing.Point(29, 81);
             this.btnMembresias.Name = "btnMembresias";
             this.btnMembresias.Size = new System.Drawing.Size(129, 23);
             this.btnMembresias.TabIndex = 1;
@@ -58,7 +59,7 @@
             // 
             // btnClases
             // 
-            this.btnClases.Location = new System.Drawing.Point(29, 197);
+            this.btnClases.Location = new System.Drawing.Point(29, 139);
             this.btnClases.Name = "btnClases";
             this.btnClases.Size = new System.Drawing.Size(129, 23);
             this.btnClases.TabIndex = 2;
@@ -68,7 +69,7 @@
             // 
             // btnInventario
             // 
-            this.btnInventario.Location = new System.Drawing.Point(47, 326);
+            this.btnInventario.Location = new System.Drawing.Point(47, 234);
             this.btnInventario.Name = "btnInventario";
             this.btnInventario.Size = new System.Drawing.Size(75, 23);
             this.btnInventario.TabIndex = 3;
@@ -78,7 +79,7 @@
             // 
             // btnReportes
             // 
-            this.btnReportes.Location = new System.Drawing.Point(47, 396);
+            this.btnReportes.Location = new System.Drawing.Point(47, 296);
             this.btnReportes.Name = "btnReportes";
             this.btnReportes.Size = new System.Drawing.Size(75, 23);
             this.btnReportes.TabIndex = 4;
@@ -88,7 +89,7 @@
             // 
             // btnReservas
             // 
-            this.btnReservas.Location = new System.Drawing.Point(47, 253);
+            this.btnReservas.Location = new System.Drawing.Point(47, 184);
             this.btnReservas.Name = "btnReservas";
             this.btnReservas.Size = new System.Drawing.Size(75, 23);
             this.btnReservas.TabIndex = 5;
@@ -96,11 +97,22 @@
             this.btnReservas.UseVisualStyleBackColor = true;
             this.btnReservas.Click += new System.EventHandler(this.btnReservas_Click);
             // 
+            // btnFacturas
+            // 
+            this.btnFacturas.Location = new System.Drawing.Point(47, 349);
+            this.btnFacturas.Name = "btnFacturas";
+            this.btnFacturas.Size = new System.Drawing.Size(75, 23);
+            this.btnFacturas.TabIndex = 6;
+            this.btnFacturas.Text = "Facturas";
+            this.btnFacturas.UseVisualStyleBackColor = true;
+            this.btnFacturas.Click += new System.EventHandler(this.btnFacturas_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnFacturas);
             this.Controls.Add(this.btnReservas);
             this.Controls.Add(this.btnReportes);
             this.Controls.Add(this.btnInventario);
@@ -121,5 +133,6 @@
         private System.Windows.Forms.Button btnInventario;
         private System.Windows.Forms.Button btnReportes;
         private System.Windows.Forms.Button btnReservas;
+        private System.Windows.Forms.Button btnFacturas;
     }
 }

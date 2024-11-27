@@ -56,12 +56,13 @@
             // 
             this.btnVerReservas.Location = new System.Drawing.Point(361, 176);
             this.btnVerReservas.Name = "btnVerReservas";
-            this.btnVerReservas.Size = new System.Drawing.Size(75, 23);
+            this.btnVerReservas.Size = new System.Drawing.Size(107, 23);
             this.btnVerReservas.TabIndex = 4;
             this.btnVerReservas.Text = "Ver Reservas";
             this.btnVerReservas.UseVisualStyleBackColor = true;
+            this.btnVerReservas.Click += new System.EventHandler(this.btnVerReservas_Click);
             // 
-            // FormClases
+            // FormClase
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -69,7 +70,7 @@
             this.Controls.Add(this.btnVerReservas);
             this.Controls.Add(this.dgvClases);
             this.Controls.Add(this.btnReservarClase);
-            this.Name = "FormClases";
+            this.Name = "FormClase";
             this.Text = "FormClases";
             ((System.ComponentModel.ISupportInitialize)(this.dgvClases)).EndInit();
             this.ResumeLayout(false);

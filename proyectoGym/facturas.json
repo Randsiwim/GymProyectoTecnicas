@@ -1,0 +1,16 @@
+[
+  {
+    "Id": 1,
+    "ClienteId": 101,
+    "Fecha": "2024-11-26T00:00:00",
+    "Total": 49.99,
+    "Descripcion": "Membresía mensual"
+  },
+  {
+    "Id": 2,
+    "ClienteId": 102,
+    "Fecha": "2024-11-26T00:00:00",
+    "Total": 29.99,
+    "Descripcion": "Clase de yoga"
+  }
+]
