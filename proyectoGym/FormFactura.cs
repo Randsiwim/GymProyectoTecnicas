@@ -1,7 +1,8 @@
 ﻿using Model;
-using Newtonsoft.Json; // Agregar la referencia necesaria para JSON
+using Newtonsoft.Json; 
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -16,9 +17,23 @@ namespace proyectoGym
         public FormFacturacion()
         {
             InitializeComponent();
-            CargarFacturas(); // Cargar las facturas existentes
-            CargarFacturasEnGrid(); // Mostrar en el DataGridView
+            ConfigurarImagenDeFondo(); 
+            CargarFacturas(); 
+            CargarFacturasEnGrid(); 
             ActualizarTotal(); // Mostrar el total general
+        }
+
+        private void ConfigurarImagenDeFondo()
+        {
+            try
+            {
+                this.BackgroundImage = Image.FromFile("C:\\Users\\Rand\\Source\\Repos\\GymProyectoTecnicas\\proyectoGym\\imagesGym5.jpg");
+                this.BackgroundImageLayout = ImageLayout.Stretch;
+            }
+            catch (FileNotFoundException)
+            {
+                MessageBox.Show("La imagen de fondo no se encontró en la ruta especificada.");
+            }
         }
 
         private void GenerarFactura(int clienteId, decimal total, string descripcion)
@@ -163,6 +178,7 @@ namespace proyectoGym
         {
             GuardarFacturas(); // Guardar las facturas antes de salir
         }
+
+
     }
 }
-

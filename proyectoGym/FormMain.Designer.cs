@@ -39,7 +39,7 @@
             // 
             // btnUsuarios
             // 
-            this.btnUsuarios.Location = new System.Drawing.Point(29, 25);
+            this.btnUsuarios.Location = new System.Drawing.Point(29, 63);
             this.btnUsuarios.Name = "btnUsuarios";
             this.btnUsuarios.Size = new System.Drawing.Size(161, 23);
             this.btnUsuarios.TabIndex = 0;
@@ -49,7 +49,7 @@
             // 
             // btnMembresias
             // 
-            this.btnMembresias.Location = new System.Drawing.Point(29, 81);
+            this.btnMembresias.Location = new System.Drawing.Point(234, 63);
             this.btnMembresias.Name = "btnMembresias";
             this.btnMembresias.Size = new System.Drawing.Size(129, 23);
             this.btnMembresias.TabIndex = 1;
@@ -59,7 +59,7 @@
             // 
             // btnClases
             // 
-            this.btnClases.Location = new System.Drawing.Point(29, 139);
+            this.btnClases.Location = new System.Drawing.Point(407, 63);
             this.btnClases.Name = "btnClases";
             this.btnClases.Size = new System.Drawing.Size(129, 23);
             this.btnClases.TabIndex = 2;
@@ -69,7 +69,7 @@
             // 
             // btnInventario
             // 
-            this.btnInventario.Location = new System.Drawing.Point(47, 234);
+            this.btnInventario.Location = new System.Drawing.Point(713, 63);
             this.btnInventario.Name = "btnInventario";
             this.btnInventario.Size = new System.Drawing.Size(75, 23);
             this.btnInventario.TabIndex = 3;
@@ -79,7 +79,7 @@
             // 
             // btnReportes
             // 
-            this.btnReportes.Location = new System.Drawing.Point(47, 296);
+            this.btnReportes.Location = new System.Drawing.Point(175, 137);
             this.btnReportes.Name = "btnReportes";
             this.btnReportes.Size = new System.Drawing.Size(75, 23);
             this.btnReportes.TabIndex = 4;
@@ -89,7 +89,7 @@
             // 
             // btnReservas
             // 
-            this.btnReservas.Location = new System.Drawing.Point(47, 184);
+            this.btnReservas.Location = new System.Drawing.Point(582, 63);
             this.btnReservas.Name = "btnReservas";
             this.btnReservas.Size = new System.Drawing.Size(75, 23);
             this.btnReservas.TabIndex = 5;
@@ -99,7 +99,7 @@
             // 
             // btnFacturas
             // 
-            this.btnFacturas.Location = new System.Drawing.Point(47, 349);
+            this.btnFacturas.Location = new System.Drawing.Point(507, 137);
             this.btnFacturas.Name = "btnFacturas";
             this.btnFacturas.Size = new System.Drawing.Size(75, 23);
             this.btnFacturas.TabIndex = 6;

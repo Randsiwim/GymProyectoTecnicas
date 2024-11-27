@@ -15,7 +15,7 @@ namespace Model
         {
             public int Id { get; set; }
             public string Nombre { get; set; }
-            public string PuntosFuertes { get; set; }  // Ejemplo: "Fuerza, Cardio"
+            public string PuntosFuertes { get; set; }  
             public List<Horario> Horarios { get; set; }  // Lista de horarios disponibles para el entrenador
         }
 
@@ -37,8 +37,8 @@ namespace Model
 
         public class Horario
         {
-            public DayOfWeek Dia { get; set; }  // Día de la semana (Lunes, Martes, etc.)
-            public TimeSpan HoraInicio { get; set; }  // Hora de inicio de la clase
+            public DayOfWeek Dia { get; set; }  // Día de la semana 
+            public TimeSpan HoraInicio { get; set; }  
         }
 
         public class Usuario

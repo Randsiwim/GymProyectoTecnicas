@@ -44,7 +44,7 @@
             // 
             // btnAgregarEquipo
             // 
-            this.btnAgregarEquipo.Location = new System.Drawing.Point(461, 72);
+            this.btnAgregarEquipo.Location = new System.Drawing.Point(415, 314);
             this.btnAgregarEquipo.Name = "btnAgregarEquipo";
             this.btnAgregarEquipo.Size = new System.Drawing.Size(75, 23);
             this.btnAgregarEquipo.TabIndex = 0;
@@ -54,7 +54,7 @@
             // 
             // btnEliminarEquipo
             // 
-            this.btnEliminarEquipo.Location = new System.Drawing.Point(461, 162);
+            this.btnEliminarEquipo.Location = new System.Drawing.Point(677, 314);
             this.btnEliminarEquipo.Name = "btnEliminarEquipo";
             this.btnEliminarEquipo.Size = new System.Drawing.Size(75, 23);
             this.btnEliminarEquipo.TabIndex = 1;
@@ -65,14 +65,14 @@
             // dgvInventario
             // 
             this.dgvInventario.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvInventario.Location = new System.Drawing.Point(50, 127);
+            this.dgvInventario.Location = new System.Drawing.Point(12, 87);
             this.dgvInventario.Name = "dgvInventario";
-            this.dgvInventario.Size = new System.Drawing.Size(240, 150);
+            this.dgvInventario.Size = new System.Drawing.Size(377, 234);
             this.dgvInventario.TabIndex = 2;
             // 
             // btnEditarEquipo
             // 
-            this.btnEditarEquipo.Location = new System.Drawing.Point(461, 113);
+            this.btnEditarEquipo.Location = new System.Drawing.Point(550, 314);
             this.btnEditarEquipo.Name = "btnEditarEquipo";
             this.btnEditarEquipo.Size = new System.Drawing.Size(75, 23);
             this.btnEditarEquipo.TabIndex = 3;
@@ -82,21 +82,21 @@
             // 
             // txtCantidad
             // 
-            this.txtCantidad.Location = new System.Drawing.Point(652, 308);
+            this.txtCantidad.Location = new System.Drawing.Point(666, 237);
             this.txtCantidad.Name = "txtCantidad";
             this.txtCantidad.Size = new System.Drawing.Size(100, 20);
             this.txtCantidad.TabIndex = 4;
             // 
             // txtEstado
             // 
-            this.txtEstado.Location = new System.Drawing.Point(520, 308);
+            this.txtEstado.Location = new System.Drawing.Point(535, 237);
             this.txtEstado.Name = "txtEstado";
             this.txtEstado.Size = new System.Drawing.Size(100, 20);
             this.txtEstado.TabIndex = 5;
             // 
             // txtNombreEquipo
             // 
-            this.txtNombreEquipo.Location = new System.Drawing.Point(386, 308);
+            this.txtNombreEquipo.Location = new System.Drawing.Point(415, 237);
             this.txtNombreEquipo.Name = "txtNombreEquipo";
             this.txtNombreEquipo.Size = new System.Drawing.Size(100, 20);
             this.txtNombreEquipo.TabIndex = 6;
@@ -104,7 +104,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(411, 262);
+            this.label1.Location = new System.Drawing.Point(446, 189);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(44, 13);
             this.label1.TabIndex = 7;
@@ -113,7 +113,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(551, 262);
+            this.label2.Location = new System.Drawing.Point(575, 189);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(40, 13);
             this.label2.TabIndex = 8;
@@ -122,7 +122,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(693, 262);
+            this.label3.Location = new System.Drawing.Point(691, 189);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(49, 13);
             this.label3.TabIndex = 9;
@@ -131,7 +131,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(554, 211);
+            this.label4.Location = new System.Drawing.Point(575, 123);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(40, 13);
             this.label4.TabIndex = 10;
@@ -154,7 +154,7 @@
             this.Controls.Add(this.btnEliminarEquipo);
             this.Controls.Add(this.btnAgregarEquipo);
             this.Name = "FormInventario";
-            this.Text = "FormInventario";
+            this.Text = "Inventario";
             ((System.ComponentModel.ISupportInitialize)(this.dgvInventario)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

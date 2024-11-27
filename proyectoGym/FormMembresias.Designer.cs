@@ -36,7 +36,7 @@
             // 
             // btnRenovarMembresia
             // 
-            this.btnRenovarMembresia.Location = new System.Drawing.Point(437, 123);
+            this.btnRenovarMembresia.Location = new System.Drawing.Point(633, 99);
             this.btnRenovarMembresia.Name = "btnRenovarMembresia";
             this.btnRenovarMembresia.Size = new System.Drawing.Size(126, 23);
             this.btnRenovarMembresia.TabIndex = 0;
@@ -47,15 +47,15 @@
             // dgvMembresias
             // 
             this.dgvMembresias.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvMembresias.Location = new System.Drawing.Point(12, 64);
+            this.dgvMembresias.Location = new System.Drawing.Point(24, 69);
             this.dgvMembresias.Name = "dgvMembresias";
-            this.dgvMembresias.Size = new System.Drawing.Size(326, 356);
+            this.dgvMembresias.Size = new System.Drawing.Size(569, 356);
             this.dgvMembresias.TabIndex = 2;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(500, 51);
+            this.label1.Location = new System.Drawing.Point(666, 28);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(63, 13);
             this.label1.TabIndex = 3;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using Model;
 using Model.Model;
+using System.Drawing;
 
 namespace proyectoGym
 {
@@ -16,6 +17,7 @@ namespace proyectoGym
             listaReservas = new List<Reserva>(); // Inicializa la lista de reservas
             CargarReservas();
             CargarComboBoxes(); // Cargar las clases y clientes en los ComboBox
+            ConfigurarImagenDeFondo(); // Add this line to call the method
         }
 
         private void CargarReservas()
@@ -26,7 +28,7 @@ namespace proyectoGym
 
         private void CargarComboBoxes()
         {
-           
+
         }
 
         private List<Cliente> ObtenerClientes()
@@ -39,15 +41,12 @@ namespace proyectoGym
             };
         }
 
-       
-        
-
         private void btnAgregarReserva_Click(object sender, EventArgs e)
         {
             // Crear una nueva reserva con los datos ingresados
             Reserva nuevaReserva = new Reserva
             {
-               
+
             };
 
             // Agregar la nueva reserva a la lista
@@ -71,6 +70,19 @@ namespace proyectoGym
                 MessageBox.Show("Seleccione una reserva para cancelar.");
             }
         }
+
+        private void ConfigurarImagenDeFondo()
+        {
+            PictureBox fondo = new PictureBox
+            {
+                Dock = DockStyle.Fill,
+                Image = Image.FromFile("C:\\Users\\Rand\\Source\\Repos\\GymProyectoTecnicas\\proyectoGym\\imagesGym5.jpg"),
+                SizeMode = PictureBoxSizeMode.StretchImage
+            };
+            this.Controls.Add(fondo);
+            fondo.SendToBack(); // Asegura que la imagen quede de fondo
+        }
     }
 }
+
 

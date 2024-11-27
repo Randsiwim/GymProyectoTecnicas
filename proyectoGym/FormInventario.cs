@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace proyectoGym
 {
@@ -13,6 +14,7 @@ namespace proyectoGym
         {
             InitializeComponent();
             listaEquipos = new List<Equipo>();
+            ConfigurarImagenDeFondo(); // Agregar imagen de fondo
             CargarInventario();
         }
 
@@ -118,7 +120,30 @@ namespace proyectoGym
                 txtCantidad.Text = equipoSeleccionado.Cantidad.ToString();
             }
         }
+
+        // Método para configurar la imagen de fondo
+        private void ConfigurarImagenDeFondo()
+        {
+            PictureBox fondo = new PictureBox
+            {
+                Dock = DockStyle.Fill,
+                Image = Image.FromFile("C:\\Users\\Rand\\Source\\Repos\\GymProyectoTecnicas\\proyectoGym\\imagesGym5.jpg"), 
+                SizeMode = PictureBoxSizeMode.StretchImage
+            };
+            this.Controls.Add(fondo);
+            fondo.SendToBack(); // Mueve la imagen al fondo
+        }
+    }
+
+    // Clase Equipo (Modelo)
+    public class Equipo
+    {
+        public int Id { get; set; }
+        public string Nombre { get; set; }
+        public string Estado { get; set; }
+        public int Cantidad { get; set; }
     }
 }
+
 
 

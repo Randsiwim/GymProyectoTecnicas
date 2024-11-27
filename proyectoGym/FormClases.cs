@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Forms;
 using Model; // Asegúrate de que 'Clase' esté en este namespace
 
@@ -15,6 +16,9 @@ namespace proyectoGym
             listaClases = new List<Clase>(); // Inicializa la lista
             InicializarClases(); // Cargar datos iniciales
             CargarClases(); // Actualiza el DataGridView
+
+            // Configuración adicional del formulario
+            ConfigurarFormulario();
         }
 
         private void InicializarClases()
@@ -63,12 +67,58 @@ namespace proyectoGym
 
         private void btnVerReservas_Click(object sender, EventArgs e)
         {
-            
             FormReservas formReservas = new FormReservas();
 
             // Mostrar el formulario de reservas como una ventana modal
             formReservas.ShowDialog();
         }
 
+        // Método para configurar el formulario con estilos y la imagen de fondo
+        private void ConfigurarFormulario()
+        {
+            // Estilo del formulario
+            this.Text = "Gestión de Clases - Gimnasio";
+            this.BackColor = Color.LightGray;
+            this.StartPosition = FormStartPosition.CenterScreen;
+
+            // Estilo de los controles
+            dgvClases.Font = new Font("Arial", 10);
+            dgvClases.DefaultCellStyle.BackColor = Color.WhiteSmoke;
+            dgvClases.DefaultCellStyle.ForeColor = Color.DarkSlateGray;
+            dgvClases.RowHeadersDefaultCellStyle.BackColor = Color.LightSteelBlue;
+
+            // Estilo del botón
+            btnReservarClase.FlatStyle = FlatStyle.Flat;
+            btnReservarClase.BackColor = Color.SteelBlue;
+            btnReservarClase.ForeColor = Color.White;
+            btnReservarClase.FlatAppearance.BorderSize = 0;
+            btnReservarClase.FlatAppearance.MouseOverBackColor = Color.DarkSlateBlue;
+
+            // Estilo del botón Ver Reservas
+            btnVerReservas.FlatStyle = FlatStyle.Flat;
+            btnVerReservas.BackColor = Color.SeaGreen;
+            btnVerReservas.ForeColor = Color.White;
+            btnVerReservas.FlatAppearance.BorderSize = 0;
+            btnVerReservas.FlatAppearance.MouseOverBackColor = Color.DarkOliveGreen;
+
+            // Imagen de fondo
+            PictureBox fondo = new PictureBox
+            {
+                Dock = DockStyle.Fill,
+                Image = Image.FromFile("C:\\Users\\Rand\\Source\\Repos\\GymProyectoTecnicas\\proyectoGym\\imagesGym5.jpg"), 
+                SizeMode = PictureBoxSizeMode.StretchImage
+            };
+            this.Controls.Add(fondo);
+            fondo.SendToBack(); // Asegura que la imagen quede de fondo
+        }
+    }
+
+    // Clase Clase
+    public class Clase
+    {
+        public string Nombre { get; set; }
+        public DateTime Horario { get; set; }
+        public string EntrenadorAsignado { get; set; }
     }
 }
+

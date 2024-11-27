@@ -36,7 +36,7 @@
             // 
             // btnReservarClase
             // 
-            this.btnReservarClase.Location = new System.Drawing.Point(361, 108);
+            this.btnReservarClase.Location = new System.Drawing.Point(600, 54);
             this.btnReservarClase.Name = "btnReservarClase";
             this.btnReservarClase.Size = new System.Drawing.Size(75, 23);
             this.btnReservarClase.TabIndex = 2;
@@ -47,14 +47,14 @@
             // dgvClases
             // 
             this.dgvClases.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvClases.Location = new System.Drawing.Point(53, 51);
+            this.dgvClases.Location = new System.Drawing.Point(80, 68);
             this.dgvClases.Name = "dgvClases";
-            this.dgvClases.Size = new System.Drawing.Size(240, 328);
+            this.dgvClases.Size = new System.Drawing.Size(416, 328);
             this.dgvClases.TabIndex = 3;
             // 
             // btnVerReservas
             // 
-            this.btnVerReservas.Location = new System.Drawing.Point(361, 176);
+            this.btnVerReservas.Location = new System.Drawing.Point(583, 129);
             this.btnVerReservas.Name = "btnVerReservas";
             this.btnVerReservas.Size = new System.Drawing.Size(107, 23);
             this.btnVerReservas.TabIndex = 4;

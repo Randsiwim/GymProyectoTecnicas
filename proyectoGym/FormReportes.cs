@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Model;
+using System.Drawing;
 
 namespace proyectoGym
 {
@@ -17,6 +18,7 @@ namespace proyectoGym
         public FormReportes()
         {
             InitializeComponent();
+            ConfigurarImagenDeFondo(); // Agregar imagen de fondo
         }
 
         private void FormReportes_Load(object sender, EventArgs e)
@@ -98,7 +100,7 @@ namespace proyectoGym
                 .GroupBy(r => r.ClaseId)
                 .Select(g => new
                 {
-                    Clase = listaClases.First(c => c.Id == g.Key).Nombre,
+                    Clase = listaClases.First(c => c.Nombre == g.Key.ToString()).Nombre, // Fixed line
                     Reservas = g.Count()
                 })
                 .OrderByDescending(c => c.Reservas)
@@ -119,9 +121,22 @@ namespace proyectoGym
             // Lógica para exportar reportes (a archivo CSV, PDF, etc.)
             MessageBox.Show("Reporte exportado correctamente.");
         }
+
+        // Método para configurar la imagen de fondo
+        private void ConfigurarImagenDeFondo()
+        {
+            PictureBox fondo = new PictureBox
+            {
+                Dock = DockStyle.Fill,
+                Image = Image.FromFile("C:\\Users\\Rand\\Source\\Repos\\GymProyectoTecnicas\\proyectoGym\\imagesGym5.jpg"), 
+                SizeMode = PictureBoxSizeMode.StretchImage
+            };
+            this.Controls.Add(fondo);
+            fondo.SendToBack(); 
+        }
     }
 
-    // Modelo de ejemplo para las clases que podrías usar
+    // Modelos de ejemplo
     public class Membresia
     {
         public int ClienteId { get; set; }
@@ -135,13 +150,12 @@ namespace proyectoGym
         public DateTime Fecha { get; set; }
     }
 
-    
-
     public class ReservaClase
     {
         public int ClaseId { get; set; }
         public int ClienteId { get; set; }
     }
 }
+
 
 

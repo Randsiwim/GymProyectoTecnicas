@@ -5,3 +5,6 @@ C:\Users\Rand\Source\Repos\GymProyectoTecnicas\Model\obj\Debug\Model.csproj.Asse
 C:\Users\Rand\Source\Repos\GymProyectoTecnicas\Model\obj\Debug\Model.csproj.CoreCompileInputs.cache
 C:\Users\Rand\Source\Repos\GymProyectoTecnicas\Model\obj\Debug\Model.exe
 C:\Users\Rand\Source\Repos\GymProyectoTecnicas\Model\obj\Debug\Model.pdb
+C:\Users\Rand\Source\Repos\GymProyectoTecnicas\Model\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Rand\Source\Repos\GymProyectoTecnicas\Model\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Rand\Source\Repos\GymProyectoTecnicas\Model\obj\Debug\Model.csproj.Up2Date

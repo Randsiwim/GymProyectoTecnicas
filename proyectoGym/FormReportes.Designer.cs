@@ -37,7 +37,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(436, 69);
+            this.label1.Location = new System.Drawing.Point(350, 57);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(50, 13);
             this.label1.TabIndex = 0;
@@ -46,14 +46,14 @@
             // cmbTipoReporte
             // 
             this.cmbTipoReporte.FormattingEnabled = true;
-            this.cmbTipoReporte.Location = new System.Drawing.Point(78, 197);
+            this.cmbTipoReporte.Location = new System.Drawing.Point(302, 213);
             this.cmbTipoReporte.Name = "cmbTipoReporte";
             this.cmbTipoReporte.Size = new System.Drawing.Size(121, 21);
             this.cmbTipoReporte.TabIndex = 1;
             // 
             // btnGenerarReporte
             // 
-            this.btnGenerarReporte.Location = new System.Drawing.Point(407, 179);
+            this.btnGenerarReporte.Location = new System.Drawing.Point(251, 121);
             this.btnGenerarReporte.Name = "btnGenerarReporte";
             this.btnGenerarReporte.Size = new System.Drawing.Size(75, 23);
             this.btnGenerarReporte.TabIndex = 2;
@@ -63,7 +63,7 @@
             // 
             // btnExportarReporte
             // 
-            this.btnExportarReporte.Location = new System.Drawing.Point(407, 260);
+            this.btnExportarReporte.Location = new System.Drawing.Point(401, 121);
             this.btnExportarReporte.Name = "btnExportarReporte";
             this.btnExportarReporte.Size = new System.Drawing.Size(75, 23);
             this.btnExportarReporte.TabIndex = 3;
@@ -81,7 +81,7 @@
             this.Controls.Add(this.cmbTipoReporte);
             this.Controls.Add(this.label1);
             this.Name = "FormReportes";
-            this.Text = "FormReportes";
+            this.Text = "Reportes";
             this.ResumeLayout(false);
             this.PerformLayout();
 

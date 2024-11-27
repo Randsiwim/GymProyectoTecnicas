@@ -109,7 +109,7 @@
             // 
             // btnConsultarFacturas
             // 
-            this.btnConsultarFacturas.Location = new System.Drawing.Point(221, 39);
+            this.btnConsultarFacturas.Location = new System.Drawing.Point(319, 37);
             this.btnConsultarFacturas.Name = "btnConsultarFacturas";
             this.btnConsultarFacturas.Size = new System.Drawing.Size(139, 23);
             this.btnConsultarFacturas.TabIndex = 8;
@@ -119,9 +119,9 @@
             // dgvFacturas
             // 
             this.dgvFacturas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvFacturas.Location = new System.Drawing.Point(270, 129);
+            this.dgvFacturas.Location = new System.Drawing.Point(261, 96);
             this.dgvFacturas.Name = "dgvFacturas";
-            this.dgvFacturas.Size = new System.Drawing.Size(279, 287);
+            this.dgvFacturas.Size = new System.Drawing.Size(279, 342);
             this.dgvFacturas.TabIndex = 9;
             // 
             // FormFacturacion
@@ -140,7 +140,7 @@
             this.Controls.Add(this.lblTotal);
             this.Controls.Add(this.lblClienteId);
             this.Name = "FormFacturacion";
-            this.Text = "Form1";
+            this.Text = "Facturas";
             ((System.ComponentModel.ISupportInitialize)(this.dgvFacturas)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

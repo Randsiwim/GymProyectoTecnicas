@@ -1,0 +1,16 @@
+[
+  {
+    "Id": 1,
+    "Nombre": "Juan",
+    "Correo": null,
+    "Telefono": null,
+    "Membresia": "Activa"
+  },
+  {
+    "Id": 2,
+    "Nombre": "Ana",
+    "Correo": null,
+    "Telefono": null,
+    "Membresia": "Activa"
+  }
+]

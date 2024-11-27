@@ -40,14 +40,14 @@
             // dgvReservas
             // 
             this.dgvReservas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvReservas.Location = new System.Drawing.Point(34, 190);
+            this.dgvReservas.Location = new System.Drawing.Point(22, 88);
             this.dgvReservas.Name = "dgvReservas";
-            this.dgvReservas.Size = new System.Drawing.Size(396, 219);
+            this.dgvReservas.Size = new System.Drawing.Size(462, 316);
             this.dgvReservas.TabIndex = 0;
             // 
             // btnAgregarReserva
             // 
-            this.btnAgregarReserva.Location = new System.Drawing.Point(488, 99);
+            this.btnAgregarReserva.Location = new System.Drawing.Point(534, 99);
             this.btnAgregarReserva.Name = "btnAgregarReserva";
             this.btnAgregarReserva.Size = new System.Drawing.Size(75, 23);
             this.btnAgregarReserva.TabIndex = 1;
@@ -57,7 +57,7 @@
             // 
             // btnCancelarReserva
             // 
-            this.btnCancelarReserva.Location = new System.Drawing.Point(613, 99);
+            this.btnCancelarReserva.Location = new System.Drawing.Point(661, 99);
             this.btnCancelarReserva.Name = "btnCancelarReserva";
             this.btnCancelarReserva.Size = new System.Drawing.Size(75, 23);
             this.btnCancelarReserva.TabIndex = 2;
@@ -67,7 +67,7 @@
             // 
             // dtpFechaHoraReserva
             // 
-            this.dtpFechaHoraReserva.Location = new System.Drawing.Point(488, 150);
+            this.dtpFechaHoraReserva.Location = new System.Drawing.Point(534, 176);
             this.dtpFechaHoraReserva.Name = "dtpFechaHoraReserva";
             this.dtpFechaHoraReserva.Size = new System.Drawing.Size(200, 20);
             this.dtpFechaHoraReserva.TabIndex = 3;
@@ -75,15 +75,16 @@
             // cmbCliente
             // 
             this.cmbCliente.FormattingEnabled = true;
-            this.cmbCliente.Location = new System.Drawing.Point(615, 266);
+            this.cmbCliente.Location = new System.Drawing.Point(661, 248);
             this.cmbCliente.Name = "cmbCliente";
             this.cmbCliente.Size = new System.Drawing.Size(121, 21);
             this.cmbCliente.TabIndex = 4;
+            this.cmbCliente.Text = "Reservas";
             // 
             // cmbClase
             // 
             this.cmbClase.FormattingEnabled = true;
-            this.cmbClase.Location = new System.Drawing.Point(488, 266);
+            this.cmbClase.Location = new System.Drawing.Point(511, 248);
             this.cmbClase.Name = "cmbClase";
             this.cmbClase.Size = new System.Drawing.Size(121, 21);
             this.cmbClase.TabIndex = 5;
