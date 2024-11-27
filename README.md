@@ -44,7 +44,7 @@ FormReservas.cs
 
 Cómo Usar el Sistema
 Iniciar sesión y registrar usuarios:
-Cuando inicie el sistema se le pedirá que inicie sesión con Admin pass1234. Si es un nuevo usuario, podrán registrarlo desde el formulario de registro.
+Cuando inicie el sistema se le pedirá que inicie sesión con Admin pass123. Si es un nuevo usuario, podrán registrarlo desde el formulario de registro.
 Gestionar entrenadores y clases:
 Como administrador, podrá agregar entrenadores y asignarles horarios a través del formulario correspondiente.
 
