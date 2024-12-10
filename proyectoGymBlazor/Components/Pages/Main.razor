@@ -1,0 +1,26 @@
+﻿@page "/Main"
+@inject NavigationManager NavigationManager
+
+<h1>Menú Principal - Gimnasio</h1>
+
+<div class="menu-container">
+    <button class="menu-button" @onclick="IrUsuarios">Usuarios</button>
+    <button class="menu-button" @onclick="IrMembresias">Membresías</button>
+    <button class="menu-button" @onclick="IrClases">Clases</button>
+    <button class="menu-button" @onclick="IrReservas">Reservas</button>
+    <button class="menu-button" @onclick="IrInventario">Inventario</button>
+    <button class="menu-button" @onclick="IrReportes">Reportes</button>
+    <button class="menu-button" @onclick="IrFacturas">Facturación</button>
+</div>
+
+
+
+@code {
+    private void IrUsuarios() => NavigationManager.NavigateTo("/usuarios");
+    private void IrMembresias() => NavigationManager.NavigateTo("/membresias");
+    private void IrClases() => NavigationManager.NavigateTo("/clases");
+    private void IrReservas() => NavigationManager.NavigateTo("/reservas");
+    private void IrInventario() => NavigationManager.NavigateTo("/inventario");
+    private void IrReportes() => NavigationManager.NavigateTo("/reportes");
+    private void IrFacturas() => NavigationManager.NavigateTo("/facturas");
+}

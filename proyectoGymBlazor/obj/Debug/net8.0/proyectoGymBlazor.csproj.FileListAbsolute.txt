@@ -1,0 +1,7 @@
+C:\Users\Rand\Source\Repos\GymProyectoTecnicas\proyectoGymBlazor\obj\Debug\net8.0\proyectoGymBlazor.csproj.AssemblyReference.cache
+C:\Users\Rand\Source\Repos\GymProyectoTecnicas\proyectoGymBlazor\obj\Debug\net8.0\proyectoGymBlazor.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Rand\Source\Repos\GymProyectoTecnicas\proyectoGymBlazor\obj\Debug\net8.0\proyectoGymBlazor.AssemblyInfoInputs.cache
+C:\Users\Rand\Source\Repos\GymProyectoTecnicas\proyectoGymBlazor\obj\Debug\net8.0\proyectoGymBlazor.AssemblyInfo.cs
+C:\Users\Rand\Source\Repos\GymProyectoTecnicas\proyectoGymBlazor\obj\Debug\net8.0\proyectoGymBlazor.csproj.CoreCompileInputs.cache
+C:\Users\Rand\Source\Repos\GymProyectoTecnicas\proyectoGymBlazor\obj\Debug\net8.0\proyectoGymBlazor.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Rand\Source\Repos\GymProyectoTecnicas\proyectoGymBlazor\obj\Debug\net8.0\proyectoGymBlazor.sourcelink.json

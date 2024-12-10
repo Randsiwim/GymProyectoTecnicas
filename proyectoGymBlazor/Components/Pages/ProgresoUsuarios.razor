@@ -1,0 +1,99 @@
+﻿@page "/progreso-usuarios"
+@using proyectoGymBlazor.Data
+@inject GimnasioDbContext DbContext
+@inject NavigationManager NavigationManager
+
+<h3>Progreso de Usuarios</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Usuario</th>
+            <th>Fecha</th>
+            <th>Métrica</th>
+            <th>Valor</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var progreso in listaProgresos)
+        {
+            <tr>
+                <td>@progreso.ProgresoID</td>
+                <td>@progreso.UsuarioNombre</td>
+                <td>@progreso.Fecha.ToString("dd/MM/yyyy")</td>
+                <td>@progreso.Metrica</td>
+                <td>@progreso.Valor</td>
+                <td>
+                    <button class="btn btn-secondary btn-sm" @onclick="() => EditarProgreso(progreso.ProgresoID)">Editar</button>
+                    <button class="btn btn-danger btn-sm" @onclick="() => EliminarProgreso(progreso.ProgresoID)">Eliminar</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<button class="btn btn-primary" @onclick="NuevoProgreso">Agregar Progreso</button>
+
+@code {
+    private List<ProgresoUsuarioViewModel> listaProgresos = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await CargarProgresosDesdeDB();
+    }
+
+    private async Task CargarProgresosDesdeDB()
+    {
+        listaProgresos = await DbContext.ProgresoUsuarios
+            .Join(
+                DbContext.Usuarios,
+                progreso => progreso.UsuarioID,
+                usuario => usuario.UsuarioID,
+                (progreso, usuario) => new ProgresoUsuarioViewModel
+                    {
+                        ProgresoID = progreso.ProgresoID,
+                        UsuarioID = usuario.UsuarioID,
+                        UsuarioNombre = usuario.Nombre,
+                        Fecha = progreso.Fecha,
+                        Metrica = progreso.Metrica,
+                        Valor = progreso.Valor
+                    }
+            ).ToListAsync();
+    }
+
+    private void EditarProgreso(int progresoID)
+    {
+        // Navegar a la página de edición
+        NavigationManager.NavigateTo($"/progreso-usuarios/editar/{progresoID}");
+    }
+
+    private void EliminarProgreso(int progresoID)
+    {
+        var progreso = listaProgresos.FirstOrDefault(p => p.ProgresoID == progresoID);
+        if (progreso != null)
+        {
+            listaProgresos.Remove(progreso);
+            // Actualizar base de datos si es necesario
+            Console.WriteLine($"Progreso con ID {progresoID} eliminado.");
+        }
+    }
+
+    private void NuevoProgreso()
+    {
+        // Navegar a la página para agregar un nuevo registro de progreso
+        NavigationManager.NavigateTo("/progreso-usuarios/nuevo");
+    }
+
+    private class ProgresoUsuarioViewModel
+    {
+        public int ProgresoID { get; set; }
+        public int UsuarioID { get; set; }
+        public string Nombre { get; set; }
+        public DateTime Fecha { get; set; }
+        public string Metrica { get; set; }
+        public decimal Valor { get; set; }
+    }
+}
+

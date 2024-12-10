@@ -1,0 +1,84 @@
+﻿@page "/Login"
+@using Microsoft.EntityFrameworkCore
+@using proyectoGymBlazor.Data
+@inject NavigationManager NavigationManager
+@inject IDbContextFactory<GimnasioDbContext> DbContextFactory
+
+<h1>Inicio de Sesión - Gimnasio</h1>
+
+<EditForm Model="loginModel" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="login-container">
+        <label for="username">Usuario:</label>
+        <InputText id="username" @bind-Value="loginModel.Username" class="form-control" />
+        <ValidationMessage For="@(() => loginModel.Username)" />
+
+        <label for="password">Contraseña:</label>
+        <InputText id="password" type="password" @bind-Value="loginModel.Password" class="form-control" />
+        <ValidationMessage For="@(() => loginModel.Password)" />
+
+        <button class="btn-login" type="submit">Iniciar Sesión</button>
+
+        <p class="error-message">@ErrorMessage</p>
+    </div>
+</EditForm>
+
+
+
+@code {
+    private LoginModel loginModel = new LoginModel();
+    private string ErrorMessage { get; set; } = string.Empty;
+
+    private async Task HandleValidSubmit()
+    {
+        try
+        {
+            // Accediendo a la base de datos
+            using var context = DbContextFactory.CreateDbContext();
+
+            var usuario = await context.Usuarios
+                .FirstOrDefaultAsync(u => u.Email == loginModel.Username && u.Contraseña == loginModel.Password);
+
+            if (usuario != null)
+            {
+                ErrorMessage = string.Empty;
+
+                // Redirigir según el rol del usuario
+                switch (usuario.Rol)
+                {
+                    case "Administrador":
+                        NavigationManager.NavigateTo("/AdminDashboard");
+                        break;
+                    case "Entrenador":
+                        NavigationManager.NavigateTo("/EntrenadorDashboard");
+                        break;
+                    case "Cliente":
+                        NavigationManager.NavigateTo("/ClienteDashboard");
+                        break;
+                    default:
+                        ErrorMessage = "Rol no reconocido.";
+                        break;
+                }
+            }
+            else
+            {
+                ErrorMessage = "Usuario o contraseña incorrectos.";
+            }
+        }
+        catch (Exception ex)
+        {
+            ErrorMessage = $"Ocurrió un error: {ex.Message}";
+        }
+    }
+
+    public class LoginModel
+    {
+        [System.ComponentModel.DataAnnotations.Required(ErrorMessage = "El nombre de usuario es obligatorio.")]
+        public string Username { get; set; } = string.Empty;
+
+        [System.ComponentModel.DataAnnotations.Required(ErrorMessage = "La contraseña es obligatoria.")]
+        public string Password { get; set; } = string.Empty;
+    }
+}

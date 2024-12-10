@@ -1,0 +1,84 @@
+﻿@page "/facturas"
+@using proyectoGymBlazor.Data
+@inject GimnasioDbContext DbContext
+@inject NavigationManager NavigationManager
+
+<h3>Gestión de Facturas</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Usuario</th>
+            <th>Fecha</th>
+            <th>Monto</th>
+            <th>Detalle</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var factura in listaFacturas)
+        {
+            <tr>
+                <td>@factura.FacturaID</td>
+                <td>@factura.UsuarioID</td>
+                <td>@factura.Fecha.ToString("dd/MM/yyyy")</td>
+                <td>@factura.Monto:C</td>
+                <td>@factura.Detalle</td>
+                <td>
+                    <button class="btn btn-secondary btn-sm" @onclick="() => VerFactura(factura.FacturaID)">Ver</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<button class="btn btn-primary" @onclick="NuevaFactura">Nueva Factura</button>
+
+@code {
+    private List<FacturaViewModel> listaFacturas = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await CargarFacturasDesdeDB();
+    }
+
+    private async Task CargarFacturasDesdeDB()
+    {
+        // Consulta a la base de datos para cargar facturas con el nombre de usuario
+        listaFacturas = await DbContext.Facturas
+            .Select(f => new FacturaViewModel
+                {
+                    FacturaID = f.FacturaID,
+                    UsuarioID = DbContext.Usuarios
+                        .Where(u => u.UsuarioID == f.UsuarioID)
+                        .Select(u => u.Nombre)
+                        .FirstOrDefault() ?? "Desconocido",
+                    Fecha = f.Fecha,
+                    Monto = f.Monto,
+                    Detalle = f.Detalle
+                }).ToListAsync();
+    }
+
+    private void VerFactura(int facturaID)
+    {
+        // Navegar a una página de detalles de factura o mostrar información adicional
+        NavigationManager.NavigateTo($"/facturas/detalle/{facturaID}");
+    }
+
+    private void NuevaFactura()
+    {
+        // Navegar a una página para crear una nueva factura
+        NavigationManager.NavigateTo("/facturas/nueva");
+    }
+
+    // ViewModel para representar las facturas en la tabla
+    private class FacturaViewModel
+    {
+        public int FacturaID { get; set; }
+        public string UsuarioID { get; set; }
+        public DateTime Fecha { get; set; }
+        public decimal Monto { get; set; }
+        public string Detalle { get; set; }
+    }
+}

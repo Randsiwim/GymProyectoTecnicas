@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("proyectoGymBlazor")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+272cb4ced65afff868ebece9c82e110368c7e1d0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+79b97981a7229af3398b481179dd99444b6bd904")]
 [assembly: System.Reflection.AssemblyProductAttribute("proyectoGymBlazor")]
 [assembly: System.Reflection.AssemblyTitleAttribute("proyectoGymBlazor")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

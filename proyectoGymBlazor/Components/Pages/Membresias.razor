@@ -1,0 +1,102 @@
+﻿@page "/membresias"
+@using proyectoGymBlazor.Data
+@inject GimnasioDbContext DbContext
+@inject NavigationManager NavigationManager
+
+<h3>Gestión de Membresías</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Usuario</th>
+            <th>Tipo</th>
+            <th>Fecha Inicio</th>
+            <th>Fecha Fin</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var membresia in listaMembresias)
+        {
+            <tr>
+                <td>@membresia.MembresiaID</td>
+                <td>@membresia.UsuarioNombre</td>
+                <td>@membresia.Tipo</td>
+                <td>@membresia.FechaInicio.ToString("dd/MM/yyyy")</td>
+                <td>@membresia.FechaFin.ToString("dd/MM/yyyy")</td>
+                <td>@membresia.Estado</td>
+                <td>
+                    <button class="btn btn-secondary btn-sm" @onclick="() => EditarMembresia(membresia.MembresiaID)">Editar</button>
+                    <button class="btn btn-danger btn-sm" @onclick="() => CambiarEstado(membresia.MembresiaID)">Cambiar Estado</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<button class="btn btn-primary" @onclick="NuevaMembresia">Agregar Membresía</button>
+
+@code {
+    private List<MembresiaViewModel> listaMembresias = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await CargarMembresiasDesdeDB();
+    }
+
+    private async Task CargarMembresiasDesdeDB()
+    {
+        listaMembresias = await DbContext.Membresias
+            .Join(
+                DbContext.Usuarios,
+                membresia => membresia.UsuarioID,
+                usuario => usuario.UsuarioID,
+                (membresia, usuario) => new MembresiaViewModel
+                    {
+                        MembresiaID = membresia.MembresiaID,
+                        UsuarioID = usuario.UsuarioID,
+                        UsuarioNombre = usuario.Nombre,
+                        Tipo = membresia.Tipo,
+                        FechaInicio = membresia.FechaInicio,
+                        FechaFin = membresia.FechaFin,
+                        Estado = membresia.Estado
+                    }
+            ).ToListAsync();
+    }
+
+    private void EditarMembresia(int membresiaID)
+    {
+        // Navegar a la página de edición
+        NavigationManager.NavigateTo($"/membresias/editar/{membresiaID}");
+    }
+
+    private void CambiarEstado(int membresiaID)
+    {
+        var membresia = listaMembresias.FirstOrDefault(m => m.MembresiaID == membresiaID);
+        if (membresia != null)
+        {
+            membresia.Estado = membresia.Estado == "Activa" ? "Expirada" : "Activa";
+            // Actualizar en la base de datos si es necesario
+            Console.WriteLine($"Estado de la membresía {membresia.MembresiaID} cambiado a {membresia.Estado}");
+        }
+    }
+
+    private void NuevaMembresia()
+    {
+        // Navegar a la página de agregar membresía
+        NavigationManager.NavigateTo("/membresias/nueva");
+    }
+
+    private class MembresiaViewModel
+    {
+        public int MembresiaID { get; set; }
+        public int UsuarioID { get; set; }
+        public string UsuarioNombre { get; set; }
+        public string Tipo { get; set; }
+        public DateTime FechaInicio { get; set; }
+        public DateTime FechaFin { get; set; }
+        public string Estado { get; set; }
+    }
+}
