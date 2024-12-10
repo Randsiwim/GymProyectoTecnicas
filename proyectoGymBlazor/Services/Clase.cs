@@ -1,4 +1,5 @@
 ﻿using Model.Model;
+using proyectoGymBlazor.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,31 +7,37 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace Model
+public class ClaseService
 {
-    public class Clase
+    private readonly GimnasioDbContext _context;
+
+    public ClaseService(GimnasioDbContext context)
     {
-        public int Id { get; set; } // Identificador único de la clase
-        public string Nombre { get; set; } // Nombre de la clase
-        public DateTime Horario { get; set; } // Fecha y hora de la clase
-        public int CupoMaximo { get; set; } // Máximo de clientes permitidos
-        public string EntrenadorAsignado { get; set; } // Nombre del entrenador
-        public List<string> Reservas { get; set; } // Lista de nombres de clientes que reservaron
-
-        // Constructor para inicializar la lista de reservas
-        public Clase()
-        {
-            Reservas = new List<string>();
-        }
-
+        _context = context;
     }
-    public class Reserva
+
+    public async Task<List<ClaseViewModel>> GetClasesAsync()
     {
-        public int Id { get; set; }
-        public Clase Clase { get; set; } // Clase asociada a la reserva
-        public Cliente Cliente { get; set; } // Cliente que realiza la reserva
-        public DateTime FechaReserva { get; set; }
-        public DateTime FechaHoraReserva { get; set; } // Fecha y hora de la clase reservada
+        return await _context.Clases
+            .Select(c => new ClaseViewModel
+            {
+                ClaseID = c.ClaseID,
+                Nombre = c.Nombre,
+                Horario = c.Horario,
+                EntrenadorID = _context.Usuarios
+                    .Where(u => u.UsuarioID == c.EntrenadorID)
+                    .Select(u => u.Nombre)
+                    .FirstOrDefault() ?? "Sin asignar"
+            }).ToListAsync();
     }
 }
+
+public class ClaseViewModel
+{
+    public int ClaseID { get; set; }
+    public string Nombre { get; set; }
+    public DateTime Horario { get; set; }
+    public string EntrenadorID { get; set; }
+}
+
 

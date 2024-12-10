@@ -3,11 +3,15 @@ using Microsoft.EntityFrameworkCore;
 using proyectoGym;
 using proyectoGymBlazor.Data;
 
+
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Configurar el contexto de base de datos
 builder.Services.AddDbContext<GimnasioDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("GimnasioDB")));
+builder.Services.AddScoped<AuthService>();
 
 // Add services to the container.
 builder.Services.AddRazorComponents()

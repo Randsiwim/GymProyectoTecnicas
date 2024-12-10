@@ -1,15 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Model;
 using proyectoGym;
+using proyectoGymBlazor.Components.Pages;
 using System.Collections.Generic;
-
 namespace proyectoGymBlazor.Data
 {
     public class GimnasioDbContext : DbContext
     {
         public GimnasioDbContext(DbContextOptions<GimnasioDbContext> options) : base(options) { }
 
-        public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<UsuarioID> Usuarios { get; set; }
         public DbSet<Membresia> Membresias { get; set; }
         public DbSet<Clase> Clases { get; set; }
         public DbSet<Reserva> Reservas { get; set; }
