@@ -5,11 +5,6 @@ VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "proyectoGym", "proyectoGym\proyectoGym.csproj", "{B682CF60-B261-4D4C-B1FD-8994C4D2A43B}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{E18B1FCB-E3D0-49A5-BDF4-5ECE50988894}"
-	ProjectSection(SolutionItems) = preProject
-		proyectoGym\Program.cs = proyectoGym\Program.cs
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Controller", "Controller\Controller.csproj", "{45B8509C-79E8-4545-A696-995A2962085B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj", "{0424F3A1-23CF-43CB-8180-AE2C15484468}"
@@ -18,6 +13,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Elementos de la solución",
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{559966BA-9033-4978-ABA6-37AC500E4467}"
+	ProjectSection(SolutionItems) = preProject
+		proyectoGym\Program.cs = proyectoGym\Program.cs
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "proyectoGymBlazor", "proyectoGymBlazor\proyectoGymBlazor.csproj", "{ACD8069F-044C-468C-BBBF-388AA46BAD4A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,14 +39,19 @@ Global
 		{0424F3A1-23CF-43CB-8180-AE2C15484468}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0424F3A1-23CF-43CB-8180-AE2C15484468}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0424F3A1-23CF-43CB-8180-AE2C15484468}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ACD8069F-044C-468C-BBBF-388AA46BAD4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACD8069F-044C-468C-BBBF-388AA46BAD4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACD8069F-044C-468C-BBBF-388AA46BAD4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACD8069F-044C-468C-BBBF-388AA46BAD4A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{B682CF60-B261-4D4C-B1FD-8994C4D2A43B} = {E18B1FCB-E3D0-49A5-BDF4-5ECE50988894}
-		{45B8509C-79E8-4545-A696-995A2962085B} = {E18B1FCB-E3D0-49A5-BDF4-5ECE50988894}
-		{0424F3A1-23CF-43CB-8180-AE2C15484468} = {E18B1FCB-E3D0-49A5-BDF4-5ECE50988894}
+		{B682CF60-B261-4D4C-B1FD-8994C4D2A43B} = {559966BA-9033-4978-ABA6-37AC500E4467}
+		{45B8509C-79E8-4545-A696-995A2962085B} = {559966BA-9033-4978-ABA6-37AC500E4467}
+		{0424F3A1-23CF-43CB-8180-AE2C15484468} = {559966BA-9033-4978-ABA6-37AC500E4467}
+		{EB1908E5-02FF-4892-AB8D-CB8C92FD7136} = {559966BA-9033-4978-ABA6-37AC500E4467}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9F4DE40F-2D12-42CD-B564-55B22AD1BA54}

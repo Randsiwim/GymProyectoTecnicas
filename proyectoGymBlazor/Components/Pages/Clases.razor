@@ -1,0 +1,92 @@
+﻿@page "/clases"
+@using proyectoGymBlazor.Data
+@inject GimnasioDbContext DbContext
+@inject NavigationManager NavigationManager
+
+<h3>Gestión de Clases</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Horario</th>
+            <th>Entrenador Asignado</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var clase in listaClases)
+        {
+            <tr @onclick="() => SeleccionarClase(clase)" class="@GetRowClass(clase)" style="cursor:pointer;">
+                <td>@clase.Nombre</td>
+                <td>@clase.Horario.ToString("dd/MM/yyyy hh:mm tt")</td>
+                <td>@clase.EntrenadorNombre</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<button class="btn btn-primary" @onclick="ReservarClase">Reservar Clase</button>
+<button class="btn btn-secondary" @onclick="VerReservas">Ver Reservas</button>
+
+@code {
+    private List<ClaseViewModel> listaClases = new();
+    private ClaseViewModel claseSeleccionada;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await CargarClasesDesdeDB();
+    }
+
+    private async Task CargarClasesDesdeDB()
+    {
+        // Consultar clases y resolver el nombre del entrenador
+        listaClases = await DbContext.Clases
+            .Select(c => new ClaseViewModel
+                {
+                    ClaseID = c.ClaseID,
+                    Nombre = c.Nombre,
+                    Horario = c.Horario,
+                    EntrenadorNombre = DbContext.Usuarios
+                        .Where(u => u.UsuarioID == c.EntrenadorID)
+                        .Select(u => u.Nombre)
+                        .FirstOrDefault() ?? "Sin asignar"
+                }).ToListAsync();
+    }
+
+    private void SeleccionarClase(ClaseViewModel clase)
+    {
+        claseSeleccionada = clase;
+    }
+
+    private string GetRowClass(ClaseViewModel clase)
+    {
+        return clase == claseSeleccionada ? "table-active" : string.Empty;
+    }
+
+    private void ReservarClase()
+    {
+        if (claseSeleccionada != null)
+        {
+            // Aquí puedes agregar la lógica para reservar la clase
+            Console.WriteLine($"Clase '{claseSeleccionada.Nombre}' reservada correctamente.");
+        }
+        else
+        {
+            Console.WriteLine("Seleccione una clase para reservar.");
+        }
+    }
+
+    private void VerReservas()
+    {
+        NavigationManager.NavigateTo("/reservas");
+    }
+
+    // ViewModel para mostrar las clases en la tabla
+    private class ClaseViewModel
+    {
+        public int ClaseID { get; set; }
+        public string Nombre { get; set; }
+        public DateTime Horario { get; set; }
+        public string EntrenadorNombre { get; set; }
+    }
+}
