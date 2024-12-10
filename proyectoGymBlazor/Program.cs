@@ -9,7 +9,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<GimnasioDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("GimnasioDB")));
 
-
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
