@@ -1,0 +1,81 @@
+﻿@page "/membresias"
+@inject MembresiaService MembresiaService
+
+<h3>Gestión de Membresías</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Precio</th>
+            <th>Duración (Meses)</th>
+            <th>Beneficios</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var membresia in listaMembresias)
+        {
+            <tr>
+                <td>@membresia.Nombre</td>
+                <td>@membresia.Precio.ToString("C")</td>
+                <td>@membresia.DuracionMeses</td>
+                <td>@membresia.Beneficios</td>
+                <td>
+                    <button class="btn btn-danger" @onclick="() => EliminarMembresia(membresia.Id)">Eliminar</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h4>Agregar Nueva Membresía</h4>
+<EditForm Model="@nuevaMembresia" OnValidSubmit="AgregarMembresia">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div class="mb-3">
+        <label for="nombre" class="form-label">Nombre</label>
+        <InputText id="nombre" class="form-control" @bind-Value="nuevaMembresia.Nombre" />
+    </div>
+    <div class="mb-3">
+        <label for="precio" class="form-label">Precio</label>
+        <InputNumber id="precio" class="form-control" @bind-Value="nuevaMembresia.Precio" />
+    </div>
+    <div class="mb-3">
+        <label for="duracion" class="form-label">Duración (Meses)</label>
+        <InputNumber id="duracion" class="form-control" @bind-Value="nuevaMembresia.DuracionMeses" />
+    </div>
+    <div class="mb-3">
+        <label for="beneficios" class="form-label">Beneficios</label>
+        <InputText id="beneficios" class="form-control" @bind-Value="nuevaMembresia.Beneficios" />
+    </div>
+    <button type="submit" class="btn btn-primary">Agregar Membresía</button>
+</EditForm>
+
+@code {
+    private List<MembresiaViewModel> listaMembresias = new();
+    private Membresia nuevaMembresia = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await CargarMembresias();
+    }
+
+    private async Task CargarMembresias()
+    {
+        listaMembresias = await MembresiaService.GetMembresiasAsync();
+    }
+
+    private async Task AgregarMembresia()
+    {
+        await MembresiaService.AgregarMembresiaAsync(nuevaMembresia);
+        nuevaMembresia = new Membresia(); // Limpiar el formulario
+        await CargarMembresias(); // Recargar la lista de membresías
+    }
+
+    private async Task EliminarMembresia(int id)
+    {
+        await MembresiaService.EliminarMembresiaAsync(id);
+        await CargarMembresias(); // Recargar la lista de membresías
+    }
+}

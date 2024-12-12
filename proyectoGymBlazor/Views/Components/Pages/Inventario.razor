@@ -1,0 +1,76 @@
+﻿@page "/inventario"
+@inject InventarioService InventarioService
+
+<h3>Gestión de Inventario</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Cantidad</th>
+            <th>Descripción</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var equipo in listaEquipos)
+        {
+            <tr>
+                <td>@equipo.Nombre</td>
+                <td>@equipo.Cantidad</td>
+                <td>@equipo.Descripcion</td>
+                <td>
+                    <button class="btn btn-danger" @onclick="() => EliminarEquipo(equipo.Id)">Eliminar</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h4>Agregar Nuevo Equipo</h4>
+<EditForm Model="@nuevoEquipo" OnValidSubmit="AgregarEquipo">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div class="mb-3">
+        <label for="nombre" class="form-label">Nombre</label>
+        <InputText id="nombre" class="form-control" @bind-Value="nuevoEquipo.Nombre" />
+    </div>
+    <div class="mb-3">
+        <label for="cantidad" class="form-label">Cantidad</label>
+        <InputNumber id="cantidad" class="form-control" @bind-Value="nuevoEquipo.Cantidad" />
+    </div>
+    <div class="mb-3">
+        <label for="descripcion" class="form-label">Descripción</label>
+        <InputText id="descripcion" class="form-control" @bind-Value="nuevoEquipo.Descripcion" />
+    </div>
+    <button type="submit" class="btn btn-primary">Agregar Equipo</button>
+</EditForm>
+
+@code {
+    private List<EquipoViewModel> listaEquipos = new();
+    private Equipo nuevoEquipo = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await CargarEquipos();
+    }
+
+    private async Task CargarEquipos()
+    {
+        listaEquipos = await InventarioService.GetEquiposAsync();
+    }
+
+    private async Task AgregarEquipo()
+    {
+        await InventarioService.AgregarEquipoAsync(nuevoEquipo);
+        nuevoEquipo = new Equipo(); // Limpiar el formulario
+        await CargarEquipos(); // Recargar la lista de equipos
+    }
+
+    private async Task EliminarEquipo(int id)
+    {
+        await InventarioService.EliminarEquipoAsync(id);
+        await CargarEquipos(); // Recargar la lista de equipos
+    }
+}
+

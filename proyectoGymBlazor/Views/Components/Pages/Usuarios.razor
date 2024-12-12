@@ -1,0 +1,104 @@
+﻿@page "/usuarios"
+@inject UsuarioService UsuarioService
+
+<h3>Gestión de Usuarios</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Correo</th>
+            <th>Teléfono</th>
+            <th>Rol</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var usuario in listaUsuarios)
+        {
+            <tr>
+                <td>@usuario.Nombre</td>
+                <td>@usuario.Apellido</td>
+                <td>@usuario.Correo</td>
+                <td>@usuario.Telefono</td>
+                <td>@usuario.Rol</td>
+                <td>
+                    <button class="btn btn-primary" @onclick="() => EditarUsuario(usuario)">Editar</button>
+                    <button class="btn btn-danger" @onclick="() => EliminarUsuario(usuario.UsuarioID)">Eliminar</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h4>Agregar/Editar Usuario</h4>
+<EditForm Model="@usuarioSeleccionado" OnValidSubmit="GuardarUsuario">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div class="mb-3">
+        <label class="form-label">Nombre</label>
+        <input type="text" class="form-control" @bind-Value="usuarioSeleccionado.Nombre" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Apellido</label>
+        <input type="text" class="form-control" @bind-Value="usuarioSeleccionado.Apellido" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Correo</label>
+        <input type="email" class="form-control" @bind-Value="usuarioSeleccionado.Correo" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Teléfono</label>
+        <input type="text" class="form-control" @bind-Value="usuarioSeleccionado.Telefono" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Rol</label>
+        <select class="form-select" @bind-Value="usuarioSeleccionado.Rol">
+            <option value="Cliente">Cliente</option>
+            <option value="Entrenador">Entrenador</option>
+            <option value="Administrador">Administrador</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-success">Guardar</button>
+</EditForm>
+
+@code {
+    private List<Usuario> listaUsuarios = new();
+    private Usuario usuarioSeleccionado = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await CargarUsuarios();
+    }
+
+    private async Task CargarUsuarios()
+    {
+        listaUsuarios = await UsuarioService.GetUsuariosAsync();
+    }
+
+    private void EditarUsuario(Usuario usuario)
+    {
+        usuarioSeleccionado = usuario;
+    }
+
+    private async Task GuardarUsuario()
+    {
+        if (usuarioSeleccionado.UsuarioID == 0)
+        {
+            await UsuarioService.AddUsuarioAsync(usuarioSeleccionado);
+        }
+        else
+        {
+            await UsuarioService.UpdateUsuarioAsync(usuarioSeleccionado);
+        }
+        usuarioSeleccionado = new Usuario();
+        await CargarUsuarios();
+    }
+
+    private async Task EliminarUsuario(int id)
+    {
+        await UsuarioService.DeleteUsuarioAsync(id);
+        await CargarUsuarios();
+    }
+}

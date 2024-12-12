@@ -1,6 +1,5 @@
 ﻿@page "/clases"
-@using proyectoGymBlazor.Data
-@inject GimnasioDbContext DbContext
+@inject ClaseService ClaseService
 @inject NavigationManager NavigationManager
 
 <h3>Gestión de Clases</h3>
@@ -34,23 +33,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        await CargarClasesDesdeDB();
-    }
-
-    private async Task CargarClasesDesdeDB()
-    {
-        // Consultar clases y resolver el nombre del entrenador
-        listaClases = await DbContext.Clases
-            .Select(c => new ClaseViewModel
-                {
-                    ClaseID = c.ClaseID,
-                    Nombre = c.Nombre,
-                    Horario = c.Horario,
-                    EntrenadorID = DbContext.Usuarios
-                        .Where(u => u.UsuarioID == c.EntrenadorID)
-                        .Select(u => u.Nombre)
-                        .FirstOrDefault() ?? "Sin asignar"
-                }).ToListAsync();
+        listaClases = await ClaseService.GetClasesAsync();
     }
 
     private void SeleccionarClase(ClaseViewModel clase)
@@ -67,7 +50,6 @@
     {
         if (claseSeleccionada != null)
         {
-            // Aquí puedes agregar la lógica para reservar la clase
             Console.WriteLine($"Clase '{claseSeleccionada.Nombre}' reservada correctamente.");
         }
         else
@@ -80,6 +62,5 @@
     {
         NavigationManager.NavigateTo("/reservas");
     }
-
-    
 }
+

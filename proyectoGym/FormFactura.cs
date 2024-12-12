@@ -11,7 +11,7 @@ namespace proyectoGym
 {
     public partial class FormFacturacion : Form
     {
-        private List<Factura> listaFacturas = new List<Factura>();
+        private List<FacturaID> listaFacturas = new List<FacturaID>();
         private readonly string rutaArchivo = "facturas.json"; // Ruta del archivo JSON
 
         public FormFacturacion()

@@ -1,0 +1,61 @@
+﻿@page "/facturas"
+@inject FacturaService FacturaService
+@inject NavigationManager NavigationManager
+
+<h3>Gestión de Facturas</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Cliente</th>
+            <th>Fecha</th>
+            <th>Total</th>
+            <th>Descripción</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var factura in listaFacturas)
+        {
+            <tr @onclick="() => SeleccionarFactura(factura)" class="@GetRowClass(factura)" style="cursor:pointer;">
+                <td>@factura.ClienteNombre</td>
+                <td>@factura.Fecha.ToString("dd/MM/yyyy hh:mm tt")</td>
+                <td>@factura.Total:C</td>
+                <td>@factura.Descripcion</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<button class="btn btn-primary" @onclick="VerDetalleFactura">Ver Detalle</button>
+
+@code {
+    private List<FacturaViewModel> listaFacturas = new();
+    private FacturaViewModel facturaSeleccionada;
+
+    protected override async Task OnInitializedAsync()
+    {
+        listaFacturas = await FacturaService.GetFacturasAsync();
+    }
+
+    private void SeleccionarFactura(FacturaViewModel factura)
+    {
+        facturaSeleccionada = factura;
+    }
+
+    private string GetRowClass(FacturaViewModel factura)
+    {
+        return factura == facturaSeleccionada ? "table-active" : string.Empty;
+    }
+
+    private void VerDetalleFactura()
+    {
+        if (facturaSeleccionada != null)
+        {
+            NavigationManager.NavigateTo($"/facturas/{facturaSeleccionada.Id}");
+        }
+        else
+        {
+            Console.WriteLine("Seleccione una factura para ver el detalle.");
+        }
+    }
+}

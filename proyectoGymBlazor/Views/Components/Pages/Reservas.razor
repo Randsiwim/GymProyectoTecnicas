@@ -1,0 +1,91 @@
+﻿@page "/reservas/{usuarioId:int}"
+@inject ReservaService ReservaService
+@inject ClaseService ClaseService
+
+<h3>Reservas</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Clase</th>
+            <th>Fecha Clase</th>
+            <th>Fecha Reserva</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var reserva in listaReservas)
+        {
+            <tr>
+                <td>@reserva.ClaseNombre</td>
+                <td>@reserva.FechaClase.ToString("dd/MM/yyyy hh:mm tt")</td>
+                <td>@reserva.FechaReserva.ToString("dd/MM/yyyy")</td>
+                <td>@reserva.Estado</td>
+                <td>
+                    @if (reserva.Estado == "Pendiente")
+                    {
+                        <button class="btn btn-danger" @onclick="() => CancelarReserva(reserva.Id)">Cancelar</button>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h4>Registrar Nueva Reserva</h4>
+<EditForm Model="@nuevaReserva" OnValidSubmit="RegistrarReserva">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div class="mb-3">
+        <label for="clase" class="form-label">Clase</label>
+        <select id="clase" class="form-select" @bind-Value="nuevaReserva.ClaseId">
+            <option value="">Seleccione una clase</option>
+            @foreach (var clase in listaClases)
+            {
+                <option value="@clase.ClaseID">@clase.Nombre (@clase.Horario.ToString("dd/MM/yyyy hh:mm tt"))</option>
+            }
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Reservar</button>
+</EditForm>
+
+@code {
+    [Parameter]
+    public int UsuarioId { get; set; }
+
+    private List<ReservaViewModel> listaReservas = new();
+    private List<ClaseViewModel> listaClases = new();
+    private Reserva nuevaReserva = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        nuevaReserva.UsuarioId = UsuarioId;
+        nuevaReserva.FechaReserva = DateTime.Now;
+        await CargarReservas();
+        await CargarClases();
+    }
+
+    private async Task CargarReservas()
+    {
+        listaReservas = await ReservaService.GetReservasAsync(UsuarioId);
+    }
+
+    private async Task CargarClases()
+    {
+        listaClases = await ClaseService.GetClasesAsync(); // ClaseService ya implementado antes
+    }
+
+    private async Task RegistrarReserva()
+    {
+        await ReservaService.RegistrarReservaAsync(nuevaReserva);
+        nuevaReserva = new Reserva { UsuarioId = UsuarioId, FechaReserva = DateTime.Now }; // Reiniciar el formulario
+        await CargarReservas();
+    }
+
+    private async Task CancelarReserva(int id)
+    {
+        await ReservaService.CancelarReservaAsync(id);
+        await CargarReservas();
+    }
+}
