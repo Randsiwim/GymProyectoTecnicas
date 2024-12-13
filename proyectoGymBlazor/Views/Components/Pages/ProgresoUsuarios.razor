@@ -1,85 +1,61 @@
-﻿@page "/progreso-usuario/{usuarioId:int}"
+﻿@page "/progresoUsuario"
 @inject ProgresoUsuarioService ProgresoUsuarioService
+@inject NavigationManager NavigationManager
 
-<h3>Progreso del Usuario</h3>
+<h3>Gestión de Progreso de Usuarios</h3>
 
 <table class="table">
     <thead>
         <tr>
+            <th>Usuario</th>
             <th>Fecha</th>
-            <th>Peso (kg)</th>
-            <th>% Grasa Corporal</th>
-            <th>Tiempo Entrenamiento (hrs)</th>
-            <th>Acciones</th>
+            <th>Métrica</th>
+            <th>Valor</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var progreso in listaProgresos)
         {
-            <tr>
-                <td>@progreso.FechaRegistro.ToString("dd/MM/yyyy")</td>
-                <td>@progreso.Peso</td>
-                <td>@progreso.PorcentajeGrasa</td>
-                <td>@progreso.TiempoEntrenamientoHoras</td>
-                <td>
-                    <button class="btn btn-danger" @onclick="() => EliminarProgreso(progreso.Id)">Eliminar</button>
-                </td>
+            <tr @onclick="() => SeleccionarProgreso(progreso)" class="@GetRowClass(progreso)" style="cursor:pointer;">
+                <td>@progreso.UsuarioNombre</td>
+                <td>@progreso.Fecha.ToString("dd/MM/yyyy")</td>
+                <td>@progreso.Metrica</td>
+                <td>@progreso.Valor</td>
             </tr>
         }
     </tbody>
 </table>
 
-<h4>Registrar Nuevo Progreso</h4>
-<EditForm Model="@nuevoProgreso" OnValidSubmit="RegistrarProgreso">
-    <DataAnnotationsValidator />
-    <ValidationSummary />
-    <div class="mb-3">
-        <label for="fecha" class="form-label">Fecha</label>
-        <InputDate id="fecha" class="form-control" @bind-Value="nuevoProgreso.FechaRegistro" />
-    </div>
-    <div class="mb-3">
-        <label for="peso" class="form-label">Peso (kg)</label>
-        <InputNumber id="peso" class="form-control" @bind-Value="nuevoProgreso.Peso" />
-    </div>
-    <div class="mb-3">
-        <label for="grasa" class="form-label">% Grasa Corporal</label>
-        <InputNumber id="grasa" class="form-control" @bind-Value="nuevoProgreso.PorcentajeGrasa" />
-    </div>
-    <div class="mb-3">
-        <label for="tiempo" class="form-label">Tiempo Entrenamiento (hrs)</label>
-        <InputNumber id="tiempo" class="form-control" @bind-Value="nuevoProgreso.TiempoEntrenamientoHoras" />
-    </div>
-    <button type="submit" class="btn btn-primary">Registrar</button>
-</EditForm>
+<button class="btn btn-primary" @onclick="VerDetalleProgreso">Ver Detalle</button>
 
 @code {
-    [Parameter]
-    public int UsuarioId { get; set; }
-
     private List<ProgresoUsuarioViewModel> listaProgresos = new();
-    private ProgresoUsuario nuevoProgreso = new();
+    private ProgresoUsuarioViewModel progresoSeleccionado;
 
     protected override async Task OnInitializedAsync()
     {
-        nuevoProgreso.UsuarioId = UsuarioId;
-        await CargarProgresos();
+        listaProgresos = await ProgresoUsuarioService.GetProgresosAsync();
     }
 
-    private async Task CargarProgresos()
+    private void SeleccionarProgreso(ProgresoUsuarioViewModel progreso)
     {
-        listaProgresos = await ProgresoUsuarioService.GetProgresoAsync(UsuarioId);
+        progresoSeleccionado = progreso;
     }
 
-    private async Task RegistrarProgreso()
+    private string GetRowClass(ProgresoUsuarioViewModel progreso)
     {
-        await ProgresoUsuarioService.RegistrarProgresoAsync(nuevoProgreso);
-        nuevoProgreso = new ProgresoUsuario { UsuarioId = UsuarioId }; // Reiniciar el formulario
-        await CargarProgresos();
+        return progreso == progresoSeleccionado ? "table-active" : string.Empty;
     }
 
-    private async Task EliminarProgreso(int id)
+    private void VerDetalleProgreso()
     {
-        await ProgresoUsuarioService.EliminarProgresoAsync(id);
-        await CargarProgresos();
+        if (progresoSeleccionado != null)
+        {
+            NavigationManager.NavigateTo($"/progresos/{progresoSeleccionado.ProgresoId}");
+        }
+        else
+        {
+            Console.WriteLine("Seleccione un progreso para ver el detalle.");
+        }
     }
 }

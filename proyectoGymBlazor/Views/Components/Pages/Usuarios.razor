@@ -1,5 +1,6 @@
 ﻿@page "/usuarios"
 @inject UsuarioService UsuarioService
+@inject NavigationManager NavigationManager
 
 <h3>Gestión de Usuarios</h3>
 
@@ -7,98 +8,54 @@
     <thead>
         <tr>
             <th>Nombre</th>
-            <th>Apellido</th>
-            <th>Correo</th>
-            <th>Teléfono</th>
+            <th>Email</th>
             <th>Rol</th>
-            <th>Acciones</th>
+            <th>Fecha Registro</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var usuario in listaUsuarios)
         {
-            <tr>
+            <tr @onclick="() => SeleccionarUsuario(usuario)" class="@GetRowClass(usuario)" style="cursor:pointer;">
                 <td>@usuario.Nombre</td>
-                <td>@usuario.Apellido</td>
-                <td>@usuario.Correo</td>
-                <td>@usuario.Telefono</td>
+                <td>@usuario.Email</td>
                 <td>@usuario.Rol</td>
-                <td>
-                    <button class="btn btn-primary" @onclick="() => EditarUsuario(usuario)">Editar</button>
-                    <button class="btn btn-danger" @onclick="() => EliminarUsuario(usuario.UsuarioID)">Eliminar</button>
-                </td>
+                <td>@usuario.FechaRegistro.ToString("dd/MM/yyyy")</td>
             </tr>
         }
     </tbody>
 </table>
 
-<h4>Agregar/Editar Usuario</h4>
-<EditForm Model="@usuarioSeleccionado" OnValidSubmit="GuardarUsuario">
-    <DataAnnotationsValidator />
-    <ValidationSummary />
-    <div class="mb-3">
-        <label class="form-label">Nombre</label>
-        <input type="text" class="form-control" @bind-Value="usuarioSeleccionado.Nombre" />
-    </div>
-    <div class="mb-3">
-        <label class="form-label">Apellido</label>
-        <input type="text" class="form-control" @bind-Value="usuarioSeleccionado.Apellido" />
-    </div>
-    <div class="mb-3">
-        <label class="form-label">Correo</label>
-        <input type="email" class="form-control" @bind-Value="usuarioSeleccionado.Correo" />
-    </div>
-    <div class="mb-3">
-        <label class="form-label">Teléfono</label>
-        <input type="text" class="form-control" @bind-Value="usuarioSeleccionado.Telefono" />
-    </div>
-    <div class="mb-3">
-        <label class="form-label">Rol</label>
-        <select class="form-select" @bind-Value="usuarioSeleccionado.Rol">
-            <option value="Cliente">Cliente</option>
-            <option value="Entrenador">Entrenador</option>
-            <option value="Administrador">Administrador</option>
-        </select>
-    </div>
-    <button type="submit" class="btn btn-success">Guardar</button>
-</EditForm>
+<button class="btn btn-primary" @onclick="VerDetalleUsuario">Ver Detalle</button>
 
 @code {
-    private List<Usuario> listaUsuarios = new();
-    private Usuario usuarioSeleccionado = new();
+    private List<UsuarioViewModel> listaUsuarios = new();
+    private UsuarioViewModel usuarioSeleccionado;
 
     protected override async Task OnInitializedAsync()
-    {
-        await CargarUsuarios();
-    }
-
-    private async Task CargarUsuarios()
     {
         listaUsuarios = await UsuarioService.GetUsuariosAsync();
     }
 
-    private void EditarUsuario(Usuario usuario)
+    private void SeleccionarUsuario(UsuarioViewModel usuario)
     {
         usuarioSeleccionado = usuario;
     }
 
-    private async Task GuardarUsuario()
+    private string GetRowClass(UsuarioViewModel usuario)
     {
-        if (usuarioSeleccionado.UsuarioID == 0)
+        return usuario == usuarioSeleccionado ? "table-active" : string.Empty;
+    }
+
+    private void VerDetalleUsuario()
+    {
+        if (usuarioSeleccionado != null)
         {
-            await UsuarioService.AddUsuarioAsync(usuarioSeleccionado);
+            NavigationManager.NavigateTo($"/usuarios/{usuarioSeleccionado.UsuarioID}");
         }
         else
         {
-            await UsuarioService.UpdateUsuarioAsync(usuarioSeleccionado);
+            Console.WriteLine("Seleccione un usuario para ver el detalle.");
         }
-        usuarioSeleccionado = new Usuario();
-        await CargarUsuarios();
-    }
-
-    private async Task EliminarUsuario(int id)
-    {
-        await UsuarioService.DeleteUsuarioAsync(id);
-        await CargarUsuarios();
     }
 }

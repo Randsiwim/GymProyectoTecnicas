@@ -1,91 +1,62 @@
 ﻿@page "/reservas/{usuarioId:int}"
 @inject ReservaService ReservaService
 @inject ClaseService ClaseService
+@inject NavigationManager NavigationManager
 
-<h3>Reservas</h3>
+<h3>Gestión de Reservas</h3>
 
 <table class="table">
     <thead>
         <tr>
+            <th>Usuario</th>
             <th>Clase</th>
-            <th>Fecha Clase</th>
             <th>Fecha Reserva</th>
-            <th>Estado</th>
-            <th>Acciones</th>
+            <th>Tipo Reserva</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var reserva in listaReservas)
         {
-            <tr>
+            <tr @onclick="() => SeleccionarReserva(reserva)" class="@GetRowClass(reserva)" style="cursor:pointer;">
+                <td>@reserva.UsuarioNombre</td>
                 <td>@reserva.ClaseNombre</td>
-                <td>@reserva.FechaClase.ToString("dd/MM/yyyy hh:mm tt")</td>
-                <td>@reserva.FechaReserva.ToString("dd/MM/yyyy")</td>
-                <td>@reserva.Estado</td>
-                <td>
-                    @if (reserva.Estado == "Pendiente")
-                    {
-                        <button class="btn btn-danger" @onclick="() => CancelarReserva(reserva.Id)">Cancelar</button>
-                    }
-                </td>
+                <td>@reserva.FechaReserva.ToString("dd/MM/yyyy HH:mm")</td>
+                <td>@reserva.TipoReserva</td>
             </tr>
         }
     </tbody>
 </table>
 
-<h4>Registrar Nueva Reserva</h4>
-<EditForm Model="@nuevaReserva" OnValidSubmit="RegistrarReserva">
-    <DataAnnotationsValidator />
-    <ValidationSummary />
-    <div class="mb-3">
-        <label for="clase" class="form-label">Clase</label>
-        <select id="clase" class="form-select" @bind-Value="nuevaReserva.ClaseId">
-            <option value="">Seleccione una clase</option>
-            @foreach (var clase in listaClases)
-            {
-                <option value="@clase.ClaseID">@clase.Nombre (@clase.Horario.ToString("dd/MM/yyyy hh:mm tt"))</option>
-            }
-        </select>
-    </div>
-    <button type="submit" class="btn btn-primary">Reservar</button>
-</EditForm>
+<button class="btn btn-primary" @onclick="VerDetalleReserva">Ver Detalle</button>
 
 @code {
-    [Parameter]
-    public int UsuarioId { get; set; }
-
     private List<ReservaViewModel> listaReservas = new();
-    private List<ClaseViewModel> listaClases = new();
-    private Reserva nuevaReserva = new();
+    private ReservaViewModel reservaSeleccionada;
 
     protected override async Task OnInitializedAsync()
     {
-        nuevaReserva.UsuarioId = UsuarioId;
-        nuevaReserva.FechaReserva = DateTime.Now;
-        await CargarReservas();
-        await CargarClases();
+        listaReservas = await ReservaService.GetReservasAsync();
     }
 
-    private async Task CargarReservas()
+    private void SeleccionarReserva(ReservaViewModel reserva)
     {
-        listaReservas = await ReservaService.GetReservasAsync(UsuarioId);
+        reservaSeleccionada = reserva;
     }
 
-    private async Task CargarClases()
+    private string GetRowClass(ReservaViewModel reserva)
     {
-        listaClases = await ClaseService.GetClasesAsync(); // ClaseService ya implementado antes
+        return reserva == reservaSeleccionada ? "table-active" : string.Empty;
     }
 
-    private async Task RegistrarReserva()
+    private void VerDetalleReserva()
     {
-        await ReservaService.RegistrarReservaAsync(nuevaReserva);
-        nuevaReserva = new Reserva { UsuarioId = UsuarioId, FechaReserva = DateTime.Now }; // Reiniciar el formulario
-        await CargarReservas();
-    }
-
-    private async Task CancelarReserva(int id)
-    {
-        await ReservaService.CancelarReservaAsync(id);
-        await CargarReservas();
+        if (reservaSeleccionada != null)
+        {
+            NavigationManager.NavigateTo($"/reservas/{reservaSeleccionada.ReservaId}");
+        }
+        else
+        {
+            Console.WriteLine("Seleccione una reserva para ver el detalle.");
+        }
     }
 }

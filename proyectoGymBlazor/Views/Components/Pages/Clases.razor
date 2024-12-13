@@ -9,7 +9,8 @@
         <tr>
             <th>Nombre</th>
             <th>Horario</th>
-            <th>Entrenador Asignado</th>
+            <th>Entrenador</th>
+            <th>Cupo</th>
         </tr>
     </thead>
     <tbody>
@@ -19,13 +20,13 @@
                 <td>@clase.Nombre</td>
                 <td>@clase.Horario.ToString("dd/MM/yyyy hh:mm tt")</td>
                 <td>@clase.EntrenadorID</td>
+                <td>@clase.Cupo</td>
             </tr>
         }
     </tbody>
 </table>
 
 <button class="btn btn-primary" @onclick="ReservarClase">Reservar Clase</button>
-<button class="btn btn-secondary" @onclick="VerReservas">Ver Reservas</button>
 
 @code {
     private List<ClaseViewModel> listaClases = new();
@@ -36,12 +37,12 @@
         listaClases = await ClaseService.GetClasesAsync();
     }
 
-    private void SeleccionarClase(ClaseViewModel clase)
+    private void SeleccionarClase(Clase clase)
     {
         claseSeleccionada = clase;
     }
 
-    private string GetRowClass(ClaseViewModel clase)
+    private string GetRowClass(Clase clase)
     {
         return clase == claseSeleccionada ? "table-active" : string.Empty;
     }
@@ -57,10 +58,6 @@
             Console.WriteLine("Seleccione una clase para reservar.");
         }
     }
-
-    private void VerReservas()
-    {
-        NavigationManager.NavigateTo("/reservas");
-    }
 }
+
 

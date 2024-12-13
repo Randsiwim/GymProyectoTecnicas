@@ -12,43 +12,50 @@ namespace proyectoGymBlazor.Data
             _context = context;
         }
 
-        public async Task<List<ReservaViewModel>> GetReservasAsync(int usuarioId)
+        public async Task<List<ReservaViewModel>> GetReservasAsync()
         {
             return await _context.Reservas
-                .Where(r => r.UsuarioId == usuarioId)
+                .Include(r => r.UsuarioId)
+                .Include(r => r.ClaseId)
                 .Select(r => new ReservaViewModel
                 {
-                    Id = r.Id,
-                    ClaseNombre = _context.Clases.Where(c => c.ClaseID == r.ClaseId).Select(c => c.Nombre).FirstOrDefault(),
-                    FechaClase = _context.Clases.Where(c => c.ClaseID == r.ClaseId).Select(c => c.Horario).FirstOrDefault(),
+                    ReservaId = r.ReservaId,
+                    UsuarioId = r.UsuarioId,
+                    UsuarioNombre = r.Usuario.Nombre,
+                    ClaseId = r.ClaseId,
+                    ClaseNombre = r.ClaseId.Nombre,
                     FechaReserva = r.FechaReserva,
-                    Estado = r.Estado
+                    TipoReserva = r.TipoReserva
                 }).ToListAsync();
         }
 
-        public async Task RegistrarReservaAsync(Reserva reserva)
+        public async Task<ReservaViewModel> GetReservaByIdAsync(int id)
         {
-            _context.Reservas.Add(reserva);
-            await _context.SaveChangesAsync();
-        }
-
-        public async Task CancelarReservaAsync(int id)
-        {
-            var reserva = await _context.Reservas.FindAsync(id);
-            if (reserva != null)
-            {
-                reserva.Estado = "Cancelada";
-                await _context.SaveChangesAsync();
-            }
+            return await _context.Reservas
+                .Where(r => r.ReservaId == id)
+                .Include(r => r.UsuarioId)
+                .Include(r => r.ClaseId)
+                .Select(r => new ReservaViewModel
+                {
+                    ReservaId = r.ReservaId,
+                    UsuarioId = r.UsuarioId,
+                    UsuarioNombre = r.UsuarioId.Nombre,
+                    ClaseId = r.ClaseId,
+                    ClaseNombre = r.Clase.Nombre,
+                    FechaReserva = r.FechaReserva,
+                    TipoReserva = r.TipoReserva
+                }).FirstOrDefaultAsync();
         }
     }
 
     public class ReservaViewModel
     {
-        public int Id { get; set; }
+        public int ReservaId { get; set; }
+        public int UsuarioId { get; set; }
+        public string UsuarioNombre { get; set; }
+        public int ClaseId { get; set; }
         public string ClaseNombre { get; set; }
-        public DateTime FechaClase { get; set; }
         public DateTime FechaReserva { get; set; }
-        public string Estado { get; set; }
+        public string TipoReserva { get; set; }
     }
 }

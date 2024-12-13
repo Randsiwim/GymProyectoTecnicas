@@ -1,4 +1,4 @@
-﻿namespace proyectoGym
+﻿/*namespace proyectoGym
 {
     partial class FormFacturacion
     {
@@ -160,4 +160,4 @@
         private System.Windows.Forms.Button btnConsultarFacturas;
         private System.Windows.Forms.DataGridView dgvFacturas;
     }
-}
+}*/

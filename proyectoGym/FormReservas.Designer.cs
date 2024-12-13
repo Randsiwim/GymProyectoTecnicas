@@ -1,4 +1,4 @@
-﻿namespace proyectoGym
+﻿/*namespace proyectoGym
 {
     partial class FormReservas
     {
@@ -116,4 +116,4 @@
         private System.Windows.Forms.ComboBox cmbCliente;
         private System.Windows.Forms.ComboBox cmbClase;
     }
-}
+}*/

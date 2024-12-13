@@ -1,4 +1,4 @@
-﻿namespace proyectoGym
+﻿/*namespace proyectoGym
 {
     partial class FormUsuarios
     {
@@ -163,4 +163,4 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
     }
-}
+}*/

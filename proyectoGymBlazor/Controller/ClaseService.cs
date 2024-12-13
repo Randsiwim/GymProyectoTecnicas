@@ -1,12 +1,8 @@
-﻿using proyectoGymBlazor.Data;
+﻿using Microsoft.EntityFrameworkCore;
 using proyectoGymBlazor.Models;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 
 
-namespace proyectoGymBlazor.Controllers
+namespace proyectoGymBlazor.Data
 {
     public class ClaseService
     {
@@ -17,18 +13,19 @@ namespace proyectoGymBlazor.Controllers
             _context = context;
         }
 
-        public async Task<List<ClaseViewModel>> GetClasesAsync()
+        public async Task<List<Clase>> GetClasesAsync()
         {
-            return await _context.Clases
-                .Select(c => new ClaseViewModel
+            return await _context.Clase
+                .Select(c => new Clase
                 {
-                    ClaseID = c.ClaseID,
-                    Nombre = c.Nombre,
-                    Horario = c.Horario,
+                    ClaseID = c.ClaseID, // ID de la clase
+                    Nombre = c.Nombre, // Nombre de la clase
+                    Horario = c.Horario, // Horario de la clase
                     EntrenadorID = _context.Usuarios
                         .Where(u => u.UsuarioID == c.EntrenadorID)
                         .Select(u => u.Nombre)
-                        .FirstOrDefault() ?? "Sin asignar"
+                        .FirstOrDefault() ?? "Sin entrenador", // Nombre del entrenador
+                    Cupo = c.Cupo // Cupos disponibles
                 }).ToListAsync();
         }
     }

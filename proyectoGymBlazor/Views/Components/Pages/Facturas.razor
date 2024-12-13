@@ -1,26 +1,28 @@
 ﻿@page "/facturas"
 @inject FacturaService FacturaService
 @inject NavigationManager NavigationManager
+@using proyectoGymBlazor.Data
+
 
 <h3>Gestión de Facturas</h3>
 
 <table class="table">
     <thead>
         <tr>
-            <th>Cliente</th>
+            <th>Usuario</th>
             <th>Fecha</th>
-            <th>Total</th>
-            <th>Descripción</th>
+            <th>Monto</th>
+            <th>Detalle</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var factura in listaFacturas)
         {
             <tr @onclick="() => SeleccionarFactura(factura)" class="@GetRowClass(factura)" style="cursor:pointer;">
-                <td>@factura.ClienteNombre</td>
+                <td>@factura.UsuarioNombre</td>
                 <td>@factura.Fecha.ToString("dd/MM/yyyy hh:mm tt")</td>
-                <td>@factura.Total:C</td>
-                <td>@factura.Descripcion</td>
+                <td>@factura.Monto:C</td>
+                <td>@factura.Detalle</td>
             </tr>
         }
     </tbody>
@@ -51,7 +53,7 @@
     {
         if (facturaSeleccionada != null)
         {
-            NavigationManager.NavigateTo($"/facturas/{facturaSeleccionada.Id}");
+            NavigationManager.NavigateTo($"/facturas/{facturaSeleccionada.FacturaId}");
         }
         else
         {
@@ -59,3 +61,4 @@
         }
     }
 }
+

@@ -13,6 +13,15 @@
 <body>
     <Routes />
     <script src="_framework/blazor.web.js"></script>
+    @using Microsoft.AspNetCore.Components
+@using proyectoGymBlazor
+@namespace proyectoGymBlazor
+
+<Router AppAssembly="@typeof(App).Assembly">
+    <RouteView RouteData="@routeData" DefaultLayout="typeof(MainLayout)" />
+    <FocusOnNavigate />
+</Router>
+
 </body>
 
 </html>

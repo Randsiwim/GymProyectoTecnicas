@@ -5,7 +5,7 @@ namespace proyectoGymBlazor.Model
 {
     public class Membresia
     {
-        public int MembresiaId { get; set; }
+        public int MembresiaID { get; set; }
 
         [Required]
         [MaxLength(100)]

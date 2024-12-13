@@ -17,37 +17,48 @@ namespace proyectoGymBlazor.Data
             return await _context.Membresias
                 .Select(m => new MembresiaViewModel
                 {
-                    Id = m.Id,
-                    Nombre = m.Nombre,
-                    Precio = m.Precio,
-                    DuracionMeses = m.DuracionMeses,
-                    Beneficios = m.Beneficios
+                    MembresiaID = m.MembresiaID,
+                    UsuarioID = m.UsuarioID,
+                    UsuarioNombre = _context.Usuarios
+                        .Where(u => u.UsuarioID == m.UsuarioID)
+                        .Select(u => u.Nombre)
+                        .FirstOrDefault() ?? "Usuario no encontrado",
+                    Tipo = m.Tipo,
+                    FechaInicio = m.FechaInicio,
+                    FechaFin = m.FechaFin,
+                    Estado = m.Estado
                 }).ToListAsync();
         }
 
-        public async Task AgregarMembresiaAsync(Membresia membresia)
+        public async Task<MembresiaViewModel> GetMembresiaByIdAsync(int id)
         {
-            _context.Membresias.Add(membresia);
-            await _context.SaveChangesAsync();
-        }
-
-        public async Task EliminarMembresiaAsync(int id)
-        {
-            var membresia = await _context.Membresias.FindAsync(id);
-            if (membresia != null)
-            {
-                _context.Membresias.Remove(membresia);
-                await _context.SaveChangesAsync();
-            }
+            return await _context.Membresias
+                .Where(m => m.MembresiaID == id)
+                .Select(m => new MembresiaViewModel
+                {
+                    MembresiaID = m.MembresiaID,
+                    UsuarioID = m.UsuarioID,
+                    UsuarioNombre = _context.Usuarios
+                        .Where(u => u.UsuarioID == m.UsuarioID)
+                        .Select(u => u.Nombre)
+                        .FirstOrDefault() ?? "Usuario no encontrado",
+                    Tipo = m.Tipo,
+                    FechaInicio = m.FechaInicio,
+                    FechaFin = m.FechaFin,
+                    Estado = m.Estado
+                }).FirstOrDefaultAsync();
         }
     }
 
     public class MembresiaViewModel
     {
-        public int Id { get; set; }
-        public string Nombre { get; set; }
-        public decimal Precio { get; set; }
-        public int DuracionMeses { get; set; }
-        public string Beneficios { get; set; }
+        public int MembresiaID { get; set; }
+        public int UsuarioID { get; set; }
+        public string UsuarioNombre { get; set; }
+        public string Tipo { get; set; }
+        public DateTime FechaInicio { get; set; }
+        public DateTime FechaFin { get; set; }
+        public string Estado { get; set; }
     }
 }
+

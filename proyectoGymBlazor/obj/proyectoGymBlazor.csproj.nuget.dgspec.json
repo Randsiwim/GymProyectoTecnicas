@@ -4,38 +4,6 @@
     "C:\\Users\\Rand\\Source\\Repos\\GymProyectoTecnicas\\proyectoGymBlazor\\proyectoGymBlazor.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Rand\\Source\\Repos\\GymProyectoTecnicas\\Controller\\Controller.csproj": {
-      "restore": {
-        "projectUniqueName": "C:\\Users\\Rand\\Source\\Repos\\GymProyectoTecnicas\\Controller\\Controller.csproj",
-        "projectName": "Controller",
-        "projectPath": "C:\\Users\\Rand\\Source\\Repos\\GymProyectoTecnicas\\Controller\\Controller.csproj",
-        "UsingMicrosoftNETSdk": false,
-        "frameworks": {
-          "net48": {
-            "projectReferences": {}
-          }
-        }
-      },
-      "frameworks": {
-        "net48": {}
-      }
-    },
-    "C:\\Users\\Rand\\Source\\Repos\\GymProyectoTecnicas\\Model\\Model.csproj": {
-      "restore": {
-        "projectUniqueName": "C:\\Users\\Rand\\Source\\Repos\\GymProyectoTecnicas\\Model\\Model.csproj",
-        "projectName": "Model",
-        "projectPath": "C:\\Users\\Rand\\Source\\Repos\\GymProyectoTecnicas\\Model\\Model.csproj",
-        "UsingMicrosoftNETSdk": false,
-        "frameworks": {
-          "net48": {
-            "projectReferences": {}
-          }
-        }
-      },
-      "frameworks": {
-        "net48": {}
-      }
-    },
     "C:\\Users\\Rand\\Source\\Repos\\GymProyectoTecnicas\\proyectoGymBlazor\\proyectoGymBlazor.csproj": {
       "version": "1.0.0",
       "restore": {
@@ -64,17 +32,7 @@
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
-            "projectReferences": {
-              "C:\\Users\\Rand\\Source\\Repos\\GymProyectoTecnicas\\Controller\\Controller.csproj": {
-                "projectPath": "C:\\Users\\Rand\\Source\\Repos\\GymProyectoTecnicas\\Controller\\Controller.csproj"
-              },
-              "C:\\Users\\Rand\\Source\\Repos\\GymProyectoTecnicas\\Model\\Model.csproj": {
-                "projectPath": "C:\\Users\\Rand\\Source\\Repos\\GymProyectoTecnicas\\Model\\Model.csproj"
-              },
-              "C:\\Users\\Rand\\Source\\Repos\\GymProyectoTecnicas\\proyectoGym\\proyectoGym.csproj": {
-                "projectPath": "C:\\Users\\Rand\\Source\\Repos\\GymProyectoTecnicas\\proyectoGym\\proyectoGym.csproj"
-              }
-            }
+            "projectReferences": {}
           }
         },
         "warningProperties": {
@@ -125,26 +83,6 @@
           },
           "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100/PortableRuntimeIdentifierGraph.json"
         }
-      }
-    },
-    "C:\\Users\\Rand\\Source\\Repos\\GymProyectoTecnicas\\proyectoGym\\proyectoGym.csproj": {
-      "restore": {
-        "projectUniqueName": "C:\\Users\\Rand\\Source\\Repos\\GymProyectoTecnicas\\proyectoGym\\proyectoGym.csproj",
-        "projectName": "proyectoGym",
-        "projectPath": "C:\\Users\\Rand\\Source\\Repos\\GymProyectoTecnicas\\proyectoGym\\proyectoGym.csproj",
-        "UsingMicrosoftNETSdk": false,
-        "frameworks": {
-          "net48": {
-            "projectReferences": {
-              "C:\\Users\\Rand\\Source\\Repos\\GymProyectoTecnicas\\Model\\Model.csproj": {
-                "projectPath": "C:\\Users\\Rand\\Source\\Repos\\GymProyectoTecnicas\\Model\\Model.csproj"
-              }
-            }
-          }
-        }
-      },
-      "frameworks": {
-        "net48": {}
       }
     }
   }

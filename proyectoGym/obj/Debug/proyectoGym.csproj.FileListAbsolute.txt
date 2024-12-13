@@ -26,14 +26,4 @@ C:\Users\Rand\Source\Repos\GymProyectoTecnicas\proyectoGym\obj\Debug\proyectoGym
 C:\Users\Rand\Source\Repos\GymProyectoTecnicas\proyectoGym\obj\Debug\proyectoGym.Properties.Resources.resources
 C:\Users\Rand\Source\Repos\GymProyectoTecnicas\proyectoGym\obj\Debug\proyectoGym.csproj.GenerateResource.cache
 C:\Users\Rand\Source\Repos\GymProyectoTecnicas\proyectoGym\obj\Debug\proyectoGym.csproj.CoreCompileInputs.cache
-C:\Users\Rand\Source\Repos\GymProyectoTecnicas\proyectoGym\bin\Debug\proyectoGym.exe.config
-C:\Users\Rand\Source\Repos\GymProyectoTecnicas\proyectoGym\bin\Debug\proyectoGym.exe
-C:\Users\Rand\Source\Repos\GymProyectoTecnicas\proyectoGym\bin\Debug\proyectoGym.pdb
-C:\Users\Rand\Source\Repos\GymProyectoTecnicas\proyectoGym\bin\Debug\Model.exe
-C:\Users\Rand\Source\Repos\GymProyectoTecnicas\proyectoGym\bin\Debug\Newtonsoft.Json.dll
-C:\Users\Rand\Source\Repos\GymProyectoTecnicas\proyectoGym\bin\Debug\Model.pdb
-C:\Users\Rand\Source\Repos\GymProyectoTecnicas\proyectoGym\bin\Debug\Model.exe.config
-C:\Users\Rand\Source\Repos\GymProyectoTecnicas\proyectoGym\bin\Debug\Newtonsoft.Json.xml
-C:\Users\Rand\Source\Repos\GymProyectoTecnicas\proyectoGym\obj\Debug\proyecto.AA96F4A4.Up2Date
-C:\Users\Rand\Source\Repos\GymProyectoTecnicas\proyectoGym\obj\Debug\proyectoGym.exe
-C:\Users\Rand\Source\Repos\GymProyectoTecnicas\proyectoGym\obj\Debug\proyectoGym.pdb
+C:\Users\Rand\Source\Repos\GymProyectoTecnicas\proyectoGym\obj\Debug\proyectoGym.FormFactura.resources

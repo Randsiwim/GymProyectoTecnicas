@@ -12,36 +12,47 @@ namespace proyectoGymBlazor.Data
             _context = context;
         }
 
-        public async Task<List<Usuario>> GetUsuariosAsync()
+        // Obtener la lista de usuarios
+        public async Task<List<UsuarioViewModel>> GetUsuariosAsync()
         {
-            return await _context.Usuarios.ToListAsync();
+            return await _context.Usuarios
+                .Select(u => new UsuarioViewModel
+                {
+                    UsuarioID = u.UsuarioID,
+                    Nombre = u.Nombre,
+                    Email = u.Email,
+                    Rol = u.Rol,
+                    FechaRegistro = u.FechaRegistro
+                }).ToListAsync();
         }
 
-        public async Task<Usuario> GetUsuarioByIdAsync(int id)
+        // Obtener un usuario por ID
+        public async Task<UsuarioViewModel> GetUsuarioByIdAsync(int id)
         {
-            return await _context.Usuarios.FindAsync(id);
+            return await _context.Usuarios
+                .Where(u => u.UsuarioID == id)
+                .Select(u => new UsuarioViewModel
+                {
+                    UsuarioID = u.UsuarioID,
+                    Nombre = u.Nombre,
+                    Email = u.Email,
+                    Rol = u.Rol,
+                    PuntosFuertes = u.PuntosFuertes,
+                    Horario = u.Horario,
+                    FechaRegistro = u.FechaRegistro
+                }).FirstOrDefaultAsync();
         }
+    }
 
-        public async Task AddUsuarioAsync(Usuario usuario)
-        {
-            _context.Usuarios.Add(usuario);
-            await _context.SaveChangesAsync();
-        }
-
-        public async Task UpdateUsuarioAsync(Usuario usuario)
-        {
-            _context.Usuarios.Update(usuario);
-            await _context.SaveChangesAsync();
-        }
-
-        public async Task DeleteUsuarioAsync(int id)
-        {
-            var usuario = await _context.Usuarios.FindAsync(id);
-            if (usuario != null)
-            {
-                _context.Usuarios.Remove(usuario);
-                await _context.SaveChangesAsync();
-            }
-        }
+    // Modelo de vista para representar al usuario
+    public class UsuarioViewModel
+    {
+        public int UsuarioID { get; set; }
+        public string Nombre { get; set; }
+        public string Email { get; set; }
+        public string Rol { get; set; }
+        public string PuntosFuertes { get; set; }
+        public string Horario { get; set; }
+        public DateTime FechaRegistro { get; set; }
     }
 }

@@ -12,43 +12,49 @@ namespace proyectoGymBlazor.Data
             _context = context;
         }
 
-        public async Task<List<ProgresoUsuarioViewModel>> GetProgresoAsync(int usuarioId)
+        public async Task<List<ProgresoUsuarioViewModel>> GetProgresosAsync()
         {
             return await _context.ProgresosUsuarios
-                .Where(p => p.UsuarioId == usuarioId)
                 .Select(p => new ProgresoUsuarioViewModel
                 {
-                    Id = p.Id,
-                    FechaRegistro = p.FechaRegistro,
-                    Peso = p.Peso,
-                    PorcentajeGrasa = p.PorcentajeGrasa,
-                    TiempoEntrenamientoHoras = p.TiempoEntrenamientoHoras
+                    ProgresoId = p.ProgresoId,
+                    UsuarioId = p.UsuarioId,
+                    UsuarioNombre = _context.Usuarios
+                        .Where(u => u.UsuarioID == p.UsuarioId)
+                        .Select(u => u.Nombre)
+                        .FirstOrDefault() ?? "Usuario no encontrado",
+                    Fecha = p.Fecha,
+                    Metrica = p.Metrica,
+                    Valor = p.Valor
                 }).ToListAsync();
         }
 
-        public async Task RegistrarProgresoAsync(ProgresoUsuario progreso)
+        public async Task<ProgresoUsuarioViewModel> GetProgresoByIdAsync(int id)
         {
-            _context.ProgresosUsuarios.Add(progreso);
-            await _context.SaveChangesAsync();
-        }
-
-        public async Task EliminarProgresoAsync(int id)
-        {
-            var progreso = await _context.ProgresosUsuarios.FindAsync(id);
-            if (progreso != null)
-            {
-                _context.ProgresosUsuarios.Remove(progreso);
-                await _context.SaveChangesAsync();
-            }
+            return await _context.ProgresosUsuarios
+                .Where(p => p.ProgresoId == id)
+                .Select(p => new ProgresoUsuarioViewModel
+                {
+                    ProgresoId = p.ProgresoId,
+                    UsuarioId = p.UsuarioId,
+                    UsuarioNombre = _context.Usuarios
+                        .Where(u => u.UsuarioID == p.UsuarioId)
+                        .Select(u => u.Nombre)
+                        .FirstOrDefault() ?? "Usuario no encontrado",
+                    Fecha = p.Fecha,
+                    Metrica = p.Metrica,
+                    Valor = p.Valor
+                }).FirstOrDefaultAsync();
         }
     }
 
     public class ProgresoUsuarioViewModel
     {
-        public int Id { get; set; }
-        public DateTime FechaRegistro { get; set; }
-        public double Peso { get; set; }
-        public double PorcentajeGrasa { get; set; }
-        public double TiempoEntrenamientoHoras { get; set; }
+        public int ProgresoId { get; set; }
+        public int UsuarioId { get; set; }
+        public string UsuarioNombre { get; set; }
+        public DateTime Fecha { get; set; }
+        public string Metrica { get; set; }
+        public decimal Valor { get; set; }
     }
 }

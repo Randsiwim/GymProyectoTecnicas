@@ -1608,36 +1608,6 @@
             "rid": "win"
           }
         }
-      },
-      "Controller/1.0.0": {
-        "type": "project",
-        "compile": {
-          "bin/placeholder/Controller.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Controller.dll": {}
-        }
-      },
-      "Model/1.0.0": {
-        "type": "project",
-        "compile": {
-          "bin/placeholder/Model.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Model.dll": {}
-        }
-      },
-      "proyectoGym/1.0.0": {
-        "type": "project",
-        "dependencies": {
-          "Model": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/proyectoGym.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/proyectoGym.dll": {}
-        }
       }
     }
   },
@@ -4754,30 +4724,12 @@
         "system.windows.extensions.nuspec",
         "useSharedDesignerContext.txt"
       ]
-    },
-    "Controller/1.0.0": {
-      "type": "project",
-      "path": "../Controller/Controller.csproj",
-      "msbuildProject": "../Controller/Controller.csproj"
-    },
-    "Model/1.0.0": {
-      "type": "project",
-      "path": "../Model/Model.csproj",
-      "msbuildProject": "../Model/Model.csproj"
-    },
-    "proyectoGym/1.0.0": {
-      "type": "project",
-      "path": "../proyectoGym/proyectoGym.csproj",
-      "msbuildProject": "../proyectoGym/proyectoGym.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net8.0": [
-      "Controller >= 1.0.0",
       "Microsoft.EntityFrameworkCore.SqlServer >= 9.0.0",
-      "Microsoft.EntityFrameworkCore.Tools >= 9.0.0",
-      "Model >= 1.0.0",
-      "proyectoGym >= 1.0.0"
+      "Microsoft.EntityFrameworkCore.Tools >= 9.0.0"
     ]
   },
   "packageFolders": {
@@ -4812,17 +4764,7 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
-          "projectReferences": {
-            "C:\\Users\\Rand\\Source\\Repos\\GymProyectoTecnicas\\Controller\\Controller.csproj": {
-              "projectPath": "C:\\Users\\Rand\\Source\\Repos\\GymProyectoTecnicas\\Controller\\Controller.csproj"
-            },
-            "C:\\Users\\Rand\\Source\\Repos\\GymProyectoTecnicas\\Model\\Model.csproj": {
-              "projectPath": "C:\\Users\\Rand\\Source\\Repos\\GymProyectoTecnicas\\Model\\Model.csproj"
-            },
-            "C:\\Users\\Rand\\Source\\Repos\\GymProyectoTecnicas\\proyectoGym\\proyectoGym.csproj": {
-              "projectPath": "C:\\Users\\Rand\\Source\\Repos\\GymProyectoTecnicas\\proyectoGym\\proyectoGym.csproj"
-            }
-          }
+          "projectReferences": {}
         }
       },
       "warningProperties": {

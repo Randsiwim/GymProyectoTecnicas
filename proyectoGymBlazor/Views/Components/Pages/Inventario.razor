@@ -1,4 +1,5 @@
-﻿@page "/inventario"
+﻿@using proyectoGymBlazor.Model
+@using proyectoGymBlazor.Views.Components.Pages
 @inject InventarioService InventarioService
 
 <h3>Gestión de Inventario</h3>
@@ -7,70 +8,107 @@
     <thead>
         <tr>
             <th>Nombre</th>
-            <th>Cantidad</th>
-            <th>Descripción</th>
+            <th>Fecha de Adquisición</th>
+            <th>Vida Útil (meses)</th>
+            <th>Estado</th>
             <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var equipo in listaEquipos)
+        @foreach (var equipo in listaInventario)
         {
             <tr>
                 <td>@equipo.Nombre</td>
-                <td>@equipo.Cantidad</td>
-                <td>@equipo.Descripcion</td>
+                <td>@equipo.FechaAdquisicion.ToString("dd/MM/yyyy")</td>
+                <td>@equipo.VidaUtilMeses</td>
+                <td>@equipo.Estado</td>
                 <td>
-                    <button class="btn btn-danger" @onclick="() => EliminarEquipo(equipo.Id)">Eliminar</button>
+                    <button class="btn btn-primary" @onclick="() => EditarEquipo(equipo)">Editar</button>
+                    <button class="btn btn-danger" @onclick="() => EliminarEquipo(equipo.EqupoId)">Eliminar</button>
                 </td>
             </tr>
         }
     </tbody>
 </table>
 
-<h4>Agregar Nuevo Equipo</h4>
-<EditForm Model="@nuevoEquipo" OnValidSubmit="AgregarEquipo">
-    <DataAnnotationsValidator />
-    <ValidationSummary />
-    <div class="mb-3">
-        <label for="nombre" class="form-label">Nombre</label>
-        <InputText id="nombre" class="form-control" @bind-Value="nuevoEquipo.Nombre" />
+<button class="btn btn-success" @onclick="NuevoEquipo">Nuevo Equipo</button>
+
+@if (mostrarFormulario)
+{
+    <div class="mt-3">
+        <h4>@(equipoSeleccionado.EqupoId == 0 ? "Nuevo Equipo" : "Editar Equipo")</h4>
+        <form>
+            <div class="form-group">
+                <label>Nombre</label>
+                <input class="form-control" @bind="equipoSeleccionado.Nombre" />
+            </div>
+            <div class="form-group">
+                <label>Fecha de Adquisición</label>
+                <input type="date" class="form-control" @bind="equipoSeleccionado.FechaAdquisicion" />
+            </div>
+            <div class="form-group">
+                <label>Vida Útil (meses)</label>
+                <input type="number" class="form-control" @bind="equipoSeleccionado.VidaUtilMeses" />
+            </div>
+            <div class="form-group">
+                <label>Estado</label>
+                <select class="form-control" @bind="equipoSeleccionado.Estado">
+                    <option>Disponible</option>
+                    <option>En uso</option>
+                    <option>En mantenimiento</option>
+                </select>
+            </div>
+            <button class="btn btn-primary" @onclick="GuardarEquipo">Guardar</button>
+            <button class="btn btn-secondary" @onclick="Cancelar">Cancelar</button>
+        </form>
     </div>
-    <div class="mb-3">
-        <label for="cantidad" class="form-label">Cantidad</label>
-        <InputNumber id="cantidad" class="form-control" @bind-Value="nuevoEquipo.Cantidad" />
-    </div>
-    <div class="mb-3">
-        <label for="descripcion" class="form-label">Descripción</label>
-        <InputText id="descripcion" class="form-control" @bind-Value="nuevoEquipo.Descripcion" />
-    </div>
-    <button type="submit" class="btn btn-primary">Agregar Equipo</button>
-</EditForm>
+}
 
 @code {
-    private List<EquipoViewModel> listaEquipos = new();
-    private Equipo nuevoEquipo = new();
+    private List<proyectoGymBlazor.Model.Inventario> listaInventario = new();
+    private proyectoGymBlazor.Model.Inventario equipoSeleccionado = new();
+    private bool mostrarFormulario = false;
 
     protected override async Task OnInitializedAsync()
     {
-        await CargarEquipos();
+        listaInventario = await InventarioService.GetInventarioAsync();
     }
 
-    private async Task CargarEquipos()
+    private void NuevoEquipo()
     {
-        listaEquipos = await InventarioService.GetEquiposAsync();
+        equipoSeleccionado = new proyectoGymBlazor.Model.Inventario();
+        mostrarFormulario = true;
     }
 
-    private async Task AgregarEquipo()
+    private void EditarEquipo(proyectoGymBlazor.Model.Inventario equipo)
     {
-        await InventarioService.AgregarEquipoAsync(nuevoEquipo);
-        nuevoEquipo = new Equipo(); // Limpiar el formulario
-        await CargarEquipos(); // Recargar la lista de equipos
+        equipoSeleccionado = equipo;
+        mostrarFormulario = true;
     }
 
-    private async Task EliminarEquipo(int id)
+    private async Task GuardarEquipo()
     {
-        await InventarioService.EliminarEquipoAsync(id);
-        await CargarEquipos(); // Recargar la lista de equipos
+        if (equipoSeleccionado.EqupoId == 0)
+        {
+            await InventarioService.AddInventarioAsync(equipoSeleccionado);
+        }
+        else
+        {
+            await InventarioService.UpdateInventarioAsync(equipoSeleccionado);
+        }
+
+        listaInventario = await InventarioService.GetInventarioAsync();
+        mostrarFormulario = false;
+    }
+
+    private async Task EliminarEquipo(int equipoId)
+    {
+        await InventarioService.DeleteInventarioAsync(equipoId);
+        listaInventario = await InventarioService.GetInventarioAsync();
+    }
+
+    private void Cancelar()
+    {
+        mostrarFormulario = false;
     }
 }
-

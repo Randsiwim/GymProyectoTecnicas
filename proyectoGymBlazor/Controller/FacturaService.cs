@@ -17,26 +17,26 @@ namespace proyectoGymBlazor.Data
             return await _context.Facturas
                 .Select(f => new FacturaViewModel
                 {
-                    Id = f.Id,
-                    ClienteId = f.ClienteId,
+                    FacturaId = f.FacturaId,
+                    UsuarioId = f.UsuarioId,
                     Fecha = f.Fecha,
-                    Total = f.Total,
-                    Descripcion = f.Descripcion,
-                    ClienteNombre = _context.Usuarios
-                        .Where(u => u.UsuarioID == f.ClienteId)
+                    Monto = f.Monto,
+                    Detalle = f.Detalle,
+                    UsuarioNombre = _context.Usuarios
+                        .Where(u => u.UsuarioID == f.UsuarioId)
                         .Select(u => u.Nombre)
-                        .FirstOrDefault() ?? "Cliente no encontrado"
+                        .FirstOrDefault() ?? "Usuario no encontrado"
                 }).ToListAsync();
         }
     }
 
     public class FacturaViewModel
     {
-        public int Id { get; set; }
-        public int ClienteId { get; set; }
-        public string ClienteNombre { get; set; }
+        public int FacturaId { get; set; }
+        public int UsuarioId { get; set; }
+        public string UsuarioNombre { get; set; }
         public DateTime Fecha { get; set; }
-        public decimal Total { get; set; }
-        public string Descripcion { get; set; }
+        public decimal Monto { get; set; }
+        public string Detalle { get; set; }
     }
 }

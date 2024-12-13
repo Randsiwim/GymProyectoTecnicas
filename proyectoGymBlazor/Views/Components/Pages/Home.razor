@@ -1,7 +1,55 @@
-﻿@page "/"
+﻿@page "/home"
+@using proyectoGymBlazor
+@using Microsoft.AspNetCore.Components
 
-<PageTitle>Home</PageTitle>
+<PageTitle>Menú Principal - Gimnasio</PageTitle>
 
-<h1>Hello, world!</h1>
+<div class="container">
+    <h2>Bienvenido al Menú Principal del Gimnasio</h2>
+    <div class="button-container">
+        <button class="btn btn-primary" @onclick="NavigateToUsuarios">Usuarios</button>
+        <button class="btn btn-primary" @onclick="NavigateToMembresias">Membresías</button>
+        <button class="btn btn-primary" @onclick="NavigateToClases">Clases</button>
+        <button class="btn btn-primary" @onclick="NavigateToReservas">Reservas</button>
+        <button class="btn btn-primary" @onclick="NavigateToInventario">Inventario</button>
+        <button class="btn btn-primary" @onclick="NavigateToReportes">Reportes</button>
+        <button class="btn btn-primary" @onclick="NavigateToFacturas">Facturación</button>
+    </div>
+</div>
 
-Welcome to your new app.
+@code {
+    private void NavigateToUsuarios()
+    {
+        NavigationManager.NavigateTo("/usuarios");
+    }
+
+    private void NavigateToMembresias()
+    {
+        NavigationManager.NavigateTo("/membresias");
+    }
+
+    private void NavigateToClases()
+    {
+        NavigationManager.NavigateTo("/clases");
+    }
+
+    private void NavigateToReservas()
+    {
+        NavigationManager.NavigateTo("/reservas");
+    }
+
+    private void NavigateToInventario()
+    {
+        NavigationManager.NavigateTo("/inventario");
+    }
+
+    private void NavigateToReportes()
+    {
+        NavigationManager.NavigateTo("/reportes");
+    }
+
+    private void NavigateToFacturas()
+    {
+        NavigationManager.NavigateTo("/facturas");
+    }
+}

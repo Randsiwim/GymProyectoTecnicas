@@ -1,4 +1,4 @@
-﻿/*using Model.Model;
+﻿using Model.Model;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System;
@@ -41,4 +41,3 @@ public static class ClienteManager
     }
 }
 
-*/
