@@ -1,27 +1,17 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿@using Microsoft.AspNetCore.Components
+@using Microsoft.AspNetCore.Components.Routing
 
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <base href="/" />
-    <link rel="stylesheet" href="app.css" />
-    <link rel="stylesheet" href="proyectoGymBlazor.styles.css" />
-    <HeadOutlet />
-</head>
-
-<body>
-    <Routes />
-    <script src="_framework/blazor.web.js"></script>
-    @using Microsoft.AspNetCore.Components
-@using proyectoGymBlazor
-@namespace proyectoGymBlazor
 
 <Router AppAssembly="@typeof(App).Assembly">
-    <RouteView RouteData="@routeData" DefaultLayout="typeof(MainLayout)" />
-    <FocusOnNavigate />
+    <Found Context="routeData">
+        <RouteView RouteData="@routeData" DefaultLayout="typeof(Login)" />
+        <FocusOnNavigate />
+    </Found>
+    <NotFound>
+        <LayoutView Layout="typeof(Login)">
+            <p>Sorry, there's nothing at this address.</p>
+        </LayoutView>
+    </NotFound>
 </Router>
+>
 
-</body>
-
-</html>

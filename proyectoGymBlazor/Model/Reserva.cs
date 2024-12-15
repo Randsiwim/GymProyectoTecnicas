@@ -5,10 +5,12 @@ namespace proyectoGymBlazor.Model
 {
     public class Reserva
     {
+        
         public int ReservaId { get; set; }
 
-        [Required]
+        
         public int UsuarioId { get; set; }
+
 
         [Required]
         public int ClaseId { get; set; }

@@ -1,7 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using proyectoGymBlazor.Model;
+using proyectoGymBlazor.Data;
 
-namespace proyectoGymBlazor.Data
+namespace proyectoGymBlazor.Services
 {
     public class ProgresoUsuarioService
     {
@@ -12,49 +13,41 @@ namespace proyectoGymBlazor.Data
             _context = context;
         }
 
-        public async Task<List<ProgresoUsuarioViewModel>> GetProgresosAsync()
+        // Obtener todos los registros
+        public async Task<List<ProgresoUsuario>> GetProgresosAsync()
         {
-            return await _context.ProgresosUsuarios
-                .Select(p => new ProgresoUsuarioViewModel
-                {
-                    ProgresoId = p.ProgresoId,
-                    UsuarioId = p.UsuarioId,
-                    UsuarioNombre = _context.Usuarios
-                        .Where(u => u.UsuarioID == p.UsuarioId)
-                        .Select(u => u.Nombre)
-                        .FirstOrDefault() ?? "Usuario no encontrado",
-                    Fecha = p.Fecha,
-                    Metrica = p.Metrica,
-                    Valor = p.Valor
-                }).ToListAsync();
+            return await _context.ProgresosUsuario.ToListAsync();
         }
 
-        public async Task<ProgresoUsuarioViewModel> GetProgresoByIdAsync(int id)
+        // Obtener un registro por ID
+        public async Task<ProgresoUsuario> GetProgresoByIdAsync(int id)
         {
-            return await _context.ProgresosUsuarios
-                .Where(p => p.ProgresoId == id)
-                .Select(p => new ProgresoUsuarioViewModel
-                {
-                    ProgresoId = p.ProgresoId,
-                    UsuarioId = p.UsuarioId,
-                    UsuarioNombre = _context.Usuarios
-                        .Where(u => u.UsuarioID == p.UsuarioId)
-                        .Select(u => u.Nombre)
-                        .FirstOrDefault() ?? "Usuario no encontrado",
-                    Fecha = p.Fecha,
-                    Metrica = p.Metrica,
-                    Valor = p.Valor
-                }).FirstOrDefaultAsync();
+            return await _context.ProgresosUsuario.FindAsync(id);
         }
-    }
 
-    public class ProgresoUsuarioViewModel
-    {
-        public int ProgresoId { get; set; }
-        public int UsuarioId { get; set; }
-        public string UsuarioNombre { get; set; }
-        public DateTime Fecha { get; set; }
-        public string Metrica { get; set; }
-        public decimal Valor { get; set; }
+        // Agregar un nuevo progreso
+        public async Task AddProgresoAsync(ProgresoUsuario progreso)
+        {
+            _context.ProgresosUsuario.Add(progreso);
+            await _context.SaveChangesAsync();
+        }
+
+        // Actualizar un registro existente
+        public async Task UpdateProgresoAsync(ProgresoUsuario progreso)
+        {
+            _context.ProgresosUsuario.Update(progreso);
+            await _context.SaveChangesAsync();
+        }
+
+        // Eliminar un registro por ID
+        public async Task DeleteProgresoAsync(int id)
+        {
+            var progreso = await GetProgresoByIdAsync(id);
+            if (progreso != null)
+            {
+                _context.ProgresosUsuario.Remove(progreso);
+                await _context.SaveChangesAsync();
+            }
+        }
     }
 }

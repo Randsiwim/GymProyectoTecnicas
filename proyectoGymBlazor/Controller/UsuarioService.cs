@@ -1,7 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
-using proyectoGymBlazor.Model;
+﻿using proyectoGymBlazor.Model; 
+using Microsoft.EntityFrameworkCore;
+using proyectoGymBlazor.Data; 
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
-namespace proyectoGymBlazor.Data
+namespace proyectoGymBlazor.Services
 {
     public class UsuarioService
     {
@@ -12,47 +15,42 @@ namespace proyectoGymBlazor.Data
             _context = context;
         }
 
-        // Obtener la lista de usuarios
-        public async Task<List<UsuarioViewModel>> GetUsuariosAsync()
+        // Obtener todos los usuarios
+        public async Task<List<Usuario>> GetUsuariosAsync()
         {
-            return await _context.Usuarios
-                .Select(u => new UsuarioViewModel
-                {
-                    UsuarioID = u.UsuarioID,
-                    Nombre = u.Nombre,
-                    Email = u.Email,
-                    Rol = u.Rol,
-                    FechaRegistro = u.FechaRegistro
-                }).ToListAsync();
+            return await _context.Usuarios.ToListAsync();
         }
 
         // Obtener un usuario por ID
-        public async Task<UsuarioViewModel> GetUsuarioByIdAsync(int id)
+        public async Task<Usuario> GetUsuarioByIdAsync(int id)
         {
-            return await _context.Usuarios
-                .Where(u => u.UsuarioID == id)
-                .Select(u => new UsuarioViewModel
-                {
-                    UsuarioID = u.UsuarioID,
-                    Nombre = u.Nombre,
-                    Email = u.Email,
-                    Rol = u.Rol,
-                    PuntosFuertes = u.PuntosFuertes,
-                    Horario = u.Horario,
-                    FechaRegistro = u.FechaRegistro
-                }).FirstOrDefaultAsync();
+            return await _context.Usuarios.FindAsync(id);
         }
-    }
 
-    // Modelo de vista para representar al usuario
-    public class UsuarioViewModel
-    {
-        public int UsuarioID { get; set; }
-        public string Nombre { get; set; }
-        public string Email { get; set; }
-        public string Rol { get; set; }
-        public string PuntosFuertes { get; set; }
-        public string Horario { get; set; }
-        public DateTime FechaRegistro { get; set; }
+        // Agregar un usuario
+        public async Task AddUsuarioAsync(Usuario usuario)
+        {
+            usuario.FechaRegistro = DateTime.Now;
+            _context.Usuarios.Add(usuario);
+            await _context.SaveChangesAsync();
+        }
+
+        // Actualizar un usuario existente
+        public async Task UpdateUsuarioAsync(Usuario usuario)
+        {
+            _context.Usuarios.Update(usuario);
+            await _context.SaveChangesAsync();
+        }
+
+        // Eliminar un usuario por ID
+        public async Task DeleteUsuarioAsync(int id)
+        {
+            var usuario = await GetUsuarioByIdAsync(id);
+            if (usuario != null)
+            {
+                _context.Usuarios.Remove(usuario);
+                await _context.SaveChangesAsync();
+            }
+        }
     }
 }

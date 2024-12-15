@@ -1,32 +1,43 @@
-﻿using Microsoft.EntityFrameworkCore;
-using proyectoGymBlazor.Models;
+﻿using proyectoGymBlazor.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
-
-namespace proyectoGymBlazor.Data
+namespace proyectoGymBlazor.Services
 {
     public class ClaseService
     {
-        private readonly GimnasioDbContext _context;
+        private readonly List<Clase> _clases;
 
-        public ClaseService(GimnasioDbContext context)
+        public ClaseService()
         {
-            _context = context;
+            // Datos iniciales simulados
+            _clases = new List<Clase>
+            {
+                new Clase { ClaseID = 1, Nombre = "Yoga", Horario = DateTime.Now.AddHours(1), EntrenadorID = 1, Cupo = 20 },
+                new Clase { ClaseID = 2, Nombre = "Spinning", Horario = DateTime.Now.AddHours(2), EntrenadorID = 2, Cupo = 15 }
+            };
         }
 
-        public async Task<List<Clase>> GetClasesAsync()
+        public List<Clase> GetClases() => _clases;
+
+        public Clase GetClaseById(int id) => _clases.FirstOrDefault(c => c.ClaseID == id);
+
+        public void AddClase(Clase clase) => _clases.Add(clase);
+
+        public void UpdateClase(Clase clase)
         {
-            return await _context.Clase
-                .Select(c => new Clase
-                {
-                    ClaseID = c.ClaseID, // ID de la clase
-                    Nombre = c.Nombre, // Nombre de la clase
-                    Horario = c.Horario, // Horario de la clase
-                    EntrenadorID = _context.Usuarios
-                        .Where(u => u.UsuarioID == c.EntrenadorID)
-                        .Select(u => u.Nombre)
-                        .FirstOrDefault() ?? "Sin entrenador", // Nombre del entrenador
-                    Cupo = c.Cupo // Cupos disponibles
-                }).ToListAsync();
+            var existingClase = _clases.FirstOrDefault(c => c.ClaseID == clase.ClaseID);
+            if (existingClase != null)
+            {
+                existingClase.Nombre = clase.Nombre;
+                existingClase.Horario = clase.Horario;
+                existingClase.EntrenadorID = clase.EntrenadorID;
+                existingClase.Cupo = clase.Cupo;
+            }
         }
+
+        public void DeleteClase(int id) => _clases.RemoveAll(c => c.ClaseID == id);
     }
 }
+

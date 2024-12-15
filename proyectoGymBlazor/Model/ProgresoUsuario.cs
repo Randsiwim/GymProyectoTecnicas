@@ -19,4 +19,17 @@ namespace proyectoGymBlazor.Model
         
         public decimal Valor { get; set; }
     }
-}
+
+  
+ 
+        public class ProgresoUsuarioViewModel
+        {
+            public int ProgresoId { get; set; }
+            public int UsuarioId { get; set; }
+            public string UsuarioNombre { get; set; }
+            public DateTime Fecha { get; set; }
+            public string Metrica { get; set; }
+            public decimal Valor { get; set; }
+        }
+    }
+

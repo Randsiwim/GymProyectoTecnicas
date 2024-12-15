@@ -1,6 +1,6 @@
 ﻿@page "/clases"
-@inject ClaseService ClaseService
-@inject NavigationManager NavigationManager
+@inject proyectoGymBlazor.Services.ClaseService ClaseService
+@using proyectoGymBlazor.Models
 
 <h3>Gestión de Clases</h3>
 
@@ -11,53 +11,53 @@
             <th>Horario</th>
             <th>Entrenador</th>
             <th>Cupo</th>
+            <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var clase in listaClases)
+        @foreach (var clase in clasesList)  
         {
-            <tr @onclick="() => SeleccionarClase(clase)" class="@GetRowClass(clase)" style="cursor:pointer;">
+            <tr>
                 <td>@clase.Nombre</td>
-                <td>@clase.Horario.ToString("dd/MM/yyyy hh:mm tt")</td>
+                <td>@clase.Horario.ToString("g")</td>
                 <td>@clase.EntrenadorID</td>
                 <td>@clase.Cupo</td>
+                <td>
+                    <button class="btn btn-primary" @onclick="() => EditarClase(clase.ClaseID)">Editar</button>
+                    <button class="btn btn-danger" @onclick="() => EliminarClase(clase.ClaseID)">Eliminar</button>
+                </td>
             </tr>
         }
     </tbody>
 </table>
 
-<button class="btn btn-primary" @onclick="ReservarClase">Reservar Clase</button>
+<button class="btn btn-success" @onclick="NuevaClase">Nueva Clase</button>
 
 @code {
-    private List<ClaseViewModel> listaClases = new();
-    private ClaseViewModel claseSeleccionada;
+    private List<Clase> clasesList;  <!-- Cambio aquí -->
 
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
-        listaClases = await ClaseService.GetClasesAsync();
+        clasesList = ClaseService.GetClases();  // Aquí también cambiamos el nombre de la variable
     }
 
-    private void SeleccionarClase(Clase clase)
+    private void NuevaClase()
     {
-        claseSeleccionada = clase;
+        // Lógica para mostrar un formulario modal (opcional)
     }
 
-    private string GetRowClass(Clase clase)
+    private void EditarClase(int id)
     {
-        return clase == claseSeleccionada ? "table-active" : string.Empty;
+        // Navegar o abrir el formulario de edición
     }
 
-    private void ReservarClase()
+    private void EliminarClase(int id)
     {
-        if (claseSeleccionada != null)
-        {
-            Console.WriteLine($"Clase '{claseSeleccionada.Nombre}' reservada correctamente.");
-        }
-        else
-        {
-            Console.WriteLine("Seleccione una clase para reservar.");
-        }
+        ClaseService.DeleteClase(id);
+        clasesList = ClaseService.GetClases(); // Refrescar la lista
     }
 }
+
+
 
 

@@ -1,62 +1,97 @@
-﻿@page "/reservas/{usuarioId:int}"
-@inject ReservaService ReservaService
-@inject ClaseService ClaseService
-@inject NavigationManager NavigationManager
+﻿@using proyectoGymBlazor.Model
+@using proyectoGymBlazor.Services
+@inject ProgresoUsuarioService ProgresoUsuarioService
 
-<h3>Gestión de Reservas</h3>
+<h3>Gestión de Progreso de Usuarios</h3>
 
+<!-- Tabla para listar los registros -->
 <table class="table">
     <thead>
         <tr>
-            <th>Usuario</th>
-            <th>Clase</th>
-            <th>Fecha Reserva</th>
-            <th>Tipo Reserva</th>
+            <th>Progreso ID</th>
+            <th>Usuario ID</th>
+            <th>Fecha</th>
+            <th>Métrica</th>
+            <th>Valor</th>
+            <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var reserva in listaReservas)
+        @foreach (var progreso in listaProgresos)
         {
-            <tr @onclick="() => SeleccionarReserva(reserva)" class="@GetRowClass(reserva)" style="cursor:pointer;">
-                <td>@reserva.UsuarioNombre</td>
-                <td>@reserva.ClaseNombre</td>
-                <td>@reserva.FechaReserva.ToString("dd/MM/yyyy HH:mm")</td>
-                <td>@reserva.TipoReserva</td>
+            <tr>
+                <td>@progreso.ProgresoId</td>
+                <td>@progreso.UsuarioId</td>
+                <td>@progreso.Fecha.ToString("dd/MM/yyyy")</td>
+                <td>@progreso.Metrica</td>
+                <td>@progreso.Valor</td>
+                <td>
+                    <button class="btn btn-primary btn-sm" @onclick="() => EditarProgreso(progreso)">Editar</button>
+                    <button class="btn btn-danger btn-sm" @onclick="() => EliminarProgreso(progreso.ProgresoId)">Eliminar</button>
+                </td>
             </tr>
         }
     </tbody>
 </table>
 
-<button class="btn btn-primary" @onclick="VerDetalleReserva">Ver Detalle</button>
+<!-- Formulario para agregar/editar -->
+<h4>@(editando ? "Editar Progreso" : "Agregar Progreso")</h4>
+<EditForm Model="@progresoActual" OnValidSubmit="GuardarProgreso">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div class="form-group">
+        <label for="UsuarioId">Usuario ID</label>
+        <InputNumber id="UsuarioId" class="form-control" @bind-Value="progresoActual.UsuarioId" />
+    </div>
+    <div class="form-group">
+        <label for="Fecha">Fecha</label>
+        <InputDate id="Fecha" class="form-control" @bind-Value="progresoActual.Fecha" />
+    </div>
+    <div class="form-group">
+        <label for="Metrica">Métrica</label>
+        <InputText id="Metrica" class="form-control" @bind-Value="progresoActual.Metrica" />
+    </div>
+    <div class="form-group">
+        <label for="Valor">Valor</label>
+        <InputNumber id="Valor" class="form-control" @bind-Value="progresoActual.Valor" />
+    </div>
+    <button type="submit" class="btn btn-success">@((editando) ? "Actualizar" : "Agregar")</button>
+</EditForm>
 
 @code {
-    private List<ReservaViewModel> listaReservas = new();
-    private ReservaViewModel reservaSeleccionada;
+    private List<ProgresoUsuario> listaProgresos = new();
+    private ProgresoUsuario progresoActual = new ProgresoUsuario();
+    private bool editando = false;
 
     protected override async Task OnInitializedAsync()
     {
-        listaReservas = await ReservaService.GetReservasAsync();
+        listaProgresos = await ProgresoUsuarioService.GetProgresosAsync();
     }
 
-    private void SeleccionarReserva(ReservaViewModel reserva)
+    private async Task GuardarProgreso()
     {
-        reservaSeleccionada = reserva;
-    }
-
-    private string GetRowClass(ReservaViewModel reserva)
-    {
-        return reserva == reservaSeleccionada ? "table-active" : string.Empty;
-    }
-
-    private void VerDetalleReserva()
-    {
-        if (reservaSeleccionada != null)
+        if (editando)
         {
-            NavigationManager.NavigateTo($"/reservas/{reservaSeleccionada.ReservaId}");
+            await ProgresoUsuarioService.UpdateProgresoAsync(progresoActual);
         }
         else
         {
-            Console.WriteLine("Seleccione una reserva para ver el detalle.");
+            await ProgresoUsuarioService.AddProgresoAsync(progresoActual);
         }
+        progresoActual = new ProgresoUsuario();
+        editando = false;
+        listaProgresos = await ProgresoUsuarioService.GetProgresosAsync();
+    }
+
+    private void EditarProgreso(ProgresoUsuario progreso)
+    {
+        progresoActual = progreso;
+        editando = true;
+    }
+
+    private async Task EliminarProgreso(int progresoId)
+    {
+        await ProgresoUsuarioService.DeleteProgresoAsync(progresoId);
+        listaProgresos = await ProgresoUsuarioService.GetProgresosAsync();
     }
 }

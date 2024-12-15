@@ -1,61 +1,123 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
+using proyectoGymBlazor.Data;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using proyectoGymBlazor.Model;
 
-namespace proyectoGymBlazor.Data
+namespace proyectoGymBlazor.Services
 {
-    public class ReservaService
+    public class ReservasController : Controller
     {
         private readonly GimnasioDbContext _context;
 
-        public ReservaService(GimnasioDbContext context)
+        public ReservasController(GimnasioDbContext context)
         {
             _context = context;
         }
 
-        public async Task<List<ReservaViewModel>> GetReservasAsync()
+        // Listar todas las reservas
+        public async Task<IActionResult> Index()
         {
-            return await _context.Reservas
-                .Include(r => r.UsuarioId)
-                .Include(r => r.ClaseId)
-                .Select(r => new ReservaViewModel
-                {
-                    ReservaId = r.ReservaId,
-                    UsuarioId = r.UsuarioId,
-                    UsuarioNombre = r.Usuario.Nombre,
-                    ClaseId = r.ClaseId,
-                    ClaseNombre = r.ClaseId.Nombre,
-                    FechaReserva = r.FechaReserva,
-                    TipoReserva = r.TipoReserva
-                }).ToListAsync();
+            var reservas = await _context.Reserva.ToListAsync();
+            return View(reservas);
         }
 
-        public async Task<ReservaViewModel> GetReservaByIdAsync(int id)
+        // Detalles de una reserva específica
+        public async Task<IActionResult> Details(int? id)
         {
-            return await _context.Reservas
-                .Where(r => r.ReservaId == id)
-                .Include(r => r.UsuarioId)
-                .Include(r => r.ClaseId)
-                .Select(r => new ReservaViewModel
-                {
-                    ReservaId = r.ReservaId,
-                    UsuarioId = r.UsuarioId,
-                    UsuarioNombre = r.UsuarioId.Nombre,
-                    ClaseId = r.ClaseId,
-                    ClaseNombre = r.Clase.Nombre,
-                    FechaReserva = r.FechaReserva,
-                    TipoReserva = r.TipoReserva
-                }).FirstOrDefaultAsync();
-        }
-    }
+            if (id == null) return NotFound();
 
-    public class ReservaViewModel
-    {
-        public int ReservaId { get; set; }
-        public int UsuarioId { get; set; }
-        public string UsuarioNombre { get; set; }
-        public int ClaseId { get; set; }
-        public string ClaseNombre { get; set; }
-        public DateTime FechaReserva { get; set; }
-        public string TipoReserva { get; set; }
+            var reserva = await _context.Reserva.FirstOrDefaultAsync(m => m.ReservaId == id);
+            if (reserva == null) return NotFound();
+
+            return View(reserva);
+        }
+
+        // Crear una nueva reserva - Formulario GET
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        // Crear una nueva reserva - Guardar datos POST
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("UsuarioId,ClaseId,FechaReserva,TipoReserva")] Reserva reserva)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(reserva);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(reserva);
+        }
+
+        // Editar una reserva existente - Formulario GET
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null) return NotFound();
+
+            var reserva = await _context.Reserva.FindAsync(id);
+            if (reserva == null) return NotFound();
+
+            return View(reserva);
+        }
+
+        // Editar una reserva existente - Guardar cambios POST
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("ReservaId,UsuarioId,ClaseId,FechaReserva,TipoReserva")] Reserva reserva)
+        {
+            if (id != reserva.ReservaId) return NotFound();
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(reserva);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!ReservaExists(reserva.ReservaId)) return NotFound();
+                    throw;
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(reserva);
+        }
+
+        // Eliminar una reserva - Confirmación GET
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null) return NotFound();
+
+            var reserva = await _context.Reserva.FirstOrDefaultAsync(m => m.ReservaId == id);
+            if (reserva == null) return NotFound();
+
+            return View(reserva);
+        }
+
+        // Eliminar una reserva - Acción POST
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var reserva = await _context.Reserva.FindAsync(id);
+            if (reserva != null)
+            {
+                _context.Reserva.Remove(reserva);
+                await _context.SaveChangesAsync();
+            }
+            return RedirectToAction(nameof(Index));
+        }
+
+        private bool ReservaExists(int id)
+        {
+            return _context.Reserva.Any(e => e.ReservaId == id);
+        }
     }
 }
+

@@ -1,5 +1,6 @@
 ﻿using proyectoGymBlazor.Data;
 using Microsoft.EntityFrameworkCore;
+using proyectoGymBlazor.Model;
 
 public class AuthService
 {

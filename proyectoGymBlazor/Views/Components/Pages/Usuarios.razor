@@ -1,61 +1,105 @@
 ﻿@page "/usuarios"
+@using proyectoGymBlazor.Model
+@using proyectoGymBlazor.Services
 @inject UsuarioService UsuarioService
 @inject NavigationManager NavigationManager
 
 <h3>Gestión de Usuarios</h3>
 
+<!-- Tabla para listar los usuarios -->
 <table class="table">
     <thead>
         <tr>
             <th>Nombre</th>
             <th>Email</th>
             <th>Rol</th>
+            <th>Puntos Fuertes</th>
+            <th>Horario</th>
             <th>Fecha Registro</th>
+            <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var usuario in listaUsuarios)
         {
-            <tr @onclick="() => SeleccionarUsuario(usuario)" class="@GetRowClass(usuario)" style="cursor:pointer;">
+            <tr>
                 <td>@usuario.Nombre</td>
                 <td>@usuario.Email</td>
                 <td>@usuario.Rol</td>
+                <td>@usuario.PuntosFuertes</td>
+                <td>@usuario.Horario</td>
                 <td>@usuario.FechaRegistro.ToString("dd/MM/yyyy")</td>
+                <td>
+                    <button class="btn btn-primary btn-sm" @onclick="() => EditarUsuario(usuario)">Editar</button>
+                    <button class="btn btn-danger btn-sm" @onclick="() => EliminarUsuario(usuario.UsuarioID)">Eliminar</button>
+                </td>
             </tr>
         }
     </tbody>
 </table>
 
-<button class="btn btn-primary" @onclick="VerDetalleUsuario">Ver Detalle</button>
+<!-- Formulario para agregar/editar -->
+<h4>@(editando ? "Editar Usuario" : "Agregar Usuario")</h4>
+<EditForm Model="@usuarioActual" OnValidSubmit="GuardarUsuario">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div class="form-group">
+        <label for="Nombre">Nombre</label>
+        <InputText id="Nombre" class="form-control" @bind-Value="usuarioActual.Nombre" />
+    </div>
+    <div class="form-group">
+        <label for="Email">Email</label>
+        <InputText id="Email" class="form-control" @bind-Value="usuarioActual.Email" />
+    </div>
+    <div class="form-group">
+        <label for="Rol">Rol</label>
+        <InputText id="Rol" class="form-control" @bind-Value="usuarioActual.Rol" />
+    </div>
+    <div class="form-group">
+        <label for="PuntosFuertes">Puntos Fuertes</label>
+        <InputText id="PuntosFuertes" class="form-control" @bind-Value="usuarioActual.PuntosFuertes" />
+    </div>
+    <div class="form-group">
+        <label for="Horario">Horario</label>
+        <InputText id="Horario" class="form-control" @bind-Value="usuarioActual.Horario" />
+    </div>
+    <button type="submit" class="btn btn-success">@((editando) ? "Actualizar" : "Agregar")</button>
+</EditForm>
 
 @code {
-    private List<UsuarioViewModel> listaUsuarios = new();
-    private UsuarioViewModel usuarioSeleccionado;
+    private List<Usuario> listaUsuarios = new();
+    private Usuario usuarioActual = new Usuario();
+    private bool editando = false;
 
     protected override async Task OnInitializedAsync()
     {
         listaUsuarios = await UsuarioService.GetUsuariosAsync();
     }
 
-    private void SeleccionarUsuario(UsuarioViewModel usuario)
+    private async Task GuardarUsuario()
     {
-        usuarioSeleccionado = usuario;
-    }
-
-    private string GetRowClass(UsuarioViewModel usuario)
-    {
-        return usuario == usuarioSeleccionado ? "table-active" : string.Empty;
-    }
-
-    private void VerDetalleUsuario()
-    {
-        if (usuarioSeleccionado != null)
+        if (editando)
         {
-            NavigationManager.NavigateTo($"/usuarios/{usuarioSeleccionado.UsuarioID}");
+            await UsuarioService.UpdateUsuarioAsync(usuarioActual);
         }
         else
         {
-            Console.WriteLine("Seleccione un usuario para ver el detalle.");
+            await UsuarioService.AddUsuarioAsync(usuarioActual);
         }
+        usuarioActual = new Usuario();
+        editando = false;
+        listaUsuarios = await UsuarioService.GetUsuariosAsync();
+    }
+
+    private void EditarUsuario(Usuario usuario)
+    {
+        usuarioActual = usuario;
+        editando = true;
+    }
+
+    private async Task EliminarUsuario(int usuarioId)
+    {
+        await UsuarioService.DeleteUsuarioAsync(usuarioId);
+        listaUsuarios = await UsuarioService.GetUsuariosAsync();
     }
 }
