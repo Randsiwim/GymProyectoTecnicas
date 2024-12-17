@@ -1,0 +1,59 @@
+﻿@using proyectoGymBlazor.Services
+@using proyectoGymBlazor.Model
+@inject ProgresoUsuarioService ProgresoUsuarioService
+@inject NavigationManager NavigationManager
+
+
+<h3>Gestión de Progreso de Usuarios</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Usuario</th>
+            <th>Fecha</th>
+            <th>Métrica</th>
+            <th>Valor</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var progreso in listaProgresos)
+        {
+            <tr @onclick="() => SeleccionarProgreso(progreso)" class="@GetRowClass(progreso)" style="cursor:pointer;">
+                <td>@progreso.UsuarioNombre</td>
+                <td>@progreso.Fecha.ToString("dd/MM/yyyy")</td>
+                <td>@progreso.Metrica</td>
+                <td>@progreso.Valor</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<button class="btn btn-primary" @onclick="VerDetalleProgreso">Ver Detalle</button>
+
+@code {
+    private List<ProgresoUsuarioViewModel> listaProgresos = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Obtén los datos de ProgresoUsuario desde el servicio
+        var progresos = await ProgresoUsuarioService.GetProgresosAsync();
+
+        // Convierte la lista de ProgresoUsuario a ProgresoUsuarioViewModel
+        listaProgresos = progresos.Select(p => new ProgresoUsuarioViewModel
+            {
+                ProgresoId = p.ProgresoId,
+                UsuarioId = p.UsuarioId,
+                UsuarioNombre = await ObtenerNombreUsuario(p.UsuarioId), // Si necesitas hacer llamadas adicionales
+                Fecha = p.Fecha,
+                Metrica = p.Metrica,
+                Valor = p.Valor
+            }).ToList();
+    }
+
+    private async Task<string> ObtenerNombreUsuario(int usuarioId)
+    {
+        // Simula la obtención del nombre del usuario desde el servicio
+        var usuario = await UsuarioService.GetUsuarioByIdAsync(usuarioId);
+        return usuario?.Nombre ?? "Usuario desconocido";
+    }
+}

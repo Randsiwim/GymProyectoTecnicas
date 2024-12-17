@@ -1,0 +1,128 @@
+﻿@page "/facturas"
+@using proyectoGymBlazor.Model
+@using proyectoGymBlazor.Services
+@inject FacturaService FacturaService
+@inject NavigationManager NavigationManager
+
+<h3>Gestión de Facturas</h3>
+
+<!-- Tabla para listar las facturas -->
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Usuario ID</th>
+            <th>Fecha</th>
+            <th>Monto</th>
+            <th>Detalle</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var factura in listaFacturas)
+        {
+            <tr>
+                <td>@factura.FacturaID</td>
+                <td>@factura.UsuarioID</td>
+                <td>@factura.Fecha.ToString("dd/MM/yyyy")</td>
+                <td>@factura.Monto</td>
+                <td>@factura.Detalle</td>
+                <td>
+                    <button class="btn btn-primary btn-sm" @onclick="() => EditarFactura(factura)">Editar</button>
+                    <button class="btn btn-danger btn-sm" @onclick="() => EliminarFactura(factura.FacturaID)">Eliminar</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- Formulario para agregar/editar facturas -->
+<h4>@(editando ? "Editar Factura" : "Agregar Factura")</h4>
+<EditForm Model="@facturaActual" OnValidSubmit="GuardarFactura">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div class="form-group">
+        <label for="UsuarioID">Usuario ID</label>
+        <InputNumber id="UsuarioID" class="form-control" @bind-Value="facturaActual.UsuarioID" />
+    </div>
+    <div class="form-group">
+        <label for="Fecha">Fecha</label>
+        <InputDate id="Fecha" class="form-control" @bind-Value="facturaActual.Fecha" />
+    </div>
+    <div class="form-group">
+        <label for="Monto">Monto</label>
+        <InputNumber id="Monto" class="form-control" @bind-Value="facturaActual.Monto" />
+    </div>
+    <div class="form-group">
+        <label for="Detalle">Detalle</label>
+        <InputText id="Detalle" class="form-control" @bind-Value="facturaActual.Detalle" />
+    </div>
+    <button type="submit" class="btn btn-success">@((editando) ? "Actualizar" : "Agregar")</button>
+    <button type="button" class="btn btn-secondary" @onclick="CancelarEdicion">Cancelar</button>
+</EditForm>
+
+@code {
+    private List<Factura> listaFacturas = new();
+    private Factura facturaActual = new Factura();
+    private bool editando = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        listaFacturas = await FacturaService.GetFacturasAsync();
+    }
+
+    private async Task GuardarFactura()
+    {
+        if (editando)
+        {
+            await FacturaService.UpdateFacturaAsync(facturaActual);
+        }
+        else
+        {
+            await FacturaService.AddFacturaAsync(facturaActual);
+        }
+
+        facturaActual = new Factura();
+        editando = false;
+        listaFacturas = await FacturaService.GetFacturasAsync();
+    }
+
+    private void EditarFactura(Factura factura)
+    {
+        facturaActual = new Factura
+        {
+            FacturaID = factura.FacturaID,
+            UsuarioID = factura.UsuarioID,
+            Fecha = factura.Fecha,
+            Monto = factura.Monto,
+            Detalle = factura.Detalle
+        };
+        editando = true;
+    }
+
+    private async Task EliminarFactura(int facturaId)
+    {
+        await FacturaService.DeleteFacturaAsync(facturaId);
+        listaFacturas = await FacturaService.GetFacturasAsync();
+    }
+
+    private void CancelarEdicion()
+    {
+        facturaActual = new Factura();
+        editando = false;
+    }
+}
+
+    private void EditarFactura(Factura factura)
+    {
+        facturaActual = factura;
+        editando = true;
+    }
+
+    private async Task EliminarFactura(int facturaId)
+    {
+        await FacturaService.DeleteFacturaAsync(facturaId);
+        listaFacturas = await FacturaService.GetFacturasAsync();
+    }
+}
+

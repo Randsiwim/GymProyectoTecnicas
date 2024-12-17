@@ -15,7 +15,7 @@ C:\Users\Portatil_12\source\repos\proyectoGym\proyectoGym\obj\Debug\proyectoGym.
 C:\Users\Portatil_12\source\repos\proyectoGym\proyectoGym\obj\Debug\proyectoGym.FormMembresias.resources
 C:\Users\Rand\Source\Repos\GymProyectoTecnicas\proyectoGym\obj\Debug\proyectoGym.csproj.AssemblyReference.cache
 C:\Users\Rand\Source\Repos\GymProyectoTecnicas\proyectoGym\obj\Debug\proyectoGym.FormClase.resources
-C:\Users\Rand\Source\Repos\GymProyectoTecnicas\proyectoGym\obj\Debug\proyectoGym.FormFacturacion.resources
+C:\Users\Rand\Source\Repos\GymProyectoTecnicas\proyectoGym\obj\Debug\proyectoGym.FormFactura.resources
 C:\Users\Rand\Source\Repos\GymProyectoTecnicas\proyectoGym\obj\Debug\proyectoGym.FormInventario.resources
 C:\Users\Rand\Source\Repos\GymProyectoTecnicas\proyectoGym\obj\Debug\proyectoGym.FormLogin.resources
 C:\Users\Rand\Source\Repos\GymProyectoTecnicas\proyectoGym\obj\Debug\proyectoGym.FormMain.resources
@@ -26,4 +26,3 @@ C:\Users\Rand\Source\Repos\GymProyectoTecnicas\proyectoGym\obj\Debug\proyectoGym
 C:\Users\Rand\Source\Repos\GymProyectoTecnicas\proyectoGym\obj\Debug\proyectoGym.Properties.Resources.resources
 C:\Users\Rand\Source\Repos\GymProyectoTecnicas\proyectoGym\obj\Debug\proyectoGym.csproj.GenerateResource.cache
 C:\Users\Rand\Source\Repos\GymProyectoTecnicas\proyectoGym\obj\Debug\proyectoGym.csproj.CoreCompileInputs.cache
-C:\Users\Rand\Source\Repos\GymProyectoTecnicas\proyectoGym\obj\Debug\proyectoGym.FormFactura.resources

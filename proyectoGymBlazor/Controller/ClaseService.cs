@@ -1,43 +1,48 @@
-﻿using proyectoGymBlazor.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Microsoft.EntityFrameworkCore;
+using proyectoGymBlazor.Data;
+using proyectoGymBlazor.Models; // Importación correcta del namespace
 
 namespace proyectoGymBlazor.Services
 {
     public class ClaseService
     {
-        private readonly List<Clase> _clases;
+        private readonly GimnasioDbContext _context;
 
-        public ClaseService()
+        public ClaseService(GimnasioDbContext context)
         {
-            // Datos iniciales simulados
-            _clases = new List<Clase>
-            {
-                new Clase { ClaseID = 1, Nombre = "Yoga", Horario = DateTime.Now.AddHours(1), EntrenadorID = 1, Cupo = 20 },
-                new Clase { ClaseID = 2, Nombre = "Spinning", Horario = DateTime.Now.AddHours(2), EntrenadorID = 2, Cupo = 15 }
-            };
+            _context = context;
         }
 
-        public List<Clase> GetClases() => _clases;
-
-        public Clase GetClaseById(int id) => _clases.FirstOrDefault(c => c.ClaseID == id);
-
-        public void AddClase(Clase clase) => _clases.Add(clase);
-
-        public void UpdateClase(Clase clase)
+        public async Task<List<Clase>> GetClasesAsync()
         {
-            var existingClase = _clases.FirstOrDefault(c => c.ClaseID == clase.ClaseID);
-            if (existingClase != null)
+            return await _context.Clases.ToListAsync();
+        }
+
+        public async Task<Clase> GetClaseByIdAsync(int id)
+        {
+            return await _context.Clases.FindAsync(id);
+        }
+
+        public async Task AddClaseAsync(Clase clase)
+        {
+            _context.Clases.Add(clase);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task UpdateClaseAsync(Clase clase)
+        {
+            _context.Entry(clase).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task DeleteClaseAsync(int id)
+        {
+            var clase = await GetClaseByIdAsync(id);
+            if (clase != null)
             {
-                existingClase.Nombre = clase.Nombre;
-                existingClase.Horario = clase.Horario;
-                existingClase.EntrenadorID = clase.EntrenadorID;
-                existingClase.Cupo = clase.Cupo;
+                _context.Clases.Remove(clase);
+                await _context.SaveChangesAsync();
             }
         }
-
-        public void DeleteClase(int id) => _clases.RemoveAll(c => c.ClaseID == id);
     }
 }
-

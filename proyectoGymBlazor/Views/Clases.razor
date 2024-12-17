@@ -1,0 +1,116 @@
+﻿@page "/clases"
+@using proyectoGymBlazor.Models
+@using proyectoGymBlazor.Services
+@inject ClaseService ClaseService
+@inject NavigationManager NavigationManager
+
+<h3>Gestión de Clases</h3>
+
+<!-- Tabla para listar las clases -->
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Horario</th>
+            <th>Entrenador ID</th>
+            <th>Cupo</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var clase in listaClases)
+        {
+            <tr>
+                <td>@clase.Nombre</td>
+                <td>@clase.Horario.ToString("dd/MM/yyyy HH:mm")</td>
+                <td>@clase.EntrenadorID</td>
+                <td>@clase.Cupo</td>
+                <td>
+                    <button class="btn btn-primary btn-sm" @onclick="() => EditarClase(clase)">Editar</button>
+                    <button class="btn btn-danger btn-sm" @onclick="() => EliminarClase(clase.ClaseID)">Eliminar</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<button class="btn btn-success" @onclick="NuevaClase">Nueva Clase</button>
+
+@if (mostrarFormulario)
+{
+    <div class="mt-3">
+        <h4>@(claseSeleccionada.ClaseID == 0 ? "Nueva Clase" : "Editar Clase")</h4>
+        <EditForm Model="@claseSeleccionada" OnValidSubmit="GuardarClase">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+            <div class="form-group">
+                <label>Nombre</label>
+                <InputText class="form-control" @bind-Value="claseSeleccionada.Nombre" />
+            </div>
+            <div class="form-group">
+                <label>Horario</label>
+                <InputDate class="form-control" @bind-Value="claseSeleccionada.Horario" />
+            </div>
+            <div class="form-group">
+                <label>Entrenador ID</label>
+                <InputNumber class="form-control" @bind-Value="claseSeleccionada.EntrenadorID" />
+            </div>
+            <div class="form-group">
+                <label>Cupo</label>
+                <InputNumber class="form-control" @bind-Value="claseSeleccionada.Cupo" />
+            </div>
+            <button class="btn btn-primary" type="submit">Guardar</button>
+            <button class="btn btn-secondary" @onclick="Cancelar">Cancelar</button>
+        </EditForm>
+    </div>
+}
+
+@code {
+    private List<Clase> listaClases = new();
+    private Clase claseSeleccionada = new Clase();
+    private bool mostrarFormulario = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        listaClases = await ClaseService.GetClasesAsync();
+    }
+
+    private void NuevaClase()
+    {
+        claseSeleccionada = new Clase();
+        mostrarFormulario = true;
+    }
+
+    private void EditarClase(Clase clase)
+    {
+        claseSeleccionada = clase;
+        mostrarFormulario = true;
+    }
+
+    private async Task GuardarClase()
+    {
+        if (claseSeleccionada.ClaseID == 0)
+        {
+            await ClaseService.AddClaseAsync(claseSeleccionada);
+        }
+        else
+        {
+            await ClaseService.UpdateClaseAsync(claseSeleccionada);
+        }
+
+        listaClases = await ClaseService.GetClasesAsync();
+        mostrarFormulario = false;
+    }
+
+    private async Task EliminarClase(int claseId)
+    {
+        await ClaseService.DeleteClaseAsync(claseId);
+        listaClases = await ClaseService.GetClasesAsync();
+    }
+
+    private void Cancelar()
+    {
+        mostrarFormulario = false;
+    }
+}
+

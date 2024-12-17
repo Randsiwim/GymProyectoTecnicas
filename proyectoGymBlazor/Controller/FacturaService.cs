@@ -1,7 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using proyectoGymBlazor.Data;
 using proyectoGymBlazor.Model;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
-namespace proyectoGymBlazor.Data
+namespace proyectoGymBlazor.Services
 {
     public class FacturaService
     {
@@ -12,31 +15,69 @@ namespace proyectoGymBlazor.Data
             _context = context;
         }
 
-        public async Task<List<FacturaViewModel>> GetFacturasAsync()
+        // Obtener todas las facturas
+        public async Task<List<Factura>> GetFacturasAsync()
         {
-            return await _context.Facturas
-                .Select(f => new FacturaViewModel
-                {
-                    FacturaId = f.FacturaId,
-                    UsuarioId = f.UsuarioId,
-                    Fecha = f.Fecha,
-                    Monto = f.Monto,
-                    Detalle = f.Detalle,
-                    UsuarioNombre = _context.Usuarios
-                        .Where(u => u.UsuarioID == f.UsuarioId)
-                        .Select(u => u.Nombre)
-                        .FirstOrDefault() ?? "Usuario no encontrado"
-                }).ToListAsync();
+            return await _context.Facturas.ToListAsync();
+        }
+
+        // Obtener una factura por ID
+        public async Task<Factura> GetFacturaByIdAsync(int id)
+        {
+            return await _context.Facturas.FindAsync(id);
+        }
+
+        // Agregar una nueva factura
+        public async Task<bool> AddFacturaAsync(Factura factura)
+        {
+            try
+            {
+                _context.Facturas.Add(factura);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch
+            {
+                // Log o manejo de error
+                return false;
+            }
+        }
+
+        // Actualizar una factura existente
+        public async Task<bool> UpdateFacturaAsync(Factura factura)
+        {
+            try
+            {
+                _context.Entry(factura).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch
+            {
+                // Log o manejo de error
+                return false;
+            }
+        }
+
+        // Eliminar una factura por ID
+        public async Task<bool> DeleteFacturaAsync(int id)
+        {
+            try
+            {
+                var factura = await GetFacturaByIdAsync(id);
+                if (factura == null) return false;
+
+                _context.Facturas.Remove(factura);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch
+            {
+                // Log o manejo de error
+                return false;
+            }
         }
     }
-
-    public class FacturaViewModel
-    {
-        public int FacturaId { get; set; }
-        public int UsuarioId { get; set; }
-        public string UsuarioNombre { get; set; }
-        public DateTime Fecha { get; set; }
-        public decimal Monto { get; set; }
-        public string Detalle { get; set; }
-    }
 }
+
+

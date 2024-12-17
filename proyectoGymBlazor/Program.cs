@@ -10,6 +10,7 @@ builder.Services.AddDbContext<GimnasioDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("GimnasioDB")));
 
 // Registrar los servicios
+
 builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<ClaseService>();
 builder.Services.AddScoped<FacturaService>();

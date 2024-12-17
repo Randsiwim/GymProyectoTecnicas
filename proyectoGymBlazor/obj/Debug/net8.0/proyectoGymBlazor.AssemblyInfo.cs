@@ -11,10 +11,11 @@
 using System;
 using System.Reflection;
 
+[assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("20de6694-e0a8-417f-8a8f-77c996cb407f")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("proyectoGymBlazor")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+528b4670d4b925f4478bf542c2adae508f18fa41")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ceda490503aa243dacaf0264a5eb1b84869f3221")]
 [assembly: System.Reflection.AssemblyProductAttribute("proyectoGymBlazor")]
 [assembly: System.Reflection.AssemblyTitleAttribute("proyectoGymBlazor")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

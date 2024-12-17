@@ -1,0 +1,100 @@
+﻿@page "/reservas"
+@using proyectoGymBlazor.Model
+@using proyectoGymBlazor.Services
+@inject ReservaService ReservaService
+@inject NavigationManager NavigationManager
+
+<h3>Gestión de Reservas</h3>
+
+<!-- Tabla para listar las reservas -->
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Usuario ID</th>
+            <th>Clase ID</th>
+            <th>Fecha Reserva</th>
+            <th>Tipo Reserva</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var reserva in listaReservas)
+        {
+            <tr>
+                <td>@reserva.ReservaId</td>
+                <td>@reserva.UsuarioId</td>
+                <td>@reserva.ClaseId</td>
+                <td>@reserva.FechaReserva.ToString("dd/MM/yyyy")</td>
+                <td>@reserva.TipoReserva</td>
+                <td>
+                    <button class="btn btn-primary btn-sm" @onclick="() => EditarReserva(reserva)">Editar</button>
+                    <button class="btn btn-danger btn-sm" @onclick="() => EliminarReserva(reserva.ReservaId)">Eliminar</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- Formulario para agregar/editar reservas -->
+<h4>@(editando ? "Editar Reserva" : "Agregar Reserva")</h4>
+<EditForm Model="@reservaActual" OnValidSubmit="GuardarReserva">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div class="form-group">
+        <label for="UsuarioId">Usuario ID</label>
+        <InputNumber id="UsuarioId" class="form-control" @bind-Value="reservaActual.UsuarioId" />
+    </div>
+    <div class="form-group">
+        <label for="ClaseId">Clase ID</label>
+        <InputNumber id="ClaseId" class="form-control" @bind-Value="reservaActual.ClaseId" />
+    </div>
+    <div class="form-group">
+        <label for="FechaReserva">Fecha Reserva</label>
+        <InputDate id="FechaReserva" class="form-control" @bind-Value="reservaActual.FechaReserva" />
+    </div>
+    <div class="form-group">
+        <label for="TipoReserva">Tipo Reserva</label>
+        <InputText id="TipoReserva" class="form-control" @bind-Value="reservaActual.TipoReserva" />
+    </div>
+    <button type="submit" class="btn btn-success">@((editando) ? "Actualizar" : "Agregar")</button>
+</EditForm>
+
+@code {
+    private List<Reserva> listaReservas = new();
+    private Reserva reservaActual = new Reserva();
+    private bool editando = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        listaReservas = await ReservaService.GetReservasAsync();
+    }
+
+    private async Task GuardarReserva()
+    {
+        if (editando)
+        {
+            await ReservaService.UpdateReservaAsync(reservaActual);
+        }
+        else
+        {
+            await ReservaService.AddReservaAsync(reservaActual);
+        }
+        reservaActual = new Reserva();
+        editando = false;
+        listaReservas = await ReservaService.GetReservasAsync();
+    }
+
+    private void EditarReserva(Reserva reserva)
+    {
+        reservaActual = reserva;
+        editando = true;
+    }
+
+    private async Task EliminarReserva(int reservaId)
+    {
+        await ReservaService.DeleteReservaAsync(reservaId);
+        listaReservas = await ReservaService.GetReservasAsync();
+    }
+}
+

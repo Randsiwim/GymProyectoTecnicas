@@ -1,23 +1,17 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿
 
 namespace proyectoGymBlazor.Model
 {
     public class Reserva
     {
-        
-        public int ReservaId { get; set; }
-
-        
-        public int UsuarioId { get; set; }
-
-
-        [Required]
-        public int ClaseId { get; set; }
-
-        [Required]
+        public int ReservaID { get; set; }
+        public int UsuarioID { get; set; }
+        public int ClaseID { get; set; }
         public DateTime FechaReserva { get; set; }
+        public string TipoReserva { get; set; }
 
-        public string TipoReserva { get; set; } = "Pendiente"; // Pendiente, Confirmada, Cancelada
+        public Usuario Usuario { get; set; }
+        public Clase Clase { get; set; }
     }
+
 }

@@ -1,0 +1,106 @@
+﻿@page "/membresias"
+@using proyectoGymBlazor.Model
+@using proyectoGymBlazor.Services
+@inject MembresiaService MembresiaService
+@inject NavigationManager NavigationManager
+
+<h3>Gestión de Membresías</h3>
+
+<!-- Tabla para listar las membresías -->
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Usuario ID</th>
+            <th>Tipo</th>
+            <th>Fecha Inicio</th>
+            <th>Fecha Fin</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var membresia in listaMembresias)
+        {
+            <tr>
+                <td>@membresia.MembresiaID</td>
+                <td>@membresia.UsuarioID</td>
+                <td>@membresia.Tipo</td>
+                <td>@membresia.FechaInicio.ToString("dd/MM/yyyy")</td>
+                <td>@membresia.FechaFin.ToString("dd/MM/yyyy")</td>
+                <td>@membresia.Estado</td>
+                <td>
+                    <button class="btn btn-primary btn-sm" @onclick="() => EditarMembresia(membresia)">Editar</button>
+                    <button class="btn btn-danger btn-sm" @onclick="() => EliminarMembresia(membresia.MembresiaID)">Eliminar</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- Formulario para agregar/editar membresías -->
+<h4>@(editando ? "Editar Membresía" : "Agregar Membresía")</h4>
+<EditForm Model="@membresiaActual" OnValidSubmit="GuardarMembresia">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div class="form-group">
+        <label for="UsuarioID">Usuario ID</label>
+        <InputNumber id="UsuarioID" class="form-control" @bind-Value="membresiaActual.UsuarioID" />
+    </div>
+    <div class="form-group">
+        <label for="Tipo">Tipo</label>
+        <InputText id="Tipo" class="form-control" @bind-Value="membresiaActual.Tipo" />
+    </div>
+    <div class="form-group">
+        <label for="FechaInicio">Fecha Inicio</label>
+        <InputDate id="FechaInicio" class="form-control" @bind-Value="membresiaActual.FechaInicio" />
+    </div>
+    <div class="form-group">
+        <label for="FechaFin">Fecha Fin</label>
+        <InputDate id="FechaFin" class="form-control" @bind-Value="membresiaActual.FechaFin" />
+    </div>
+    <div class="form-group">
+        <label for="Estado">Estado</label>
+        <InputText id="Estado" class="form-control" @bind-Value="membresiaActual.Estado" />
+    </div>
+    <button type="submit" class="btn btn-success">@((editando) ? "Actualizar" : "Agregar")</button>
+</EditForm>
+
+@code {
+    private List<Membresia> listaMembresias = new();
+    private Membresia membresiaActual = new Membresia();
+    private bool editando = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        listaMembresias = await MembresiaService.GetMembresiasAsync();
+    }
+
+    private async Task GuardarMembresia()
+    {
+        if (editando)
+        {
+            await MembresiaService.UpdateMembresiaAsync(membresiaActual);
+        }
+        else
+        {
+            await MembresiaService.AddMembresiaAsync(membresiaActual);
+        }
+        membresiaActual = new Membresia();
+        editando = false;
+        listaMembresias = await MembresiaService.GetMembresiasAsync();
+    }
+
+    private void EditarMembresia(Membresia membresia)
+    {
+        membresiaActual = membresia;
+        editando = true;
+    }
+
+    private async Task EliminarMembresia(int membresiaId)
+    {
+        await MembresiaService.DeleteMembresiaAsync(membresiaId);
+        listaMembresias = await MembresiaService.GetMembresiasAsync();
+    }
+}
+

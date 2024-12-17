@@ -1,7 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using proyectoGymBlazor.Data;
 using proyectoGymBlazor.Model;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
-namespace proyectoGymBlazor.Data
+namespace proyectoGymBlazor.Services
 {
     public class InventarioService
     {
@@ -12,46 +15,41 @@ namespace proyectoGymBlazor.Data
             _context = context;
         }
 
-        // Obtener todos los equipos
+        // Obtener todos los elementos del inventario
         public async Task<List<Inventario>> GetInventarioAsync()
         {
             return await _context.Inventarios.ToListAsync();
         }
 
-        // Agregar un nuevo equipo
+        // Obtener un elemento del inventario por ID
+        public async Task<Inventario> GetInventarioByIdAsync(int id)
+        {
+            return await _context.Inventarios.FindAsync(id);
+        }
+
+        // Agregar un nuevo elemento al inventario
         public async Task AddInventarioAsync(Inventario inventario)
         {
             _context.Inventarios.Add(inventario);
             await _context.SaveChangesAsync();
         }
 
-        // Actualizar un equipo
+        // Actualizar un elemento existente del inventario
         public async Task UpdateInventarioAsync(Inventario inventario)
         {
-            var equipoExistente = await _context.Inventarios.FindAsync(inventario.EqupoId);
-            if (equipoExistente != null)
-            {
-                equipoExistente.Nombre = inventario.Nombre;
-                equipoExistente.FechaAdquisicion = inventario.FechaAdquisicion;
-                equipoExistente.VidaUtilMeses = inventario.VidaUtilMeses;
-                equipoExistente.Estado = inventario.Estado;
-
-                await _context.SaveChangesAsync();
-            }
+            _context.Inventarios.Update(inventario);
+            await _context.SaveChangesAsync();
         }
 
-        // Eliminar un equipo
-        public async Task DeleteInventarioAsync(int equipoId)
+        // Eliminar un elemento del inventario por ID
+        public async Task DeleteInventarioAsync(int id)
         {
-            var equipo = await _context.Inventarios.FindAsync(equipoId);
-            if (equipo != null)
+            var inventario = await GetInventarioByIdAsync(id);
+            if (inventario != null)
             {
-                _context.Inventarios.Remove(equipo);
+                _context.Inventarios.Remove(inventario);
                 await _context.SaveChangesAsync();
             }
         }
-
-    
-
     }
 }

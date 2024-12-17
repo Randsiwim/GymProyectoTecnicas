@@ -1,22 +1,15 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-
-namespace proyectoGymBlazor.Model
+﻿namespace proyectoGymBlazor.Model
 {
     public class Factura
     {
-        public int FacturaId { get; set; }
-
-        [Required]
-        public int UsuarioId { get; set; }
-
-        [Required]
+        public int FacturaID { get; set; }
+        public int UsuarioID { get; set; }
         public DateTime Fecha { get; set; }
-
-        [Range(0.01, double.MaxValue, ErrorMessage = "El total debe ser mayor a 0.")]
         public decimal Monto { get; set; }
-
-        [MaxLength(500)]
         public string Detalle { get; set; }
+
+        // Relación con Usuario
+        public Usuario Usuario { get; set; }
     }
 }
+

@@ -4,7 +4,6 @@ using proyectoGymBlazor.Model;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-
 namespace proyectoGymBlazor.Services
 {
     public class MembresiaService
@@ -17,35 +16,35 @@ namespace proyectoGymBlazor.Services
         }
 
         // Obtener todas las membresías
-        public async Task<List<Membresia>> ObtenerMembresiasAsync()
+        public async Task<List<Membresia>> GetMembresiasAsync()
         {
             return await _context.Membresias.ToListAsync();
         }
 
         // Obtener una membresía por ID
-        public async Task<Membresia> ObtenerMembresiaPorIdAsync(int id)
+        public async Task<Membresia> GetMembresiaByIdAsync(int id)
         {
-            return await _context.Membresias.FirstOrDefaultAsync(m => m.MembresiaID == id);
+            return await _context.Membresias.FindAsync(id);
         }
 
-        // Crear una nueva membresía
-        public async Task CrearMembresiaAsync(Membresia membresia)
+        // Agregar una nueva membresía
+        public async Task AddMembresiaAsync(Membresia membresia)
         {
             _context.Membresias.Add(membresia);
             await _context.SaveChangesAsync();
         }
 
         // Actualizar una membresía existente
-        public async Task ActualizarMembresiaAsync(Membresia membresia)
+        public async Task UpdateMembresiaAsync(Membresia membresia)
         {
             _context.Membresias.Update(membresia);
             await _context.SaveChangesAsync();
         }
 
         // Eliminar una membresía
-        public async Task EliminarMembresiaAsync(int id)
+        public async Task DeleteMembresiaAsync(int id)
         {
-            var membresia = await _context.Membresias.FirstOrDefaultAsync(m => m.MembresiaID == id);
+            var membresia = await GetMembresiaByIdAsync(id);
             if (membresia != null)
             {
                 _context.Membresias.Remove(membresia);
@@ -54,3 +53,4 @@ namespace proyectoGymBlazor.Services
         }
     }
 }
+
