@@ -1,0 +1,37 @@
+﻿@model Gimnasio.Models.Usuario
+
+@{
+    ViewData["Title"] = "Editar Usuario";
+}
+
+<h2>Editar Usuario</h2>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="UsuarioID" />
+    <div class="mb-3">
+        <label for="Nombre" class="form-label">Nombre</label>
+        <input type="text" asp-for="Nombre" class="form-control" required />
+    </div>
+    <div class="mb-3">
+        <label for="Email" class="form-label">Email</label>
+        <input type="email" asp-for="Email" class="form-control" required />
+    </div>
+    <div class="mb-3">
+        <label for="Contraseña" class="form-label">Contraseña</label>
+        <input type="password" asp-for="Contraseña" class="form-control" required />
+    </div>
+    <div class="mb-3">
+        <label for="Rol" class="form-label">Rol</label>
+        <select asp-for="Rol" class="form-control">
+            <option value="Administrador">Administrador</option>
+            <option value="Entrenador">Entrenador</option>
+            <option value="Cliente">Cliente</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="Horario" class="form-label">Horario</label>
+        <input type="text" asp-for="Horario" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+</form>

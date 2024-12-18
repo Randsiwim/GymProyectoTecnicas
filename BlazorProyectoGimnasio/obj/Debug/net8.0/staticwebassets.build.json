@@ -1,0 +1,331 @@
+{
+  "Version": 1,
+  "Hash": "zhbBsepOTFZGPHaBna6ihzb4GwRQEi60EV+mEjHJJAk=",
+  "Source": "BlazorProyectoGimnasio",
+  "BasePath": "_content/BlazorProyectoGimnasio",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "BlazorProyectoGimnasio\\wwwroot",
+      "Source": "BlazorProyectoGimnasio",
+      "ContentRoot": "C:\\Users\\Rand\\Source\\Repos\\GymProyectoTecnicas\\BlazorProyectoGimnasio\\wwwroot\\",
+      "BasePath": "_content/BlazorProyectoGimnasio",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "C:\\Users\\Rand\\Source\\Repos\\GymProyectoTecnicas\\BlazorProyectoGimnasio\\obj\\Debug\\net8.0\\scopedcss\\bundle\\BlazorProyectoGimnasio.styles.css",
+      "SourceId": "BlazorProyectoGimnasio",
+      "SourceType": "Computed",
+      "ContentRoot": "C:\\Users\\Rand\\Source\\Repos\\GymProyectoTecnicas\\BlazorProyectoGimnasio\\obj\\Debug\\net8.0\\scopedcss\\bundle\\",
+      "BasePath": "_content/BlazorProyectoGimnasio",
+      "RelativePath": "BlazorProyectoGimnasio#[.{fingerprint}]?.styles.css",
+      "AssetKind": "All",
+      "AssetMode": "CurrentProject",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "ScopedCss",
+      "AssetTraitValue": "ApplicationBundle",
+      "Fingerprint": "zql0l0klut",
+      "Integrity": "5dy6dU+Mqk61rprrbhyA//bbmzKMlUOsX9K+Z4dTnYg=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "C:\\Users\\Rand\\Source\\Repos\\GymProyectoTecnicas\\BlazorProyectoGimnasio\\obj\\Debug\\net8.0\\scopedcss\\bundle\\BlazorProyectoGimnasio.styles.css"
+    },
+    {
+      "Identity": "C:\\Users\\Rand\\Source\\Repos\\GymProyectoTecnicas\\BlazorProyectoGimnasio\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\BlazorProyectoGimnasio.bundle.scp.css",
+      "SourceId": "BlazorProyectoGimnasio",
+      "SourceType": "Computed",
+      "ContentRoot": "C:\\Users\\Rand\\Source\\Repos\\GymProyectoTecnicas\\BlazorProyectoGimnasio\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\",
+      "BasePath": "_content/BlazorProyectoGimnasio",
+      "RelativePath": "BlazorProyectoGimnasio#[.{fingerprint}]!.bundle.scp.css",
+      "AssetKind": "All",
+      "AssetMode": "Reference",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "ScopedCss",
+      "AssetTraitValue": "ProjectBundle",
+      "Fingerprint": "zql0l0klut",
+      "Integrity": "5dy6dU+Mqk61rprrbhyA//bbmzKMlUOsX9K+Z4dTnYg=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "C:\\Users\\Rand\\Source\\Repos\\GymProyectoTecnicas\\BlazorProyectoGimnasio\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\BlazorProyectoGimnasio.bundle.scp.css"
+    },
+    {
+      "Identity": "C:\\Users\\Rand\\Source\\Repos\\GymProyectoTecnicas\\BlazorProyectoGimnasio\\wwwroot\\app.css",
+      "SourceId": "BlazorProyectoGimnasio",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Rand\\Source\\Repos\\GymProyectoTecnicas\\BlazorProyectoGimnasio\\wwwroot\\",
+      "BasePath": "_content/BlazorProyectoGimnasio",
+      "RelativePath": "app#[.{fingerprint}]?.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "9tsjre4pz5",
+      "Integrity": "Y3QRrYDjsQ+Bj4noKNSCcSRxgRtgAn0QL1o5m5BNepk=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\app.css"
+    }
+  ],
+  "Endpoints": [
+    {
+      "Route": "app.9tsjre4pz5.css",
+      "AssetFile": "C:\\Users\\Rand\\Source\\Repos\\GymProyectoTecnicas\\BlazorProyectoGimnasio\\wwwroot\\app.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2154"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Y3QRrYDjsQ+Bj4noKNSCcSRxgRtgAn0QL1o5m5BNepk=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 16 Dec 2024 22:44:39 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "9tsjre4pz5"
+        },
+        {
+          "Name": "label",
+          "Value": "app.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-Y3QRrYDjsQ+Bj4noKNSCcSRxgRtgAn0QL1o5m5BNepk="
+        }
+      ]
+    },
+    {
+      "Route": "app.css",
+      "AssetFile": "C:\\Users\\Rand\\Source\\Repos\\GymProyectoTecnicas\\BlazorProyectoGimnasio\\wwwroot\\app.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2154"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Y3QRrYDjsQ+Bj4noKNSCcSRxgRtgAn0QL1o5m5BNepk=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 16 Dec 2024 22:44:39 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-Y3QRrYDjsQ+Bj4noKNSCcSRxgRtgAn0QL1o5m5BNepk="
+        }
+      ]
+    },
+    {
+      "Route": "BlazorProyectoGimnasio.bundle.scp.css",
+      "AssetFile": "C:\\Users\\Rand\\Source\\Repos\\GymProyectoTecnicas\\BlazorProyectoGimnasio\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\BlazorProyectoGimnasio.bundle.scp.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "513"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"5dy6dU+Mqk61rprrbhyA//bbmzKMlUOsX9K+Z4dTnYg=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 18 Dec 2024 05:19:28 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-5dy6dU+Mqk61rprrbhyA//bbmzKMlUOsX9K+Z4dTnYg="
+        }
+      ]
+    },
+    {
+      "Route": "BlazorProyectoGimnasio.styles.css",
+      "AssetFile": "C:\\Users\\Rand\\Source\\Repos\\GymProyectoTecnicas\\BlazorProyectoGimnasio\\obj\\Debug\\net8.0\\scopedcss\\bundle\\BlazorProyectoGimnasio.styles.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "513"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"5dy6dU+Mqk61rprrbhyA//bbmzKMlUOsX9K+Z4dTnYg=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 18 Dec 2024 05:19:28 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-5dy6dU+Mqk61rprrbhyA//bbmzKMlUOsX9K+Z4dTnYg="
+        }
+      ]
+    },
+    {
+      "Route": "BlazorProyectoGimnasio.zql0l0klut.bundle.scp.css",
+      "AssetFile": "C:\\Users\\Rand\\Source\\Repos\\GymProyectoTecnicas\\BlazorProyectoGimnasio\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\BlazorProyectoGimnasio.bundle.scp.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "513"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"5dy6dU+Mqk61rprrbhyA//bbmzKMlUOsX9K+Z4dTnYg=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 18 Dec 2024 05:19:28 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "zql0l0klut"
+        },
+        {
+          "Name": "label",
+          "Value": "BlazorProyectoGimnasio.bundle.scp.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-5dy6dU+Mqk61rprrbhyA//bbmzKMlUOsX9K+Z4dTnYg="
+        }
+      ]
+    },
+    {
+      "Route": "BlazorProyectoGimnasio.zql0l0klut.styles.css",
+      "AssetFile": "C:\\Users\\Rand\\Source\\Repos\\GymProyectoTecnicas\\BlazorProyectoGimnasio\\obj\\Debug\\net8.0\\scopedcss\\bundle\\BlazorProyectoGimnasio.styles.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "513"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"5dy6dU+Mqk61rprrbhyA//bbmzKMlUOsX9K+Z4dTnYg=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 18 Dec 2024 05:19:28 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "zql0l0klut"
+        },
+        {
+          "Name": "label",
+          "Value": "BlazorProyectoGimnasio.styles.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-5dy6dU+Mqk61rprrbhyA//bbmzKMlUOsX9K+Z4dTnYg="
+        }
+      ]
+    }
+  ]
+}

@@ -1,30 +1,39 @@
-using BlazorProyectoGimnasio.Components;
-using BlazorProyectoGimnasio.Data;
+using Gimnasio.Data;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Configura el DbContext
+// Configuración del DbContext
 builder.Services.AddDbContext<GimnasioDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
+           .EnableSensitiveDataLogging() // Muestra detalles de parámetros SQL
+           .LogTo(Console.WriteLine, LogLevel.Information)); // Loguea comandos SQL
 
-// Add services to the container
-builder.Services.AddRazorComponents()
-    .AddInteractiveServerComponents();
+
+// Configuración de sesiones
+builder.Services.AddSession();
+
+// MVC
+builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Error", createScopeForErrors: true);
+    app.UseExceptionHandler("/Home/Error");
+    app.UseHsts();
 }
 
+//app.UseHttpsRedirection();
 app.UseStaticFiles();
-app.UseAntiforgery();
 
-// Configurar los componentes Blazor
-app.MapRazorComponents<App>()
-    .AddInteractiveServerRenderMode();
+app.UseRouting();
+
+app.UseSession(); // Habilitar sesiones
+app.UseAuthorization();
+
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Account}/{action=Login}/{id?}");
 
 app.Run();

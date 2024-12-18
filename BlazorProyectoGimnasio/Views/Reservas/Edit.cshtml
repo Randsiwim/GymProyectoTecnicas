@@ -1,0 +1,33 @@
+﻿@model Gimnasio.Models.Reserva
+
+@{
+    ViewData["Title"] = "Editar Reserva";
+}
+
+<h2>Editar Reserva</h2>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="ReservaID" />
+    <div class="mb-3">
+        <label for="UsuarioID" class="form-label">Cliente</label>
+        <select asp-for="UsuarioID" class="form-control" asp-items="@(new SelectList(ViewBag.Clientes, "UsuarioID", "Nombre"))">
+            <option value="">Seleccione un Cliente</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="ClaseID" class="form-label">Clase</label>
+        <select asp-for="ClaseID" class="form-control" asp-items="@(new SelectList(ViewBag.Clases, "ClaseID", "Nombre"))">
+            <option value="">Seleccione una Clase</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="FechaReserva" class="form-label">Fecha de Reserva</label>
+        <input type="date" asp-for="FechaReserva" class="form-control" required />
+    </div>
+    <div class="mb-3">
+        <label for="TipoReserva" class="form-label">Tipo de Reserva</label>
+        <input type="text" asp-for="TipoReserva" class="form-control" required />
+    </div>
+    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+</form>

@@ -1,0 +1,23 @@
+﻿@{
+    ViewData["Title"] = "Panel de Administración";
+}
+
+<h2 class="my-4">Panel de Administración</h2>
+
+<div class="d-grid gap-2 col-3 mx-auto">
+    <a asp-controller="Clases" asp-action="Index" class="btn btn-primary">Gestionar Clases</a>
+    <a asp-controller="Facturas" asp-action="Index" class="btn btn-primary">Gestionar Facturas</a>
+    <a asp-controller="Inventario" asp-action="Index" class="btn btn-primary mb-2">Gestionar Inventario</a>
+    <a asp-controller="Usuarios" asp-action="Index" class="btn btn-primary mb-2">Gestionar Usuarios</a>
+    <a asp-controller="Membresias" asp-action="Index" class="btn btn-primary">Gestionar Membresías</a>
+    <a asp-controller="ProgresoUsuarios" asp-action="Index" class="btn btn-primary">Gestionar Progreso de Usuarios</a>
+    <a asp-controller="Reservas" asp-action="Index" class="btn btn-primary">Gestionar Reservas</a>
+    <h2>Reportes</h2>
+    <div class="d-grid gap-2 col-3 mx-auto">
+        <a asp-controller="Reportes" asp-action="ReporteContable" class="btn btn-primary">Reporte Contable</a>
+        <a asp-controller="Reportes" asp-action="ReporteMatricula" class="btn btn-primary">Reporte de Matrícula</a>
+        <a asp-controller="Reportes" asp-action="ReporteClasesPopulares" class="btn btn-primary">Clases Populares</a>
+    </div>
+
+
+</div>

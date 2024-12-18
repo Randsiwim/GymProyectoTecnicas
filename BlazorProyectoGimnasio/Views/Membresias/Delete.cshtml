@@ -1,0 +1,32 @@
+﻿@model Gimnasio.Models.Membresia
+
+@{
+    ViewData["Title"] = "Eliminar Membresía";
+}
+
+<h2>¿Estás seguro de que quieres eliminar esta membresía?</h2>
+
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">Cliente:</dt>
+        <dd class="col-sm-10">@Model.Usuario.Nombre</dd>
+
+        <dt class="col-sm-2">Tipo:</dt>
+        <dd class="col-sm-10">@Model.Tipo</dd>
+
+        <dt class="col-sm-2">Fecha Inicio:</dt>
+        <dd class="col-sm-10">@Model.FechaInicio.ToString("dd/MM/yyyy")</dd>
+
+        <dt class="col-sm-2">Fecha Fin:</dt>
+        <dd class="col-sm-10">@Model.FechaFin.ToString("dd/MM/yyyy")</dd>
+
+        <dt class="col-sm-2">Estado:</dt>
+        <dd class="col-sm-10">@Model.Estado</dd>
+    </dl>
+
+    <form asp-action="DeleteConfirmed" method="post">
+        <input type="hidden" asp-for="MembresiaID" />
+        <button type="submit" class="btn btn-danger">Eliminar</button>
+        <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>

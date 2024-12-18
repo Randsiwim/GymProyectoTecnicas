@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Gimnasio.Models.Inventario>
+
+@{
+    ViewData["Title"] = "Gestionar Inventario";
+}
+
+<h2>Gestionar Inventario</h2>
+
+<p>
+    <a asp-action="Create" class="btn btn-success">Agregar Nuevo Equipo</a>
+</p>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Fecha de Adquisición</th>
+            <th>Vida Útil (Meses)</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.EquipoID</td>
+                <td>@item.Nombre</td>
+                <td>@item.FechaAdquisicion.ToString("dd/MM/yyyy")</td>
+                <td>@item.VidaUtilMeses</td>
+                <td>@item.Estado</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.EquipoID" class="btn btn-primary btn-sm">Editar</a>
+                    <a asp-action="Delete" asp-route-id="@item.EquipoID" class="btn btn-danger btn-sm">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

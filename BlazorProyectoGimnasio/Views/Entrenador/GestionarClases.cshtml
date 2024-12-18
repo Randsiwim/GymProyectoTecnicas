@@ -1,0 +1,25 @@
+﻿@model IEnumerable<Gimnasio.Models.Clase>
+
+<h2>Gestionar Clases</h2>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Horario</th>
+            <th>Cupo</th>
+            <th>Entrenador</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var clase in Model)
+        {
+            <tr>
+                <td>@clase.Nombre</td>
+                <td>@clase.Horario</td>
+                <td>@clase.Cupo</td>
+                <td>@clase.Entrenador?.Nombre</td>
+            </tr>
+        }
+    </tbody>
+</table>

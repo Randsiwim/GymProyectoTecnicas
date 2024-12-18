@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Gimnasio.Models.Clase>
+
+@{
+    ViewData["Title"] = "Gestionar Clases";
+}
+
+<h2>Gestionar Clases</h2>
+
+<p>
+    <a asp-action="Create" class="btn btn-success">Crear Nueva Clase</a>
+</p>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Horario</th>
+            <th>Cupo</th>
+            <th>Entrenador</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.ClaseID</td>
+                <td>@item.Nombre</td>
+                <td>@(item.Horario.HasValue ? item.Horario.ToString() : "Sin Horario")</td>
+                <td>@(item.Cupo.HasValue ? item.Cupo : "N/A")</td>
+                <td>@(item.Entrenador != null ? item.Entrenador.Nombre : "Sin Entrenador")</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ClaseID" class="btn btn-primary btn-sm">Editar</a>
+                    <a asp-action="Delete" asp-route-id="@item.ClaseID" class="btn btn-danger btn-sm">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,31 @@
+﻿@model Gimnasio.Models.Clase
+
+@{
+    ViewData["Title"] = "Editar Clase";
+}
+
+<h2>Editar Clase</h2>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="ClaseID" />
+    <div class="mb-3">
+        <label for="Nombre" class="form-label">Nombre de la Clase</label>
+        <input asp-for="Nombre" class="form-control" required />
+    </div>
+    <div class="mb-3">
+        <label for="Horario" class="form-label">Horario</label>
+        <input asp-for="Horario" type="time" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label for="Cupo" class="form-label">Cupo Máximo</label>
+        <input asp-for="Cupo" type="number" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label for="EntrenadorID" class="form-label">Entrenador</label>
+        <select asp-for="EntrenadorID" class="form-control" asp-items="@(new SelectList(ViewBag.Entrenadores, "UsuarioID", "Nombre"))">
+            <option value="">Seleccione un Entrenador</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+</form>

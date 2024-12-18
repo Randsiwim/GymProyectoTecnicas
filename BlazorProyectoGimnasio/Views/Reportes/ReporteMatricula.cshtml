@@ -1,0 +1,21 @@
+﻿@model IEnumerable<Gimnasio.Models.ReporteMatricula>
+
+<h2>Reporte de Matrícula</h2>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Mes</th>
+            <th>Total Matrículas</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Mes</td>
+                <td>@item.Matriculas</td>
+            </tr>
+        }
+    </tbody>
+</table>

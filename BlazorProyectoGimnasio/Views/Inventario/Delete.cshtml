@@ -1,0 +1,29 @@
+﻿@model Gimnasio.Models.Inventario
+
+@{
+    ViewData["Title"] = "Eliminar Equipo";
+}
+
+<h2>¿Estás seguro de que quieres eliminar este equipo?</h2>
+
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">Nombre:</dt>
+        <dd class="col-sm-10">@Model.Nombre</dd>
+
+        <dt class="col-sm-2">Fecha de Adquisición:</dt>
+        <dd class="col-sm-10">@Model.FechaAdquisicion.ToString("dd/MM/yyyy")</dd>
+
+        <dt class="col-sm-2">Vida Útil (Meses):</dt>
+        <dd class="col-sm-10">@Model.VidaUtilMeses</dd>
+
+        <dt class="col-sm-2">Estado:</dt>
+        <dd class="col-sm-10">@Model.Estado</dd>
+    </dl>
+
+    <form asp-action="DeleteConfirmed" method="post">
+        <input type="hidden" asp-for="EquipoID" />
+        <button type="submit" class="btn btn-danger">Eliminar</button>
+        <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>

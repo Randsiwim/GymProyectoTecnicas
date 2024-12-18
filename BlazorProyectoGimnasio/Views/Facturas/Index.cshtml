@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Gimnasio.Models.Factura>
+
+@{
+    ViewData["Title"] = "Gestionar Facturas";
+}
+
+<h2>Gestionar Facturas</h2>
+
+<p>
+    <a asp-action="Create" class="btn btn-success">Crear Nueva Factura</a>
+</p>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Cliente</th>
+            <th>Monto</th>
+            <th>Detalle</th>
+            <th>Fecha</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.FacturaID</td>
+                <td>@item.Usuario.Nombre</td>
+                <td>@item.Monto.ToString("C")</td>
+                <td>@item.Detalle</td>
+                <td>@item.Fecha.ToString("dd/MM/yyyy")</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.FacturaID" class="btn btn-primary btn-sm">Editar</a>
+                    <a asp-action="Delete" asp-route-id="@item.FacturaID" class="btn btn-danger btn-sm">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

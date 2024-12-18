@@ -1,0 +1,35 @@
+﻿@model Gimnasio.Models.Membresia
+
+@{
+    ViewData["Title"] = "Editar Membresía";
+}
+
+<h2>Editar Membresía</h2>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="MembresiaID" />
+    <div class="mb-3">
+        <label for="UsuarioID" class="form-label">Cliente</label>
+        <select asp-for="UsuarioID" class="form-control" asp-items="@(new SelectList(ViewBag.Clientes, "UsuarioID", "Nombre"))">
+            <option value="">Seleccione un Cliente</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="Tipo" class="form-label">Tipo</label>
+        <input type="text" asp-for="Tipo" class="form-control" required />
+    </div>
+    <div class="mb-3">
+        <label for="FechaInicio" class="form-label">Fecha Inicio</label>
+        <input type="date" asp-for="FechaInicio" class="form-control" required />
+    </div>
+    <div class="mb-3">
+        <label for="FechaFin" class="form-label">Fecha Fin</label>
+        <input type="date" asp-for="FechaFin" class="form-control" required />
+    </div>
+    <div class="mb-3">
+        <label for="Estado" class="form-label">Estado</label>
+        <input type="text" asp-for="Estado" class="form-control" required />
+    </div>
+    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+</form>

@@ -1,0 +1,29 @@
+﻿@model IEnumerable<Gimnasio.Models.ReporteContable>
+
+@{
+    ViewData["Title"] = "Reporte Contable";
+}
+
+<h2>Reporte Contable</h2>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Fecha</th>
+            <th>Tipo</th>
+            <th>Monto</th>
+            <th>Descripción</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Fecha.ToShortDateString()</td>
+                <td>@item.Tipo</td>
+                <td>@item.Monto.ToString("C")</td>
+                <td>@item.Descripcion</td>
+            </tr>
+        }
+    </tbody>
+</table>

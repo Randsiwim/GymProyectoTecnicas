@@ -1,0 +1,27 @@
+﻿@model IEnumerable<Gimnasio.Models.ReporteClasesPopulares>
+
+@{
+    ViewData["Title"] = "Clases Populares";
+}
+
+<h2>Clases Populares</h2>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Clase</th>
+            <th>Horario</th>
+            <th>Total de Reservas</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Clase</td>
+                <td>@item.Horario</td>
+                <td>@item.TotalReservas</td>
+            </tr>
+        }
+    </tbody>
+</table>

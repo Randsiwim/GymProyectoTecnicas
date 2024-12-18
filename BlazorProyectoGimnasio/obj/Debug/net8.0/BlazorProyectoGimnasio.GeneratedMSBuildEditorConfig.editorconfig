@@ -1,11 +1,19 @@
 is_global = true
 build_property.TargetFramework = net8.0
+build_property.TargetFramework = net8.0
+build_property.TargetPlatformMinVersion = 
 build_property.TargetPlatformMinVersion = 
 build_property.UsingMicrosoftNETSdkWeb = true
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
 build_property.ProjectTypeGuids = 
 build_property.InvariantGlobalization = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
 build_property.PlatformNeutralAssembly = 
 build_property.EnforceExtendedAnalyzerRules = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = BlazorProyectoGimnasio
 build_property.RootNamespace = BlazorProyectoGimnasio
@@ -43,3 +51,175 @@ build_metadata.AdditionalFiles.CssScope =
 [C:/Users/Rand/Source/Repos/GymProyectoTecnicas/BlazorProyectoGimnasio/Components/Layout/MainLayout.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xMYXlvdXRcTWFpbkxheW91dC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = b-0m6puc7h2g
+
+[C:/Users/Rand/Source/Repos/GymProyectoTecnicas/BlazorProyectoGimnasio/Views/Account/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxMb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Rand/Source/Repos/GymProyectoTecnicas/BlazorProyectoGimnasio/Views/Clases/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2xhc2VzXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Rand/Source/Repos/GymProyectoTecnicas/BlazorProyectoGimnasio/Views/Clases/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2xhc2VzXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Rand/Source/Repos/GymProyectoTecnicas/BlazorProyectoGimnasio/Views/Clases/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2xhc2VzXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Rand/Source/Repos/GymProyectoTecnicas/BlazorProyectoGimnasio/Views/Clases/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2xhc2VzXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Rand/Source/Repos/GymProyectoTecnicas/BlazorProyectoGimnasio/Views/Entrenador/EmitirFactura.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW50cmVuYWRvclxFbWl0aXJGYWN0dXJhLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Rand/Source/Repos/GymProyectoTecnicas/BlazorProyectoGimnasio/Views/Entrenador/EntrenadorHome.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW50cmVuYWRvclxFbnRyZW5hZG9ySG9tZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Rand/Source/Repos/GymProyectoTecnicas/BlazorProyectoGimnasio/Views/Entrenador/GestionarClases.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW50cmVuYWRvclxHZXN0aW9uYXJDbGFzZXMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Rand/Source/Repos/GymProyectoTecnicas/BlazorProyectoGimnasio/Views/Entrenador/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW50cmVuYWRvclxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Rand/Source/Repos/GymProyectoTecnicas/BlazorProyectoGimnasio/Views/Entrenador/VerReservas.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW50cmVuYWRvclxWZXJSZXNlcnZhcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Rand/Source/Repos/GymProyectoTecnicas/BlazorProyectoGimnasio/Views/Facturas/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmFjdHVyYXNcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Rand/Source/Repos/GymProyectoTecnicas/BlazorProyectoGimnasio/Views/Facturas/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmFjdHVyYXNcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Rand/Source/Repos/GymProyectoTecnicas/BlazorProyectoGimnasio/Views/Facturas/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmFjdHVyYXNcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Rand/Source/Repos/GymProyectoTecnicas/BlazorProyectoGimnasio/Views/Facturas/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmFjdHVyYXNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Rand/Source/Repos/GymProyectoTecnicas/BlazorProyectoGimnasio/Views/Home/ClienteHome.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxDbGllbnRlSG9tZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Rand/Source/Repos/GymProyectoTecnicas/BlazorProyectoGimnasio/Views/Home/EntrenadorHome.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxFbnRyZW5hZG9ySG9tZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Rand/Source/Repos/GymProyectoTecnicas/BlazorProyectoGimnasio/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Rand/Source/Repos/GymProyectoTecnicas/BlazorProyectoGimnasio/Views/Inventario/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW52ZW50YXJpb1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Rand/Source/Repos/GymProyectoTecnicas/BlazorProyectoGimnasio/Views/Inventario/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW52ZW50YXJpb1xEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Rand/Source/Repos/GymProyectoTecnicas/BlazorProyectoGimnasio/Views/Inventario/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW52ZW50YXJpb1xFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Rand/Source/Repos/GymProyectoTecnicas/BlazorProyectoGimnasio/Views/Inventario/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW52ZW50YXJpb1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Rand/Source/Repos/GymProyectoTecnicas/BlazorProyectoGimnasio/Views/Membresias/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVtYnJlc2lhc1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Rand/Source/Repos/GymProyectoTecnicas/BlazorProyectoGimnasio/Views/Membresias/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVtYnJlc2lhc1xEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Rand/Source/Repos/GymProyectoTecnicas/BlazorProyectoGimnasio/Views/Membresias/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVtYnJlc2lhc1xFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Rand/Source/Repos/GymProyectoTecnicas/BlazorProyectoGimnasio/Views/Membresias/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVtYnJlc2lhc1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Rand/Source/Repos/GymProyectoTecnicas/BlazorProyectoGimnasio/Views/ProgresoUsuarios/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZ3Jlc29Vc3Vhcmlvc1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Rand/Source/Repos/GymProyectoTecnicas/BlazorProyectoGimnasio/Views/ProgresoUsuarios/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZ3Jlc29Vc3Vhcmlvc1xEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Rand/Source/Repos/GymProyectoTecnicas/BlazorProyectoGimnasio/Views/ProgresoUsuarios/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZ3Jlc29Vc3Vhcmlvc1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Rand/Source/Repos/GymProyectoTecnicas/BlazorProyectoGimnasio/Views/Reportes/ReporteClasesPopulares.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVwb3J0ZXNcUmVwb3J0ZUNsYXNlc1BvcHVsYXJlcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Rand/Source/Repos/GymProyectoTecnicas/BlazorProyectoGimnasio/Views/Reportes/ReporteContable.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVwb3J0ZXNcUmVwb3J0ZUNvbnRhYmxlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Rand/Source/Repos/GymProyectoTecnicas/BlazorProyectoGimnasio/Views/Reportes/ReporteMatricula.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVwb3J0ZXNcUmVwb3J0ZU1hdHJpY3VsYS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Rand/Source/Repos/GymProyectoTecnicas/BlazorProyectoGimnasio/Views/Reservas/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzZXJ2YXNcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Rand/Source/Repos/GymProyectoTecnicas/BlazorProyectoGimnasio/Views/Reservas/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzZXJ2YXNcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Rand/Source/Repos/GymProyectoTecnicas/BlazorProyectoGimnasio/Views/Reservas/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzZXJ2YXNcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Rand/Source/Repos/GymProyectoTecnicas/BlazorProyectoGimnasio/Views/Reservas/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzZXJ2YXNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Rand/Source/Repos/GymProyectoTecnicas/BlazorProyectoGimnasio/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Rand/Source/Repos/GymProyectoTecnicas/BlazorProyectoGimnasio/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Rand/Source/Repos/GymProyectoTecnicas/BlazorProyectoGimnasio/Views/Usuarios/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Rand/Source/Repos/GymProyectoTecnicas/BlazorProyectoGimnasio/Views/Usuarios/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Rand/Source/Repos/GymProyectoTecnicas/BlazorProyectoGimnasio/Views/Usuarios/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Rand/Source/Repos/GymProyectoTecnicas/BlazorProyectoGimnasio/Views/Usuarios/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Rand/Source/Repos/GymProyectoTecnicas/BlazorProyectoGimnasio/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Rand/Source/Repos/GymProyectoTecnicas/BlazorProyectoGimnasio/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
