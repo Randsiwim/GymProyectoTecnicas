@@ -4,27 +4,26 @@
     ViewData["Title"] = "Eliminar Membresía";
 }
 
-<h2>¿Estás seguro de que quieres eliminar esta membresía?</h2>
-
+<h2>Eliminar Membresía</h2>
+<h3>¿Estás seguro de que deseas eliminar esta membresía?</h3>
 <div>
     <dl class="row">
-        <dt class="col-sm-2">Cliente:</dt>
-        <dd class="col-sm-10">@Model.Usuario.Nombre</dd>
+        <dt class="col-sm-2">Cliente</dt>
+        <dd class="col-sm-10">@Model.Usuario?.Nombre ?? "Sin Cliente"</dd>
 
-        <dt class="col-sm-2">Tipo:</dt>
+        <dt class="col-sm-2">Tipo</dt>
         <dd class="col-sm-10">@Model.Tipo</dd>
 
-        <dt class="col-sm-2">Fecha Inicio:</dt>
+        <dt class="col-sm-2">Fecha Inicio</dt>
         <dd class="col-sm-10">@Model.FechaInicio.ToString("dd/MM/yyyy")</dd>
 
-        <dt class="col-sm-2">Fecha Fin:</dt>
+        <dt class="col-sm-2">Fecha Fin</dt>
         <dd class="col-sm-10">@Model.FechaFin.ToString("dd/MM/yyyy")</dd>
 
-        <dt class="col-sm-2">Estado:</dt>
+        <dt class="col-sm-2">Estado</dt>
         <dd class="col-sm-10">@Model.Estado</dd>
     </dl>
-
-    <form asp-action="DeleteConfirmed" method="post">
+    <form asp-action="Delete" method="post">
         <input type="hidden" asp-for="MembresiaID" />
         <button type="submit" class="btn btn-danger">Eliminar</button>
         <a asp-action="Index" class="btn btn-secondary">Cancelar</a>

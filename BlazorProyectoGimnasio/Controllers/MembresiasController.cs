@@ -33,6 +33,19 @@ namespace Gimnasio.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(Membresia membresia)
         {
+            // Validación para valores faltantes
+            if (membresia.FechaInicio == default)
+            {
+                ModelState.AddModelError("FechaInicio", "La fecha de inicio es obligatoria.");
+            }
+            if (membresia.FechaFin == default || membresia.FechaFin <= membresia.FechaInicio)
+            {
+                ModelState.AddModelError("FechaFin", "La fecha de fin debe ser válida y posterior a la fecha de inicio.");
+            }
+            if (string.IsNullOrEmpty(membresia.Tipo))
+            {
+                ModelState.AddModelError("Tipo", "El tipo de membresía es obligatorio.");
+            }
             if (ModelState.IsValid)
             {
                 _context.Membresias.Add(membresia);
@@ -62,6 +75,11 @@ namespace Gimnasio.Controllers
         {
             if (id != membresia.MembresiaID) return NotFound();
 
+            if (membresia.FechaFin <= membresia.FechaInicio)
+            {
+                ModelState.AddModelError("FechaFin", "La fecha de fin debe ser posterior a la fecha de inicio.");
+            }
+
             if (ModelState.IsValid)
             {
                 _context.Update(membresia);
@@ -72,6 +90,8 @@ namespace Gimnasio.Controllers
             return View(membresia);
         }
 
+
+        // GET: Membresias/Delete/5
         // GET: Membresias/Delete/5
         public IActionResult Delete(int? id)
         {

@@ -1,16 +1,9 @@
 ﻿@model IEnumerable<Gimnasio.Models.Membresia>
 
-@{
-    ViewData["Title"] = "Gestionar Membresías";
-}
-
 <h2>Gestionar Membresías</h2>
+<a asp-action="Create" class="btn btn-success">Nueva Membresía</a>
 
-<p>
-    <a asp-action="Create" class="btn btn-success">Agregar Nueva Membresía</a>
-</p>
-
-<table class="table table-bordered table-striped">
+<table class="table table-bordered">
     <thead>
         <tr>
             <th>ID</th>
@@ -27,7 +20,7 @@
         {
             <tr>
                 <td>@item.MembresiaID</td>
-                <td>@item.Usuario.Nombre</td>
+                <td>@item.Usuario?.Nombre ?? "Sin Cliente"</td>
                 <td>@item.Tipo</td>
                 <td>@item.FechaInicio.ToString("dd/MM/yyyy")</td>
                 <td>@item.FechaFin.ToString("dd/MM/yyyy")</td>
