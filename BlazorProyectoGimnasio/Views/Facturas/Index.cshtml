@@ -8,6 +8,7 @@
 
 <p>
     <a asp-action="Create" class="btn btn-success">Crear Nueva Factura</a>
+    <a asp-action="ExportarCSV" class="btn btn-info">Exportar a CSV</a>
 </p>
 
 <table class="table table-bordered table-striped">
@@ -22,18 +23,27 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @if (Model != null && Model.Any())
+        {
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.FacturaID</td>
+                    <td>@(item.Usuario?.Nombre ?? "Sin Cliente")</td>
+                    <td>@item.Monto.ToString("C")</td>
+                    <td>@(string.IsNullOrEmpty(item.Detalle) ? "Sin Detalle" : item.Detalle)</td>
+                    <td>@item.Fecha.ToString("dd/MM/yyyy")</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.FacturaID" class="btn btn-primary btn-sm">Editar</a>
+                        <a asp-action="Delete" asp-route-id="@item.FacturaID" class="btn btn-danger btn-sm">Eliminar</a>
+                    </td>
+                </tr>
+            }
+        }
+        else
         {
             <tr>
-                <td>@item.FacturaID</td>
-                <td>@item.Usuario.Nombre</td>
-                <td>@item.Monto.ToString("C")</td>
-                <td>@item.Detalle</td>
-                <td>@item.Fecha.ToString("dd/MM/yyyy")</td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.FacturaID" class="btn btn-primary btn-sm">Editar</a>
-                    <a asp-action="Delete" asp-route-id="@item.FacturaID" class="btn btn-danger btn-sm">Eliminar</a>
-                </td>
+                <td colspan="6" class="text-center">No hay facturas registradas.</td>
             </tr>
         }
     </tbody>

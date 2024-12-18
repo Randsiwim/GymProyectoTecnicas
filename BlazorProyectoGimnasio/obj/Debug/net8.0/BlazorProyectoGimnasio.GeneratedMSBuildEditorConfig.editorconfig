@@ -72,26 +72,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2xhc2VzXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Rand/Source/Repos/GymProyectoTecnicas/BlazorProyectoGimnasio/Views/Entrenador/EmitirFactura.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW50cmVuYWRvclxFbWl0aXJGYWN0dXJhLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/Rand/Source/Repos/GymProyectoTecnicas/BlazorProyectoGimnasio/Views/Entrenador/EntrenadorHome.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW50cmVuYWRvclxFbnRyZW5hZG9ySG9tZS5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/Rand/Source/Repos/GymProyectoTecnicas/BlazorProyectoGimnasio/Views/Entrenador/GestionarClases.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW50cmVuYWRvclxHZXN0aW9uYXJDbGFzZXMuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/Rand/Source/Repos/GymProyectoTecnicas/BlazorProyectoGimnasio/Views/Entrenador/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW50cmVuYWRvclxJbmRleC5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/Rand/Source/Repos/GymProyectoTecnicas/BlazorProyectoGimnasio/Views/Entrenador/VerReservas.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW50cmVuYWRvclxWZXJSZXNlcnZhcy5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/Rand/Source/Repos/GymProyectoTecnicas/BlazorProyectoGimnasio/Views/Facturas/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmFjdHVyYXNcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 

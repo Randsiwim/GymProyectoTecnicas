@@ -7,7 +7,9 @@
 <h2>Gestionar Clases</h2>
 
 <p>
-    <a asp-action="Create" class="btn btn-success">Crear Nueva Clase</a>
+    <a asp-action="Create" class="btn btn-success">
+        <i class="bi bi-plus-circle"></i> Crear Nueva Clase
+    </a>
 </p>
 
 <table class="table table-bordered table-striped">
@@ -26,15 +28,25 @@
         {
             <tr>
                 <td>@item.ClaseID</td>
-                <td>@item.Nombre</td>
-                <td>@(item.Horario.HasValue ? item.Horario.ToString() : "Sin Horario")</td>
-                <td>@(item.Cupo.HasValue ? item.Cupo : "N/A")</td>
-                <td>@(item.Entrenador != null ? item.Entrenador.Nombre : "Sin Entrenador")</td>
+                <td>@(item.Nombre ?? "Sin nombre")</td>
+                <td>@(item.Horario.HasValue ? item.Horario : "00:00")</td>
+                <td>@(item.Cupo.HasValue ? item.Cupo : "0")</td>
+                <td>@(item.Entrenador != null ? item.Entrenador.Nombre : "Sin entrenador")</td>
+
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.ClaseID" class="btn btn-primary btn-sm">Editar</a>
-                    <a asp-action="Delete" asp-route-id="@item.ClaseID" class="btn btn-danger btn-sm">Eliminar</a>
+                    <a asp-action="Edit" asp-route-id="@item.ClaseID" class="btn btn-primary btn-sm">
+                        <i class="bi bi-pencil"></i> Editar
+                    </a>
+                    <a asp-action="Delete" asp-route-id="@item.ClaseID" class="btn btn-danger btn-sm">
+                        <i class="bi bi-trash"></i> Eliminar
+                    </a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+
+@section Scripts {
+  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" />
+}

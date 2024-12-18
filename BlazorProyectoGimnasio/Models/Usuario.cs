@@ -15,10 +15,10 @@ namespace Gimnasio.Models
         [Required]
         public string Contraseña { get; set; }
 
-        public string? Rol { get; set; } // Permitir nulos
+        public string? Rol { get; set; } 
 
-        public string? PuntosFuertes { get; set; } // Permitir nulos
-        public string? Horario { get; set; } // Permitir nulos
+        public string? PuntosFuertes { get; set; } 
+        public string? Horario { get; set; } 
         public DateTime FechaRegistro { get; set; } = DateTime.Now; // Valor por defecto
 
         // Relaciones

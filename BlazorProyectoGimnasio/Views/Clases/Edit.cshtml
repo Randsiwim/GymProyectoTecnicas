@@ -20,11 +20,12 @@
         <label for="Cupo" class="form-label">Cupo Máximo</label>
         <input asp-for="Cupo" type="number" class="form-control" />
     </div>
-    <div class="mb-3">
-        <label for="EntrenadorID" class="form-label">Entrenador</label>
-        <select asp-for="EntrenadorID" class="form-control" asp-items="@(new SelectList(ViewBag.Entrenadores, "UsuarioID", "Nombre"))">
-            <option value="">Seleccione un Entrenador</option>
+    <div class="form-group">
+        <label asp-for="EntrenadorID" class="control-label">Entrenador</label>
+        <select asp-for="EntrenadorID" class="form-control" asp-items="@(ViewData["EntrenadorID"] as SelectList)">
+            <option value="">-- Seleccione un Entrenador --</option>
         </select>
+        <span asp-validation-for="EntrenadorID" class="text-danger"></span>
     </div>
     <button type="submit" class="btn btn-primary">Guardar Cambios</button>
     <a asp-action="Index" class="btn btn-secondary">Cancelar</a>

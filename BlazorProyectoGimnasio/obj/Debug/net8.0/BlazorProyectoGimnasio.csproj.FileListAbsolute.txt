@@ -176,3 +176,10 @@ C:\Users\Rand\Source\Repos\GymProyectoTecnicas\BlazorProyectoGimnasio\obj\Debug\
 C:\Users\Rand\Source\Repos\GymProyectoTecnicas\BlazorProyectoGimnasio\obj\Debug\net8.0\BlazorProyectoGimnasio.pdb
 C:\Users\Rand\Source\Repos\GymProyectoTecnicas\BlazorProyectoGimnasio\obj\Debug\net8.0\BlazorProyectoGimnasio.genruntimeconfig.cache
 C:\Users\Rand\Source\Repos\GymProyectoTecnicas\BlazorProyectoGimnasio\obj\Debug\net8.0\ref\BlazorProyectoGimnasio.dll
+C:\Users\Rand\Source\Repos\GymProyectoTecnicas\BlazorProyectoGimnasio\bin\Debug\net8.0\Castle.Core.dll
+C:\Users\Rand\Source\Repos\GymProyectoTecnicas\BlazorProyectoGimnasio\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.InMemory.dll
+C:\Users\Rand\Source\Repos\GymProyectoTecnicas\BlazorProyectoGimnasio\bin\Debug\net8.0\Moq.dll
+C:\Users\Rand\Source\Repos\GymProyectoTecnicas\BlazorProyectoGimnasio\bin\Debug\net8.0\xunit.abstractions.dll
+C:\Users\Rand\Source\Repos\GymProyectoTecnicas\BlazorProyectoGimnasio\bin\Debug\net8.0\xunit.assert.dll
+C:\Users\Rand\Source\Repos\GymProyectoTecnicas\BlazorProyectoGimnasio\bin\Debug\net8.0\xunit.core.dll
+C:\Users\Rand\Source\Repos\GymProyectoTecnicas\BlazorProyectoGimnasio\bin\Debug\net8.0\xunit.execution.dotnet.dll

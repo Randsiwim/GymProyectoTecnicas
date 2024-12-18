@@ -36,7 +36,7 @@ namespace Gimnasio.Controllers
      .Select(u => new
      {
          UsuarioID = u.UsuarioID,
-         Rol = u.Rol ?? "Unknown" // Provide a default value if Rol is null
+         Rol = u.Rol ?? "Unknown" 
      })
      .FirstOrDefault();
 

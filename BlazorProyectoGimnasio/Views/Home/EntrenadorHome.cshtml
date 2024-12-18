@@ -5,14 +5,7 @@
 <h2>Panel de Entrenador</h2>
 
 <div class="d-grid gap-2 col-3 mx-auto">
-    <a asp-controller="Entrenador" asp-action="GestionarClases" class="btn btn-primary">Gestionar Clases</a>
-    <a asp-controller="Entrenador" asp-action="VerReservas" class="btn btn-primary">Ver Reservas</a>
-    <a asp-controller="Entrenador" asp-action="EmitirFactura" class="btn btn-primary">Emitir Factura</a>
-    <h2>Reportes</h2>
-    <div class="d-grid gap-2 col-3 mx-auto">
-        <a asp-controller="Reportes" asp-action="ReporteContable" class="btn btn-primary">Reporte Contable</a>
-        <a asp-controller="Reportes" asp-action="ReporteMatricula" class="btn btn-primary">Reporte de Matrícula</a>
-        <a asp-controller="Reportes" asp-action="ReporteClasesPopulares" class="btn btn-primary">Clases Populares</a>
-    </div>
-
+    <a asp-controller="Clases" asp-action="Index" class="btn btn-primary">Gestionar Clases</a>
+    <a asp-controller="Facturas" asp-action="Index" class="btn btn-primary">Gestionar Facturas</a>
+    <a asp-controller="Reservas" asp-action="Index" class="btn btn-primary">Gestionar Reservas</a>
 </div>

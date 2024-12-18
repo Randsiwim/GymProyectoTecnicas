@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "proyectoGymBlazor", "proyec
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorProyectoGimnasio", "BlazorProyectoGimnasio\BlazorProyectoGimnasio.csproj", "{26D74770-6215-45FF-B388-6BACEDC7F3E2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gimnasio.Tests", "Gimnasio.Tests\Gimnasio.Tests.csproj", "{B8795D00-ABD3-4D92-80AF-652F4D4414C9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +51,10 @@ Global
 		{26D74770-6215-45FF-B388-6BACEDC7F3E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{26D74770-6215-45FF-B388-6BACEDC7F3E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{26D74770-6215-45FF-B388-6BACEDC7F3E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8795D00-ABD3-4D92-80AF-652F4D4414C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8795D00-ABD3-4D92-80AF-652F4D4414C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8795D00-ABD3-4D92-80AF-652F4D4414C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8795D00-ABD3-4D92-80AF-652F4D4414C9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

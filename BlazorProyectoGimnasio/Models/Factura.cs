@@ -21,4 +21,5 @@ namespace Gimnasio.Models
 
         public DateTime Fecha { get; set; }
     }
+
 }

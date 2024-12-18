@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Gimnasio.Data;
 using Gimnasio.Models;
@@ -14,6 +15,7 @@ namespace Gimnasio.Controllers
             _context = context;
         }
 
+
         // GET: Clases
         public async Task<IActionResult> Index()
         {
@@ -21,59 +23,51 @@ namespace Gimnasio.Controllers
             return View(clases);
         }
 
-        // GET: Clases/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null) return NotFound();
-
-            var clase = await _context.Clases
-                .Include(c => c.Entrenador)
-                .FirstOrDefaultAsync(m => m.ClaseID == id);
-
-            if (clase == null) return NotFound();
-
-            return View(clase);
-        }
-
         // GET: Clases/Create
         public IActionResult Create()
         {
-            ViewBag.Entrenadores = _context.Usuarios
-                                           .Where(u => u.Rol == "Entrenador")
-                                           .ToList();
+            var entrenadores = _context.Usuarios
+                                       .Where(u => u.Rol == "Entrenador")
+                                       .ToList();
+
+            ViewBag.Entrenadores = entrenadores;
+
+            if (!entrenadores.Any())
+                Console.WriteLine("No hay entrenadores disponibles");
+
             return View();
         }
 
-
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Nombre,Horario,Cupo,EntrenadorID")] Clase clase)
+        public IActionResult Create(Clase clase)
         {
-            // Depuración: Mostrar valores en la consola
-            Console.WriteLine($"Nombre: {clase.Nombre}, Horario: {clase.Horario}, Cupo: {clase.Cupo}, EntrenadorID: {clase.EntrenadorID}");
+            if (_context.Clases.Any(c => c.ClaseID == clase.ClaseID))
+            {
+                // Error: El ID ya existe en la base de datos
+                ModelState.AddModelError("ClaseID", "El ID de la Clase ya existe. Ingresa un ID único.");
+                ViewBag.Entrenadores = _context.Usuarios
+                                               .Where(u => u.Rol == "Entrenador")
+                                               .ToList();
+                return View(clase);
+            }
 
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Add(clase);
-                    await _context.SaveChangesAsync();
-                    Console.WriteLine("Clase guardada correctamente.");
-                    return RedirectToAction(nameof(Index));
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Error al guardar: {ex.Message}");
-                    ModelState.AddModelError("", "Error al guardar la clase.");
-                }
+                // Asignar valores por defecto si son nulos
+                clase.Horario = clase.Horario ?? TimeSpan.Zero;
+                clase.Cupo = clase.Cupo ?? 0;
+
+                _context.Clases.Add(clase);
+                _context.SaveChanges();
+                TempData["Success"] = "Clase creada correctamente.";
+                return RedirectToAction(nameof(Index));
             }
 
+            // Recargar entrenadores si falla
             ViewBag.Entrenadores = _context.Usuarios.Where(u => u.Rol == "Entrenador").ToList();
             return View(clase);
         }
-
-
-
 
 
         // GET: Clases/Edit/5
@@ -84,7 +78,22 @@ namespace Gimnasio.Controllers
             var clase = await _context.Clases.FindAsync(id);
             if (clase == null) return NotFound();
 
-            ViewBag.Entrenadores = _context.Usuarios.Where(u => u.Rol == "Entrenador").ToList();
+            var entrenadores = _context.Usuarios
+                                       .Where(u => u.Rol == "Entrenador")
+                                       .ToList();
+
+            if (!entrenadores.Any())
+            {
+                // Log para verificar si no hay entrenadores
+                Console.WriteLine("No hay entrenadores disponibles para el dropdown.");
+            }
+
+            ViewData["EntrenadorID"] = new SelectList(
+                entrenadores,
+                "UsuarioID",
+                "Nombre",
+                clase.EntrenadorID);
+
             return View(clase);
         }
 
@@ -99,8 +108,8 @@ namespace Gimnasio.Controllers
             {
                 try
                 {
-                    // Manejo de valores nulos asignando valores por defecto
-                    clase.Nombre = string.IsNullOrEmpty(clase.Nombre) ? "Clase sin nombre" : clase.Nombre;
+                    // Asignar valores predeterminados si son nulos
+                    clase.Nombre = string.IsNullOrEmpty(clase.Nombre) ? "Sin nombre" : clase.Nombre;
                     clase.Horario = clase.Horario ?? TimeSpan.Zero;
                     clase.Cupo = clase.Cupo ?? 0;
                     clase.EntrenadorID = clase.EntrenadorID ?? 1;
@@ -110,17 +119,18 @@ namespace Gimnasio.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ClaseExists(clase.ClaseID))
-                        return NotFound();
-                    else
-                        throw;
+                    if (!ClaseExists(clase.ClaseID)) return NotFound();
+                    throw;
                 }
                 return RedirectToAction(nameof(Index));
             }
 
-            ViewBag.Entrenadores = _context.Usuarios.Where(u => u.Rol == "Entrenador").ToList();
+            ViewData["EntrenadorID"] = new SelectList(
+                _context.Usuarios.Where(u => u.Rol == "Entrenador"), "UsuarioID", "Nombre", clase.EntrenadorID);
+
             return View(clase);
         }
+
 
         // GET: Clases/Delete/5
         public async Task<IActionResult> Delete(int? id)
@@ -146,14 +156,14 @@ namespace Gimnasio.Controllers
             {
                 _context.Clases.Remove(clase);
                 await _context.SaveChangesAsync();
+                TempData["Success"] = "Clase eliminada correctamente.";
             }
             return RedirectToAction(nameof(Index));
         }
-
-        // Método privado para verificar si la clase existe
         private bool ClaseExists(int id)
         {
             return _context.Clases.Any(e => e.ClaseID == id);
         }
+
     }
 }
