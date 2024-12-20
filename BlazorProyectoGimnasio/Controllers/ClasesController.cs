@@ -26,17 +26,20 @@ namespace Gimnasio.Controllers
         // GET: Clases/Create
         public IActionResult Create()
         {
-            var entrenadores = _context.Usuarios
-                                       .Where(u => u.Rol == "Entrenador")
-                                       .ToList();
+            ViewBag.Entrenadores = _context.Usuarios
+                                           .Where(u => u.Rol == "Entrenador")
+                                           .ToList();
 
-            ViewBag.Entrenadores = entrenadores;
+            // Inicializa el modelo con valores predeterminados
+            var clase = new Clase
+            {
+                Horario = TimeSpan.Zero, // Horario predeterminado
+                Cupo = 0 // Cupo predeterminado
+            };
 
-            if (!entrenadores.Any())
-                Console.WriteLine("No hay entrenadores disponibles");
-
-            return View();
+            return View(clase);
         }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -44,7 +47,6 @@ namespace Gimnasio.Controllers
         {
             if (_context.Clases.Any(c => c.ClaseID == clase.ClaseID))
             {
-                // Error: El ID ya existe en la base de datos
                 ModelState.AddModelError("ClaseID", "El ID de la Clase ya existe. Ingresa un ID único.");
                 ViewBag.Entrenadores = _context.Usuarios
                                                .Where(u => u.Rol == "Entrenador")
@@ -54,20 +56,16 @@ namespace Gimnasio.Controllers
 
             if (ModelState.IsValid)
             {
-                // Asignar valores por defecto si son nulos
-                clase.Horario = clase.Horario ?? TimeSpan.Zero;
-                clase.Cupo = clase.Cupo ?? 0;
-
                 _context.Clases.Add(clase);
                 _context.SaveChanges();
                 TempData["Success"] = "Clase creada correctamente.";
                 return RedirectToAction(nameof(Index));
             }
 
-            // Recargar entrenadores si falla
             ViewBag.Entrenadores = _context.Usuarios.Where(u => u.Rol == "Entrenador").ToList();
             return View(clase);
         }
+
 
 
         // GET: Clases/Edit/5
@@ -108,12 +106,6 @@ namespace Gimnasio.Controllers
             {
                 try
                 {
-                    // Asignar valores predeterminados si son nulos
-                    clase.Nombre = string.IsNullOrEmpty(clase.Nombre) ? "Sin nombre" : clase.Nombre;
-                    clase.Horario = clase.Horario ?? TimeSpan.Zero;
-                    clase.Cupo = clase.Cupo ?? 0;
-                    clase.EntrenadorID = clase.EntrenadorID ?? 1;
-
                     _context.Update(clase);
                     await _context.SaveChangesAsync();
                 }
@@ -130,6 +122,7 @@ namespace Gimnasio.Controllers
 
             return View(clase);
         }
+
 
 
         // GET: Clases/Delete/5

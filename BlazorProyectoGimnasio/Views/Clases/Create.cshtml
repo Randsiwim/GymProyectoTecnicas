@@ -21,9 +21,11 @@
     </div>
     <div class="form-group">
         <label asp-for="Horario" class="control-label">Horario</label>
-        <input asp-for="Horario" type="time" class="form-control" required />
+        <input asp-for="Horario" class="form-control" type="time"
+               value="@Model.Horario.ToString(@"hh\:mm")" required />
         <span asp-validation-for="Horario" class="text-danger"></span>
     </div>
+
     <div class="form-group">
         <label asp-for="Cupo" class="control-label">Cupo Máximo</label>
         <input asp-for="Cupo" type="number" class="form-control" required />

@@ -14,8 +14,10 @@
     </div>
     <div class="mb-3">
         <label for="Horario" class="form-label">Horario</label>
-        <input asp-for="Horario" type="time" class="form-control" />
+        <input asp-for="Horario" type="time" class="form-control"
+               value="@Model.Horario.ToString(@"hh\:mm")" />
     </div>
+
     <div class="mb-3">
         <label for="Cupo" class="form-label">Cupo Máximo</label>
         <input asp-for="Cupo" type="number" class="form-control" />

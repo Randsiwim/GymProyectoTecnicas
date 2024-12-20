@@ -39,12 +39,56 @@ namespace Gimnasio.Data
                 entity.ToView("ReporteClasesPopulares"); // Asociado a la vista en la base de datos
             });
 
-            // Configurar ReporteContable como vista (si es una vista y no una tabla)
+            // Configurar ReporteContable como vista
             modelBuilder.Entity<ReporteContable>(entity =>
             {
                 entity.HasNoKey(); // Sin clave primaria
                 entity.ToView("ReporteContable"); // Asociado a la vista en la base de datos
             });
+
+            // Relación entre Reservas y Usuarios
+            modelBuilder.Entity<Reserva>()
+          .Property(r => r.FechaReserva)
+          .HasColumnType("date"); /
+
+            base.OnModelCreating(modelBuilder);
+
+            base.OnModelCreating(modelBuilder);
+
+            // Relación entre Reservas y Clases
+            modelBuilder.Entity<Reserva>()
+                .HasOne(r => r.Clase)
+                .WithMany(c => c.Reservas)
+                .HasForeignKey(r => r.ClaseID)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // Relación entre Clases y Usuarios (Entrenador)
+            modelBuilder.Entity<Clase>()
+                .HasOne(c => c.Entrenador)
+                .WithMany()
+                .HasForeignKey(c => c.EntrenadorID)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // Relación entre Membresias y Usuarios
+            modelBuilder.Entity<Membresia>()
+                .HasOne(m => m.Usuario)
+                .WithMany(u => u.Membresias)
+                .HasForeignKey(m => m.UsuarioID)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // Relación entre ProgresoUsuarios y Usuarios
+            modelBuilder.Entity<ProgresoUsuario>()
+                .HasOne(p => p.Usuario)
+                .WithMany(u => u.Progresos)
+                .HasForeignKey(p => p.UsuarioID)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // Relación entre Facturas y Usuarios
+            modelBuilder.Entity<Factura>()
+                .HasOne(f => f.Usuario)
+                .WithMany(u => u.Facturas)
+                .HasForeignKey(f => f.UsuarioID)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

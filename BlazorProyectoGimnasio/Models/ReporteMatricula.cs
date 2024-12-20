@@ -1,4 +1,5 @@
-﻿namespace Gimnasio.Models
+﻿
+namespace Gimnasio.Models
 {
     public class ReporteMatricula
     {

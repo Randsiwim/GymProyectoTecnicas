@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
+
 namespace Gimnasio.Models
 {
     public class Clase
@@ -8,20 +9,20 @@ namespace Gimnasio.Models
         [Key]
         public int ClaseID { get; set; }
 
-        [Required(ErrorMessage = "El nombre de la clase es obligatorio")]
+        [Required]
+        [StringLength(100)]
         public string Nombre { get; set; }
 
-        [Required(ErrorMessage = "El horario es obligatorio")]
-        public TimeSpan? Horario { get; set; }
+        [Required]
+        public TimeSpan Horario { get; set; } = TimeSpan.Zero;
 
-        [Required(ErrorMessage = "El cupo máximo es obligatorio")]
-        [Range(1, 100, ErrorMessage = "El cupo debe estar entre 1 y 100")]
-        public int? Cupo { get; set; }
+        public int Cupo { get; set; } = 0;
 
-        [Required(ErrorMessage = "Debe seleccionar un entrenador")]
-        public int? EntrenadorID { get; set; }
+        [Required]
+        public int EntrenadorID { get; set; } // Relación con Usuarios
+        public Usuario Entrenador { get; set; }
 
-        [ForeignKey("EntrenadorID")]
-        public virtual Usuario Entrenador { get; set; }
+        public ICollection<Reserva> Reservas { get; set; } // Relación con Reservas
     }
+
 }

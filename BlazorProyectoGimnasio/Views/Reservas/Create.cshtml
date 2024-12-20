@@ -7,18 +7,22 @@
 <h2>Crear Nueva Reserva</h2>
 
 <form asp-action="Create" method="post">
+
+
     <div class="mb-3">
         <label for="UsuarioID" class="form-label">Cliente</label>
-        <select asp-for="UsuarioID" class="form-control" asp-items="@(new SelectList(ViewBag.Clientes, "UsuarioID", "Nombre"))">
+        <select asp-for="UsuarioID" class="form-control" asp-items="@(new SelectList(ViewBag.Clientes, "UsuarioID", "Nombre"))" required>
             <option value="">Seleccione un Cliente</option>
         </select>
     </div>
+
     <div class="mb-3">
         <label for="ClaseID" class="form-label">Clase</label>
-        <select asp-for="ClaseID" class="form-control" asp-items="@(new SelectList(ViewBag.Clases, "ClaseID", "Nombre"))">
+        <select asp-for="ClaseID" class="form-control" asp-items="@(new SelectList(ViewBag.Clases, "ClaseID", "Nombre"))" required>
             <option value="">Seleccione una Clase</option>
         </select>
     </div>
+
     <div class="mb-3">
         <label for="FechaReserva" class="form-label">Fecha de Reserva</label>
         <input type="date" asp-for="FechaReserva" class="form-control" required />

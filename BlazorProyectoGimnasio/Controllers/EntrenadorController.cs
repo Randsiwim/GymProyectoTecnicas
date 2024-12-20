@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿/*using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Gimnasio.Data;
 using Gimnasio.Models;
@@ -83,3 +83,4 @@ namespace Gimnasio.Controllers
         }
     }
 }
+*/

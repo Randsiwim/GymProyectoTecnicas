@@ -18,17 +18,25 @@ namespace Gimnasio.Controllers
         public IActionResult Index()
         {
             var reservas = _context.Reservas
-                                   .Include(r => r.Usuario)
-                                   .Include(r => r.Clase)
-                                   .ToList();
+                .Include(r => r.Usuario)
+                .Include(r => r.Clase)
+                .ToList();
+
+            foreach (var reserva in reservas)
+            {
+                Console.WriteLine($"ReservaID: {reserva.ReservaID}, FechaReserva: {reserva.FechaReserva}");
+            }
+
             return View(reservas);
         }
+
+
 
         // GET: Reservas/Create
         public IActionResult Create()
         {
             ViewBag.Clientes = _context.Usuarios.Where(u => u.Rol == "Cliente").ToList();
-            ViewBag.Clases = _context.Clases.Include(c => c.Entrenador).ToList();
+            ViewBag.Clases = _context.Clases.ToList();
             return View();
         }
 
@@ -37,16 +45,37 @@ namespace Gimnasio.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(Reserva reserva)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
+            {
+                foreach (var entry in ModelState)
+                {
+                    Console.WriteLine($"{entry.Key}: {string.Join(", ", entry.Value.Errors.Select(e => e.ErrorMessage))}");
+                }
+
+                ViewBag.Clientes = _context.Usuarios.Where(u => u.Rol == "Cliente").ToList();
+                ViewBag.Clases = _context.Clases.ToList();
+                return View(reserva);
+            }
+
+
+            try
             {
                 _context.Reservas.Add(reserva);
                 _context.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", $"Ocurrió un error: {ex.Message}");
+            }
+
             ViewBag.Clientes = _context.Usuarios.Where(u => u.Rol == "Cliente").ToList();
-            ViewBag.Clases = _context.Clases.Include(c => c.Entrenador).ToList();
+            ViewBag.Clases = _context.Clases.ToList();
             return View(reserva);
         }
+
+
+
 
         // GET: Reservas/Edit/5
         public IActionResult Edit(int? id)

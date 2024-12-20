@@ -1,15 +1,27 @@
-﻿namespace Gimnasio.Models
-{
-public class Reserva
-{
-    public int ReservaID { get; set; }
-    public int UsuarioID { get; set; }
-    public int ClaseID { get; set; }
-    public DateTime FechaReserva { get; set; }
-    public string TipoReserva { get; set; }
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
-    // Relaciones
-    public Usuario Usuario { get; set; }
-    public Clase Clase { get; set; }
-} 
+namespace Gimnasio.Models
+{
+    public class Reserva
+    {
+        [Key]
+        public int ReservaID { get; set; }
+
+        [Required]
+        public int UsuarioID { get; set; } // Relación con Usuarios
+        public Usuario Usuario { get; set; }
+
+        [Required]
+        public int ClaseID { get; set; } // Relación con Clases
+        public Clase Clase { get; set; }
+
+        [Required]
+        public DateTime FechaReserva { get; set; }
+
+        [Required]
+        [StringLength(50)]
+        public string TipoReserva { get; set; }
+    }
+
 }

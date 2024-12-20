@@ -16,6 +16,8 @@ namespace Gimnasio.Controllers
             _context = context;
         }
 
+
+
         // Reporte Contable: Ingresos vs Egresos
         public IActionResult ReporteContable(DateTime? fechaInicio, DateTime? fechaFin)
         {
