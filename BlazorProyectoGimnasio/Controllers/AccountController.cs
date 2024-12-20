@@ -2,6 +2,7 @@
 using Gimnasio.Data;
 using Gimnasio.Models;
 
+
 namespace Gimnasio.Controllers
 {
     public class AccountController : Controller

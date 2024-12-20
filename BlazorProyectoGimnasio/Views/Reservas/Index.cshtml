@@ -1,23 +1,19 @@
 ﻿@model IEnumerable<Gimnasio.Models.Reserva>
 
-@{
-    ViewData["Title"] = "Gestionar Reservas";
-}
-
 <h2>Gestionar Reservas</h2>
 
 <p>
-    <a asp-action="Create" class="btn btn-success">Crear Nueva Reserva</a>
+    <a asp-action="Create" class="btn btn-success">Nueva Reserva</a>
 </p>
 
-<table class="table table-bordered table-striped">
+<table class="table table-bordered">
     <thead>
         <tr>
             <th>ID</th>
             <th>Cliente</th>
             <th>Clase</th>
-            <th>Fecha Reserva</th>
-            <th>Tipo Reserva</th>
+            <th>Fecha de Reserva</th>
+            <th>Tipo de Reserva</th>
             <th>Acciones</th>
         </tr>
     </thead>
@@ -26,8 +22,8 @@
         {
             <tr>
                 <td>@item.ReservaID</td>
-                <td>@item.Usuario.Nombre</td>
-                <td>@item.Clase.Nombre</td>
+                <td>@(item.Usuario?.Nombre ?? "Sin cliente")</td>
+                <td>@(item.Clase?.Nombre ?? "Sin clase")</td>
                 <td>@item.FechaReserva.ToString("dd/MM/yyyy")</td>
                 <td>@item.TipoReserva</td>
                 <td>

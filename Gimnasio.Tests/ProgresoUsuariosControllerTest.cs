@@ -1,46 +1,138 @@
-using Gimnasio.Controllers;
+using Xunit;
+using Microsoft.EntityFrameworkCore;
 using Gimnasio.Data;
 using Gimnasio.Models;
+using Gimnasio.Controllers;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Moq;
 using System.Collections.Generic;
-using System.Linq;
-using Xunit;
 
-public class ProgresoUsuariosControllerTest
+namespace Gimnasio.Tests.Controllers
 {
-    private readonly ProgresoUsuariosController _controller;
-    private readonly Mock<GimnasioDbContext> _mockContext;
-    private readonly Mock<DbSet<ProgresoUsuario>> _mockDbSet;
-
-    public ProgresoUsuariosControllerTest()
+    public class ProgresoUsuariosControllerTests
     {
-        var progresoData = new List<ProgresoUsuario>
+        private readonly GimnasioDbContext _dbContext;
+        private readonly ProgresoUsuariosController _controller;
+
+        public ProgresoUsuariosControllerTests()
         {
-            new ProgresoUsuario { ProgresoID = 1, UsuarioID = 1, Metrica = "Peso", Valor = 75.5m },
-            new ProgresoUsuario { ProgresoID = 2, UsuarioID = 2, Metrica = "Grasa", Valor = 20.5m }
-        }.AsQueryable();
+            // Configurar DbContext con base de datos en memoria
+            var options = new DbContextOptionsBuilder<GimnasioDbContext>()
+                .UseInMemoryDatabase(databaseName: "TestDb")
+                .Options;
 
-        _mockDbSet = new Mock<DbSet<ProgresoUsuario>>();
-        _mockDbSet.As<IQueryable<ProgresoUsuario>>().Setup(m => m.Provider).Returns(progresoData.Provider);
-        _mockDbSet.As<IQueryable<ProgresoUsuario>>().Setup(m => m.Expression).Returns(progresoData.Expression);
-        _mockDbSet.As<IQueryable<ProgresoUsuario>>().Setup(m => m.ElementType).Returns(progresoData.ElementType);
-        _mockDbSet.As<IQueryable<ProgresoUsuario>>().Setup(m => m.GetEnumerator()).Returns(progresoData.GetEnumerator());
+            _dbContext = new GimnasioDbContext(options);
 
-        _mockContext = new Mock<GimnasioDbContext>();
-        _mockContext.Setup(c => c.ProgresoUsuarios).Returns(_mockDbSet.Object);
+            // Agregar datos iniciales
+            _dbContext.Usuarios.Add(new Usuario
+            {
+                UsuarioID = 1,
+                Nombre = "Cliente 1",
+                Rol = "Cliente",
+                Email = "cliente1@example.com",
+                Contraseña = "password123"
+            });
 
-        _controller = new ProgresoUsuariosController(_mockContext.Object);
-    }
+            _dbContext.ProgresoUsuarios.Add(new ProgresoUsuario
+            {
+                ProgresoID = 1,
+                UsuarioID = 1,
+                Fecha = System.DateTime.Now,
+                Metrica = "Pecho",
+                Valor = 95.5m
+            });
 
-    [Fact]
-    public void Index_ReturnsViewResult_WithListOfProgresos()
-    {
-        var result = _controller.Index();
+            _dbContext.SaveChanges();
 
-        var viewResult = Assert.IsType<ViewResult>(result);
-        var model = Assert.IsAssignableFrom<IEnumerable<ProgresoUsuario>>(viewResult.Model);
-        Assert.Equal(2, model.Count());
+            // Inicializar el controlador
+            _controller = new ProgresoUsuariosController(_dbContext);
+        }
+
+        [Fact]
+        public void Index_ReturnsViewResult_WithListOfProgresos()
+        {
+            // Act
+            var result = _controller.Index() as ViewResult;
+
+            // Assert
+            Assert.NotNull(result);
+            var model = Assert.IsAssignableFrom<List<ProgresoUsuario>>(result.Model);
+            Assert.Single(model);
+        }
+
+        [Fact]
+        public void Create_Get_ReturnsViewResult()
+        {
+            // Act
+            var result = _controller.Create() as ViewResult;
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.True(result.ViewData.ContainsKey("Clientes"));
+        }
+
+        [Fact]
+        public void Create_Post_RedirectsToIndex_WhenModelStateIsValid()
+        {
+            // Arrange
+            var nuevoProgreso = new ProgresoUsuario
+            {
+                ProgresoID = 2,
+                UsuarioID = 1,
+                Metrica = "Bíceps",
+                Valor = 40.0m
+            };
+
+            // Act
+            var result = _controller.Create(nuevoProgreso) as RedirectToActionResult;
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.Equal(nameof(_controller.Index), result.ActionName);
+            Assert.Equal(2, _dbContext.ProgresoUsuarios.Count());
+        }
+
+        [Fact]
+        public void Create_Post_ReturnsViewResult_WhenModelStateIsInvalid()
+        {
+            // Arrange
+            var nuevoProgreso = new ProgresoUsuario
+            {
+                ProgresoID = 2,
+                UsuarioID = 1,
+                Metrica = null, // Métrica inválida
+                Valor = 40.0m
+            };
+
+            // Act
+            var result = _controller.Create(nuevoProgreso) as ViewResult;
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.False(_controller.ModelState.IsValid);
+        }
+
+        [Fact]
+        public void Delete_Get_ReturnsViewResult_WhenProgresoExists()
+        {
+            // Act
+            var result = _controller.Delete(1) as ViewResult;
+
+            // Assert
+            Assert.NotNull(result);
+            var model = Assert.IsType<ProgresoUsuario>(result.Model);
+            Assert.Equal(1, model.ProgresoID);
+        }
+
+        [Fact]
+        public void DeleteConfirmed_RedirectsToIndex_WhenProgresoIsDeleted()
+        {
+            // Act
+            var result = _controller.DeleteConfirmed(1) as RedirectToActionResult;
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.Equal(nameof(_controller.Index), result.ActionName);
+            Assert.Empty(_dbContext.ProgresoUsuarios);
+        }
     }
 }

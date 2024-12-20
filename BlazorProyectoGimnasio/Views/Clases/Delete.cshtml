@@ -1,10 +1,6 @@
 ﻿@model Gimnasio.Models.Clase
 
-@{
-    ViewData["Title"] = "Eliminar Clase";
-}
-
-<h2>¿Estás seguro de que deseas eliminar esta clase?</h2>
+<h2>Eliminar Clase</h2>
 
 <div>
     <dl class="row">
@@ -12,9 +8,9 @@
         <dd class="col-sm-10">@Model.Nombre</dd>
 
         <dt class="col-sm-2">Horario:</dt>
-        <dd class="col-sm-10">@Model.Horario</dd>
+        <dd class="col-sm-10">@Model.Horario.ToString(@"hh\:mm")</dd>
 
-        <dt class="col-sm-2">Cupo Máximo:</dt>
+        <dt class="col-sm-2">Cupo:</dt>
         <dd class="col-sm-10">@Model.Cupo</dd>
 
         <dt class="col-sm-2">Entrenador:</dt>

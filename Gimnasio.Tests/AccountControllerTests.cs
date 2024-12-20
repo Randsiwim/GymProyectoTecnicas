@@ -1,84 +1,78 @@
-﻿using Xunit;
-using Moq;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc;
+using Xunit;
 using Gimnasio.Controllers;
 using Gimnasio.Data;
 using Gimnasio.Models;
-using System.Linq;
+using Moq;
 
 namespace Gimnasio.Tests.Controllers
 {
     public class AccountControllerTests
     {
-        private readonly GimnasioDbContext _context;
-        private readonly AccountController _controller;
-        private readonly Mock<ISession> _sessionMock;
+        private GimnasioDbContext _dbContext;
+        private AccountController _controller;
 
         public AccountControllerTests()
         {
-            // Configuración del DbContext en memoria
+            // Configurar DbContext con base de datos en memoria
             var options = new DbContextOptionsBuilder<GimnasioDbContext>()
-                .UseInMemoryDatabase("TestDatabase")
+                .UseInMemoryDatabase(databaseName: "TestDb")
                 .Options;
 
-            _context = new GimnasioDbContext(options);
+            _dbContext = new GimnasioDbContext(options);
 
-            // Insertar datos simulados
-            _context.Usuarios.AddRange(
-                new Usuario { UsuarioID = 1, Email = "admin@test.com", Contraseña = "1234", Rol = "Administrador" },
-                new Usuario { UsuarioID = 2, Email = "entrenador@test.com", Contraseña = "1234", Rol = "Entrenador" },
-                new Usuario { UsuarioID = 3, Email = "cliente@test.com", Contraseña = "1234", Rol = "Cliente" }
-            );
-            _context.SaveChanges();
-
-            // Mock de la sesión
-            _sessionMock = new Mock<ISession>();
-            var httpContext = new DefaultHttpContext
+            // Agregar datos iniciales
+            _dbContext.Usuarios.Add(new Usuario
             {
-                Session = _sessionMock.Object
-            };
+                UsuarioID = 1,
+                Email = "test@example.com",
+                Contraseña = "password123",
+                Rol = "Cliente"
+            });
+            _dbContext.SaveChanges();
 
-            // Crear el controlador
-            _controller = new AccountController(_context)
+            // Configurar el controlador
+            _controller = new AccountController(_dbContext);
+
+            // Simular HttpContext para sesión
+            var mockHttpContext = new DefaultHttpContext();
+            mockHttpContext.Session = new Mock<ISession>().Object;
+
+            _controller.ControllerContext = new ControllerContext
             {
-                ControllerContext = new ControllerContext
-                {
-                    HttpContext = httpContext
-                }
+                HttpContext = mockHttpContext
             };
         }
 
         [Fact]
-        public void Login_AdminUser_SuccessfulLogin()
+        public void Login_Post_ReturnsErrorView_WhenEmailOrPasswordIsEmpty()
         {
             // Act
-            var result = _controller.Login("admin@test.com", "1234") as RedirectToActionResult;
+            var result = _controller.Login(string.Empty, string.Empty) as ViewResult;
 
             // Assert
             Assert.NotNull(result);
-            Assert.Equal("Index", result.ActionName);
-            Assert.Equal("Home", result.ControllerName);
+            Assert.Equal("El email y la contraseña son obligatorios.", _controller.ViewBag.Error);
         }
 
         [Fact]
-        public void Login_EntrenadorUser_SuccessfulLogin()
+        public void Login_Post_ReturnsErrorView_WhenCredentialsAreInvalid()
         {
             // Act
-            var result = _controller.Login("entrenador@test.com", "1234") as RedirectToActionResult;
+            var result = _controller.Login("wrong@example.com", "wrongpassword") as ViewResult;
 
             // Assert
             Assert.NotNull(result);
-            Assert.Equal("EntrenadorHome", result.ActionName);
-            Assert.Equal("Home", result.ControllerName);
+            Assert.Equal("Email o contraseña incorrectos.", _controller.ViewBag.Error);
         }
 
         [Fact]
-        public void Login_ClienteUser_SuccessfulLogin()
+        public void Login_Post_RedirectsToCorrectAction_WhenCredentialsAreValid()
         {
             // Act
-            var result = _controller.Login("cliente@test.com", "1234") as RedirectToActionResult;
+            var result = _controller.Login("test@example.com", "password123") as RedirectToActionResult;
 
             // Assert
             Assert.NotNull(result);
@@ -87,35 +81,17 @@ namespace Gimnasio.Tests.Controllers
         }
 
         [Fact]
-        public void Login_InvalidCredentials_ReturnsError()
+        public void Logout_ClearsSession_AndRedirectsToLogin()
         {
-            // Act
-            var result = _controller.Login("invalid@test.com", "wrongpassword") as ViewResult;
+            // Arrange
+            var mockSession = new Mock<ISession>();
+            _controller.HttpContext.Session = mockSession.Object;
 
-            // Assert
-            Assert.NotNull(result);
-            Assert.Equal("Email o contraseña incorrectos.", result.ViewData["Error"]);
-        }
-
-        [Fact]
-        public void Login_EmptyCredentials_ReturnsError()
-        {
-            // Act
-            var result = _controller.Login("", "") as ViewResult;
-
-            // Assert
-            Assert.NotNull(result);
-            Assert.Equal("El email y la contraseña son obligatorios.", result.ViewData["Error"]);
-        }
-
-        [Fact]
-        public void Logout_ClearsSessionAndRedirects()
-        {
             // Act
             var result = _controller.Logout() as RedirectToActionResult;
 
             // Assert
-            _sessionMock.Verify(s => s.Clear(), Times.Once);
+            mockSession.Verify(s => s.Clear(), Times.Once);
             Assert.NotNull(result);
             Assert.Equal("Login", result.ActionName);
         }

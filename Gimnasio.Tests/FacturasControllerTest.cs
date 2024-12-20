@@ -1,76 +1,159 @@
-﻿using Xunit;
-using Moq;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using Xunit;
 using Gimnasio.Controllers;
+
+using Microsoft.EntityFrameworkCore;
+using Xunit;
 using Gimnasio.Data;
 using Gimnasio.Models;
-using System.Collections.Generic;
-using System.Linq;
+using Gimnasio.Controllers;
 
-namespace Gimnasio.Tests
+using Moq;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
+
+
+namespace Gimnasio.Tests.Controllers
 {
     public class FacturasControllerTests
     {
-        private readonly GimnasioDbContext _context;
-        private readonly Mock<GimnasioDbContext> _mockContext;
+        private readonly GimnasioDbContext _dbContext;
         private readonly FacturasController _controller;
 
         public FacturasControllerTests()
         {
-            // Configurar una base de datos en memoria
+            // Configurar DbContext con base de datos en memoria
             var options = new DbContextOptionsBuilder<GimnasioDbContext>()
-                .UseInMemoryDatabase("TestDB")
+                .UseInMemoryDatabase(databaseName: "TestDb")
                 .Options;
-            _context = new GimnasioDbContext(options);
 
-            // Llenar la base de datos con datos iniciales
-            _context.Usuarios.Add(new Usuario { UsuarioID = 1, Nombre = "Cliente 1", Rol = "Cliente" });
-            _context.Facturas.Add(new Factura { FacturaID = 1, UsuarioID = 1, Monto = 100, Fecha = System.DateTime.Now });
-            _context.SaveChanges();
+            _dbContext = new GimnasioDbContext(options);
 
-            _controller = new FacturasController(_context);
+            // Agregar datos iniciales
+            _dbContext.Usuarios.Add(new Usuario
+            {
+                UsuarioID = 1,
+                Nombre = "Cliente 1",
+                Rol = "Cliente",
+                Email = "cliente1@example.com",
+                Contraseña = "password123"
+            });
+
+            _dbContext.Facturas.Add(new Factura
+            {
+                FacturaID = 1,
+                UsuarioID = 1,
+                Monto = 100.00m,
+                Detalle = "Factura inicial",
+                Fecha = System.DateTime.Now
+            });
+
+            _dbContext.SaveChanges();
+
+            // Configurar TempData usando un Mock
+            var tempDataMock = new Mock<ITempDataDictionary>();
+
+            // Inicializar el controlador
+            _controller = new FacturasController(_dbContext)
+            {
+                TempData = tempDataMock.Object
+            };
         }
 
         [Fact]
         public void Index_ReturnsViewResult_WithListOfFacturas()
         {
             // Act
-            var result = _controller.Index();
+            var result = _controller.Index() as ViewResult;
 
             // Assert
-            var viewResult = Assert.IsType<ViewResult>(result);
-            var model = Assert.IsAssignableFrom<List<Factura>>(viewResult.Model);
-            Assert.Single(model); // Debe haber una sola factura de prueba
+            Assert.NotNull(result);
+            var model = Assert.IsAssignableFrom<List<Factura>>(result.Model);
+            Assert.Single(model);
         }
 
         [Fact]
-        public void Create_Post_ValidModel_ReturnsRedirectToAction()
+        public void Create_Get_ReturnsViewResult()
         {
-            // Arrange
-            var factura = new Factura { UsuarioID = 1, Monto = 150, Detalle = "Nueva Factura" };
-
             // Act
-            var result = _controller.Create(factura);
+            var result = _controller.Create() as ViewResult;
 
             // Assert
-            var redirectToAction = Assert.IsType<RedirectToActionResult>(result);
-            Assert.Equal("Index", redirectToAction.ActionName);
+            Assert.NotNull(result);
+            Assert.True(result.ViewData.ContainsKey("Clientes"));
         }
 
         [Fact]
-        public void Create_Post_InvalidModel_ReturnsViewResult()
+        public void Create_Post_RedirectsToIndex_WhenModelStateIsValid()
         {
             // Arrange
-            var factura = new Factura { UsuarioID = 0, Monto = 0 };
-            _controller.ModelState.AddModelError("UsuarioID", "Required");
+            var nuevaFactura = new Factura
+            {
+                FacturaID = 2,
+                UsuarioID = 1,
+                Monto = 200.50m,
+                Detalle = "Nueva factura"
+            };
 
             // Act
-            var result = _controller.Create(factura);
+            var result = _controller.Create(nuevaFactura) as RedirectToActionResult;
 
             // Assert
-            var viewResult = Assert.IsType<ViewResult>(result);
-            var model = Assert.IsType<Factura>(viewResult.Model);
+            Assert.NotNull(result);
+            Assert.Equal(nameof(_controller.Index), result.ActionName);
+            Assert.Equal(2, _dbContext.Facturas.Count());
+        }
+
+        [Fact]
+        public void Edit_Get_ReturnsViewResult_WhenFacturaExists()
+        {
+            // Act
+            var result = _controller.Edit(1) as ViewResult;
+
+            // Assert
+            Assert.NotNull(result);
+            var model = Assert.IsType<Factura>(result.Model);
+            Assert.Equal(1, model.FacturaID);
+        }
+
+        [Fact]
+        public void Edit_Post_RedirectsToIndex_WhenModelStateIsValid()
+        {
+            // Arrange
+            var facturaToUpdate = _dbContext.Facturas.First();
+            facturaToUpdate.Detalle = "Factura actualizada";
+
+            // Act
+            var result = _controller.Edit(1, facturaToUpdate) as RedirectToActionResult;
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.Equal(nameof(_controller.Index), result.ActionName);
+            Assert.Equal("Factura actualizada", _dbContext.Facturas.First().Detalle);
+        }
+
+        [Fact]
+        public void Delete_Get_ReturnsViewResult_WhenFacturaExists()
+        {
+            // Act
+            var result = _controller.Delete(1) as ViewResult;
+
+            // Assert
+            Assert.NotNull(result);
+            var model = Assert.IsType<Factura>(result.Model);
+            Assert.Equal(1, model.FacturaID);
+        }
+
+        [Fact]
+        public void DeleteConfirmed_RedirectsToIndex_WhenFacturaIsDeleted()
+        {
+            // Act
+            var result = _controller.DeleteConfirmed(1) as RedirectToActionResult;
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.Equal(nameof(_controller.Index), result.ActionName);
+            Assert.Empty(_dbContext.Facturas);
         }
     }
 }

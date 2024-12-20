@@ -1,40 +1,48 @@
 ﻿@model Gimnasio.Models.Usuario
 
-@{
-    ViewData["Title"] = "Agregar Nuevo Usuario";
-}
-
-<h2>Agregar Nuevo Usuario</h2>
+<h2>Crear Usuario</h2>
 
 <form asp-action="Create" method="post">
-    <div class="mb-3">
-        <label for="Nombre" class="form-label">Nombre</label>
-        <input type="text" asp-for="Nombre" class="form-control" required />
+    <div class="form-group">
+        <label asp-for="Nombre" class="control-label">Nombre</label>
+        <input asp-for="Nombre" class="form-control" />
+        <span asp-validation-for="Nombre" class="text-danger"></span>
     </div>
-    <div class="mb-3">
-        <label for="Email" class="form-label">Email</label>
-        <input type="email" asp-for="Email" class="form-control" required />
+
+    <div class="form-group">
+        <label asp-for="Email" class="control-label">Email</label>
+        <input asp-for="Email" type="email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
     </div>
-    <div class="mb-3">
-        <label for="Contraseña" class="form-label">Contraseña</label>
-        <input type="password" asp-for="Contraseña" class="form-control" required />
+
+    <div class="form-group">
+        <label asp-for="Contraseña" class="control-label">Contraseña</label>
+        <input asp-for="Contraseña" type="password" class="form-control" />
+        <span asp-validation-for="Contraseña" class="text-danger"></span>
     </div>
-    <div class="mb-3">
-        <label for="Rol" class="form-label">Rol</label>
+
+    <div class="form-group">
+        <label asp-for="Rol" class="control-label">Rol</label>
         <select asp-for="Rol" class="form-control">
-            <option value="Administrador">Administrador</option>
-            <option value="Entrenador">Entrenador</option>
             <option value="Cliente">Cliente</option>
+            <option value="Entrenador">Entrenador</option>
+            <option value="Admin">Admin</option>
         </select>
+        <span asp-validation-for="Rol" class="text-danger"></span>
     </div>
-    <div class="mb-3">
-        <label for="Horario" class="form-label">Horario</label>
-        <input type="text" asp-for="Horario" class="form-control" />
+
+    <div class="form-group">
+        <label asp-for="PuntosFuertes" class="control-label">Puntos Fuertes</label>
+        <input asp-for="PuntosFuertes" class="form-control" />
+        <span asp-validation-for="PuntosFuertes" class="text-danger"></span>
     </div>
-    <div class="mb-3">
-        <label for="FechaRegistro" class="form-label">Fecha de Registro</label>
-        <input type="date" asp-for="FechaRegistro" class="form-control" required />
+
+    <div class="form-group">
+        <label asp-for="Horario" class="control-label">Horario</label>
+        <input asp-for="Horario" class="form-control" />
+        <span asp-validation-for="Horario" class="text-danger"></span>
     </div>
+
     <button type="submit" class="btn btn-success">Guardar</button>
     <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
 </form>

@@ -1,36 +1,36 @@
 ﻿@model Gimnasio.Models.Reserva
 
-@{
-    ViewData["Title"] = "Crear Reserva";
-}
-
-<h2>Crear Nueva Reserva</h2>
+<h2>Crear Reserva</h2>
 
 <form asp-action="Create" method="post">
-
-
-    <div class="mb-3">
-        <label for="UsuarioID" class="form-label">Cliente</label>
-        <select asp-for="UsuarioID" class="form-control" asp-items="@(new SelectList(ViewBag.Clientes, "UsuarioID", "Nombre"))" required>
-            <option value="">Seleccione un Cliente</option>
+    <div class="form-group">
+        <label asp-for="UsuarioID" class="control-label">Cliente</label>
+        <select asp-for="UsuarioID" class="form-control" asp-items="@(new SelectList(ViewBag.Clientes, "UsuarioID", "Nombre"))">
+            <option value="">Seleccione un cliente</option>
         </select>
+        <span asp-validation-for="UsuarioID" class="text-danger"></span>
     </div>
 
-    <div class="mb-3">
-        <label for="ClaseID" class="form-label">Clase</label>
-        <select asp-for="ClaseID" class="form-control" asp-items="@(new SelectList(ViewBag.Clases, "ClaseID", "Nombre"))" required>
-            <option value="">Seleccione una Clase</option>
+    <div class="form-group">
+        <label asp-for="ClaseID" class="control-label">Clase</label>
+        <select asp-for="ClaseID" class="form-control" asp-items="@(new SelectList(ViewBag.Clases, "ClaseID", "Nombre"))">
+            <option value="">Seleccione una clase</option>
         </select>
+        <span asp-validation-for="ClaseID" class="text-danger"></span>
     </div>
 
-    <div class="mb-3">
-        <label for="FechaReserva" class="form-label">Fecha de Reserva</label>
-        <input type="date" asp-for="FechaReserva" class="form-control" required />
+    <div class="form-group">
+        <label asp-for="FechaReserva" class="control-label">Fecha de Reserva</label>
+        <input asp-for="FechaReserva" type="date" class="form-control" />
+        <span asp-validation-for="FechaReserva" class="text-danger"></span>
     </div>
-    <div class="mb-3">
-        <label for="TipoReserva" class="form-label">Tipo de Reserva</label>
-        <input type="text" asp-for="TipoReserva" class="form-control" placeholder="Ejemplo: Personal, Grupal" required />
+
+    <div class="form-group">
+        <label asp-for="TipoReserva" class="control-label">Tipo de Reserva</label>
+        <input asp-for="TipoReserva" class="form-control" />
+        <span asp-validation-for="TipoReserva" class="text-danger"></span>
     </div>
+
     <button type="submit" class="btn btn-success">Guardar</button>
     <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
 </form>

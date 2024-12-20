@@ -2,10 +2,36 @@
     ViewData["Title"] = "Panel de Entrenador";
 }
 
-<h2>Panel de Entrenador</h2>
+<h2 class="my-4 text-center">Panel de Entrenador</h2>
 
-<div class="d-grid gap-2 col-3 mx-auto">
-    <a asp-controller="Clases" asp-action="Index" class="btn btn-primary">Gestionar Clases</a>
-    <a asp-controller="Facturas" asp-action="Index" class="btn btn-primary">Gestionar Facturas</a>
-    <a asp-controller="Reservas" asp-action="Index" class="btn btn-primary">Gestionar Reservas</a>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card text-center shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Clases</h5>
+                    <p class="card-text">Gestiona las clases a tu cargo.</p>
+                    <a asp-controller="Clases" asp-action="Index" class="btn btn-primary">Ir a Clases</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-center shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Facturas</h5>
+                    <p class="card-text">Consulta las facturas relacionadas.</p>
+                    <a asp-controller="Facturas" asp-action="Index" class="btn btn-primary">Ir a Facturas</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-center shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Reservas</h5>
+                    <p class="card-text">Gestiona las reservas de tus clases.</p>
+                    <a asp-controller="Reservas" asp-action="Index" class="btn btn-primary">Ir a Reservas</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

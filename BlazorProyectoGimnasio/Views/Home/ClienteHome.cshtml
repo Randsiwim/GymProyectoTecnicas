@@ -2,10 +2,36 @@
     ViewData["Title"] = "Panel de Cliente";
 }
 
-<h2>Panel de Cliente</h2>
+<h2 class="my-4 text-center">Panel de Cliente</h2>
 
-<div class="d-grid gap-2 col-3 mx-auto">
-    <a asp-controller="Clases" asp-action="Index" class="btn btn-primary">Ver Clases Disponibles</a>
-    <a asp-controller="Reservas" asp-action="Index" class="btn btn-primary">Mis Reservas</a>
-    <a asp-controller="ProgresoUsuarios" asp-action="Index" class="btn btn-primary">Gestionar Progreso de Usuarios</a>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card text-center shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Clases Disponibles</h5>
+                    <p class="card-text">Consulta las clases disponibles.</p>
+                    <a asp-controller="Clases" asp-action="Index" class="btn btn-primary">Ver Clases</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-center shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Mis Reservas</h5>
+                    <p class="card-text">Consulta las reservas que has realizado.</p>
+                    <a asp-controller="Reservas" asp-action="Index" class="btn btn-primary">Mis Reservas</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-center shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Progreso</h5>
+                    <p class="card-text">Gestiona y consulta tu progreso personal.</p>
+                    <a asp-controller="ProgresoUsuarios" asp-action="Index" class="btn btn-primary">Ir a Progreso</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

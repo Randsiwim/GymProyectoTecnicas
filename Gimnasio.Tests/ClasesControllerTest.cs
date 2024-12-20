@@ -1,67 +1,156 @@
-﻿using Gimnasio.Controllers;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc;
+using Xunit;
+using Gimnasio.Controllers;
 using Gimnasio.Data;
 using Gimnasio.Models;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Moq;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Xunit;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
-public class ClasesControllerTests
+namespace Gimnasio.Tests.Controllers
 {
-    private readonly ClasesController _controller;
-    private readonly Mock<GimnasioDbContext> _mockContext;
-    private readonly Mock<DbSet<Clase>> _mockDbSet;
-
-    public ClasesControllerTests()
+    public class ClasesControllerTests
     {
-        // Crear datos simulados
-        var clasesData = new List<Clase>
+        private readonly GimnasioDbContext _dbContext;
+        private readonly ClasesController _controller;
+
+        public ClasesControllerTests()
         {
-            new Clase { ClaseID = 1, Nombre = "Yoga", Cupo = 20, Entrenador = new Usuario { Nombre = "Entrenador1" } },
-            new Clase { ClaseID = 2, Nombre = "Crossfit", Cupo = 15, Entrenador = new Usuario { Nombre = "Entrenador2" } }
-        }.AsQueryable();
+            // Configurar DbContext con base de datos en memoria
+            var options = new DbContextOptionsBuilder<GimnasioDbContext>()
+                .UseInMemoryDatabase(databaseName: "TestDb")
+                .Options;
 
-        // Crear un Mock de DbSet con datos
-        _mockDbSet = new Mock<DbSet<Clase>>();
-        _mockDbSet.As<IQueryable<Clase>>().Setup(m => m.Provider).Returns(clasesData.Provider);
-        _mockDbSet.As<IQueryable<Clase>>().Setup(m => m.Expression).Returns(clasesData.Expression);
-        _mockDbSet.As<IQueryable<Clase>>().Setup(m => m.ElementType).Returns(clasesData.ElementType);
-        _mockDbSet.As<IQueryable<Clase>>().Setup(m => m.GetEnumerator()).Returns(clasesData.GetEnumerator());
+            _dbContext = new GimnasioDbContext(options);
 
-        // Crear un Mock del contexto y configurar DbSet
-        _mockContext = new Mock<GimnasioDbContext>();
-        _mockContext.Setup(c => c.Clases).Returns(_mockDbSet.Object);
+            // Agregar datos iniciales
+            _dbContext.Usuarios.Add(new Usuario
+            {
+                UsuarioID = 1,
+                Nombre = "Entrenador 1",
+                Rol = "Entrenador",
+                Email = "entrenador1@example.com", // Proporcionar Email requerido
+                Contraseña = "password123"        // Proporcionar Contraseña requerida
+            });
+            _dbContext.Usuarios.Add(new Usuario
+            {
+                UsuarioID = 2,
+                Nombre = "Entrenador 2",
+                Rol = "Entrenador",
+                Email = "entrenador2@example.com", // Proporcionar Email requerido
+                Contraseña = "password123"        // Proporcionar Contraseña requerida
+            });
+            _dbContext.Clases.Add(new Clase
+            {
+                ClaseID = 1,
+                Nombre = "Clase 1",
+                EntrenadorID = 1,
+                Cupo = 10,
+                Horario = new System.TimeSpan(10, 0, 0)
+            });
+            _dbContext.SaveChanges();
 
-        // Inicializar el controlador
-        _controller = new ClasesController(_mockContext.Object);
-    }
+            _controller = new ClasesController(_dbContext);
+        }
 
-    [Fact]
-    public async Task Index_ReturnsViewResult_WithListOfClases()
-    {
-        // Act
-        var result = await _controller.Index();
+        [Fact]
+        public async Task Index_ReturnsViewResult_WithListOfClases()
+        {
+            // Act
+            var result = await _controller.Index() as ViewResult;
 
-        // Assert
-        var viewResult = Assert.IsType<ViewResult>(result);
-        var model = Assert.IsAssignableFrom<IEnumerable<Clase>>(viewResult.Model);
-        Assert.Equal(2, model.Count());
-    }
+            // Assert
+            Assert.NotNull(result);
+            var model = Assert.IsAssignableFrom<System.Collections.Generic.List<Clase>>(result.Model);
+            Assert.Single(model);
+        }
 
-    [Fact]
-    public void Create_PostValidModel_RedirectsToIndex()
-    {
-        // Arrange
-        var newClase = new Clase { Nombre = "Pilates", Cupo = 10 };
+        [Fact]
+        public void Create_Get_ReturnsViewResult_WithDefaultValues()
+        {
+            // Act
+            var result = _controller.Create() as ViewResult;
 
-        // Act
-        var result = _controller.Create(newClase);
+            // Assert
+            Assert.NotNull(result);
+            var model = Assert.IsType<Clase>(result.Model);
+            Assert.Equal(0, model.Cupo);
+            Assert.Equal(System.TimeSpan.Zero, model.Horario);
+        }
 
-        // Assert
-        var redirectToActionResult = Assert.IsType<RedirectToActionResult>(result);
-        Assert.Equal("Index", redirectToActionResult.ActionName);
+        [Fact]
+        public void Create_Post_RedirectsToIndex_WhenModelStateIsValid()
+        {
+            // Arrange
+            var newClase = new Clase
+            {
+                ClaseID = 2,
+                Nombre = "Clase 2",
+                EntrenadorID = 1,
+                Cupo = 20,
+                Horario = new System.TimeSpan(12, 0, 0)
+            };
+
+            // Act
+            var result = _controller.Create(newClase) as RedirectToActionResult;
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.Equal(nameof(_controller.Index), result.ActionName);
+            Assert.Equal(2, _dbContext.Clases.Count());
+        }
+
+        [Fact]
+        public async Task Edit_Get_ReturnsViewResult_WhenClaseExists()
+        {
+            // Act
+            var result = await _controller.Edit(1) as ViewResult;
+
+            // Assert
+            Assert.NotNull(result);
+            var model = Assert.IsType<Clase>(result.Model);
+            Assert.Equal(1, model.ClaseID);
+        }
+
+        [Fact]
+        public async Task Edit_Post_RedirectsToIndex_WhenModelStateIsValid()
+        {
+            // Arrange
+            var claseToUpdate = _dbContext.Clases.First();
+            claseToUpdate.Nombre = "Clase 1 Actualizada";
+
+            // Act
+            var result = await _controller.Edit(1, claseToUpdate) as RedirectToActionResult;
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.Equal(nameof(_controller.Index), result.ActionName);
+            Assert.Equal("Clase 1 Actualizada", _dbContext.Clases.First().Nombre);
+        }
+
+        [Fact]
+        public async Task Delete_Get_ReturnsViewResult_WhenClaseExists()
+        {
+            // Act
+            var result = await _controller.Delete(1) as ViewResult;
+
+            // Assert
+            Assert.NotNull(result);
+            var model = Assert.IsType<Clase>(result.Model);
+            Assert.Equal(1, model.ClaseID);
+        }
+
+        [Fact]
+        public async Task DeleteConfirmed_RedirectsToIndex_WhenClaseIsDeleted()
+        {
+            // Act
+            var result = await _controller.DeleteConfirmed(1) as RedirectToActionResult;
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.Equal(nameof(_controller.Index), result.ActionName);
+            Assert.Empty(_dbContext.Clases);
+        }
     }
 }

@@ -17,9 +17,12 @@ namespace Gimnasio.Controllers
         // GET: Membresias
         public IActionResult Index()
         {
-            var membresias = _context.Membresias.Include(m => m.Usuario).ToList();
+            var membresias = _context.Membresias
+                                     .Include(m => m.Usuario)
+                                     .ToList();
             return View(membresias);
         }
+
 
         // GET: Membresias/Create
         public IActionResult Create()
@@ -91,7 +94,6 @@ namespace Gimnasio.Controllers
         }
 
 
-        // GET: Membresias/Delete/5
         // GET: Membresias/Delete/5
         public IActionResult Delete(int? id)
         {

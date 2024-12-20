@@ -1,28 +1,17 @@
 ﻿@model Gimnasio.Models.Clase
 
-@{
-    ViewData["Title"] = "Crear Nueva Clase";
-}
-
 <h2>Crear Nueva Clase</h2>
 
 <form asp-action="Create" method="post">
-    
-    <div class="form-group">
-        <label asp-for="ClaseID" class="control-label">ID de la Clase</label>
-        <input asp-for="ClaseID" type="number" class="form-control" required />
-        <span asp-validation-for="ClaseID" class="text-danger"></span>
-    </div>
-
     <div class="form-group">
         <label asp-for="Nombre" class="control-label">Nombre</label>
         <input asp-for="Nombre" class="form-control" required />
         <span asp-validation-for="Nombre" class="text-danger"></span>
     </div>
+
     <div class="form-group">
         <label asp-for="Horario" class="control-label">Horario</label>
-        <input asp-for="Horario" class="form-control" type="time"
-               value="@Model.Horario.ToString(@"hh\:mm")" required />
+        <input asp-for="Horario" type="time" class="form-control" required />
         <span asp-validation-for="Horario" class="text-danger"></span>
     </div>
 
@@ -31,6 +20,7 @@
         <input asp-for="Cupo" type="number" class="form-control" required />
         <span asp-validation-for="Cupo" class="text-danger"></span>
     </div>
+
     <div class="form-group">
         <label asp-for="EntrenadorID" class="control-label">Entrenador</label>
         <select asp-for="EntrenadorID" class="form-control" asp-items="@(new SelectList(ViewBag.Entrenadores, "UsuarioID", "Nombre"))">

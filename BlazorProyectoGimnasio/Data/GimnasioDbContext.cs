@@ -8,20 +8,22 @@ namespace Gimnasio.Data
         public GimnasioDbContext(DbContextOptions<GimnasioDbContext> options) : base(options) { }
 
         // Tablas
-        public DbSet<Usuario> Usuarios { get; set; }
-        public DbSet<Membresia> Membresias { get; set; }
-        public DbSet<Clase> Clases { get; set; }
-        public DbSet<Reserva> Reservas { get; set; }
-        public DbSet<Inventario> Inventarios { get; set; }
-        public DbSet<Factura> Facturas { get; set; }
-        public DbSet<ProgresoUsuario> ProgresoUsuarios { get; set; }
+        public virtual DbSet<Usuario> Usuarios { get; set; }
+        public virtual DbSet<Membresia> Membresias { get; set; }
+        public virtual DbSet<Clase> Clases { get; set; }
+        public virtual DbSet<Reserva> Reservas { get; set; }
+        public virtual DbSet<Inventario> Inventarios { get; set; }
+        public virtual DbSet<Factura> Facturas { get; set; }
+        public virtual DbSet<ProgresoUsuario> ProgresoUsuarios { get; set; }
 
         // Reportes (Vistas de solo lectura)
-        public DbSet<ReporteContable> ReporteContable { get; set; }
-        public DbSet<ReporteMatricula> ReporteMatricula { get; set; }
-        public DbSet<ReporteClasesPopulares> ReporteClasesPopulares { get; set; }
+        public virtual DbSet<ReporteContable> ReporteContable { get; set; }
+        public virtual DbSet<ReporteMatricula> ReporteMatricula { get; set; }
+        public virtual DbSet<ReporteClasesPopulares> ReporteClasesPopulares { get; set; }    
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+
+
+protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
@@ -49,7 +51,7 @@ namespace Gimnasio.Data
             // Relación entre Reservas y Usuarios
             modelBuilder.Entity<Reserva>()
           .Property(r => r.FechaReserva)
-          .HasColumnType("date"); /
+          .HasColumnType("date"); 
 
             base.OnModelCreating(modelBuilder);
 

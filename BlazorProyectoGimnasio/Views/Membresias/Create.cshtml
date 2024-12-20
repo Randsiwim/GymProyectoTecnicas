@@ -1,29 +1,40 @@
 ﻿@model Gimnasio.Models.Membresia
 
-<h2>Nueva Membresía</h2>
+<h2>Registrar Nueva Membresía</h2>
+
 <form asp-action="Create" method="post">
     <div class="form-group">
-        <label asp-for="UsuarioID">Cliente</label>
+        <label asp-for="UsuarioID" class="control-label">Cliente</label>
         <select asp-for="UsuarioID" class="form-control" asp-items="@(new SelectList(ViewBag.Clientes, "UsuarioID", "Nombre"))">
             <option value="">Seleccione un cliente</option>
         </select>
+        <span asp-validation-for="UsuarioID" class="text-danger"></span>
     </div>
+
     <div class="form-group">
-        <label asp-for="Tipo">Tipo</label>
+        <label asp-for="Tipo" class="control-label">Tipo</label>
         <input asp-for="Tipo" class="form-control" />
+        <span asp-validation-for="Tipo" class="text-danger"></span>
     </div>
+
     <div class="form-group">
-        <label asp-for="FechaInicio">Fecha Inicio</label>
+        <label asp-for="FechaInicio" class="control-label">Fecha Inicio</label>
         <input asp-for="FechaInicio" type="date" class="form-control" />
+        <span asp-validation-for="FechaInicio" class="text-danger"></span>
     </div>
+
     <div class="form-group">
-        <label asp-for="FechaFin">Fecha Fin</label>
+        <label asp-for="FechaFin" class="control-label">Fecha Fin</label>
         <input asp-for="FechaFin" type="date" class="form-control" />
+        <span asp-validation-for="FechaFin" class="text-danger"></span>
     </div>
+
     <div class="form-group">
-        <label asp-for="Estado">Estado</label>
+        <label asp-for="Estado" class="control-label">Estado</label>
         <input asp-for="Estado" class="form-control" />
+        <span asp-validation-for="Estado" class="text-danger"></span>
     </div>
+
     <button type="submit" class="btn btn-success">Guardar</button>
     <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
 </form>
