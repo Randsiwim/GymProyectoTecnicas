@@ -3,8 +3,17 @@ using Microsoft.EntityFrameworkCore;
 using Gimnasio.Data;
 using Gimnasio.Models;
 using System.Text;
-using System.Globalization;
 using System.IO;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using iText.Kernel.Pdf;
+using iText.Layout;
+using iText.Layout.Element;
+using iText.Layout.Properties;
+using iText.IO.Font.Constants;
+using System.Globalization;
+using Gimnasio.Data;
+using Gimnasio.Models;
 
 namespace Gimnasio.Controllers
 {
@@ -17,8 +26,53 @@ namespace Gimnasio.Controllers
         {
             _context = context;
 
-            // Ruta del archivo CSV en wwwroot
+            
             csvPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "facturas.csv");
+        }
+
+        //  Descargar Facturas en PDF
+        public IActionResult DescargarFacturasPDF()
+        {
+            var facturas = _context.Facturas.Include(f => f.Usuario).ToList();
+
+            using (var stream = new MemoryStream())
+            {
+                var writer = new PdfWriter(stream);
+                var pdf = new PdfDocument(writer);
+                var document = new Document(pdf);
+
+                // Configurar fuente en negrita
+                var boldFont = iText.Kernel.Font.PdfFontFactory.CreateFont(StandardFonts.HELVETICA_BOLD);
+
+                // Título del documento
+                document.Add(new Paragraph("Listado de Facturas")
+                    .SetTextAlignment(TextAlignment.CENTER)
+                    .SetFontSize(18)
+                    .SetFont(boldFont));
+
+                // Crear una tabla para los datos
+                var table = new Table(5); // 5 columnas
+                table.AddHeaderCell(new Cell().Add(new Paragraph("Factura ID").SetFont(boldFont)));
+                table.AddHeaderCell(new Cell().Add(new Paragraph("Cliente").SetFont(boldFont)));
+                table.AddHeaderCell(new Cell().Add(new Paragraph("Monto").SetFont(boldFont)));
+                table.AddHeaderCell(new Cell().Add(new Paragraph("Detalle").SetFont(boldFont)));
+                table.AddHeaderCell(new Cell().Add(new Paragraph("Fecha").SetFont(boldFont)));
+
+                foreach (var factura in facturas)
+                {
+                    table.AddCell(factura.FacturaID.ToString());
+                    table.AddCell(factura.Usuario.Nombre);
+                    table.AddCell(factura.Monto.ToString("C", CultureInfo.CurrentCulture));
+                    table.AddCell(factura.Detalle);
+                    table.AddCell(factura.Fecha.ToString("yyyy-MM-dd"));
+                }
+
+                document.Add(table);
+                document.Close();
+
+                var fileName = $"Facturas_{DateTime.Now:yyyyMMddHHmmss}.pdf";
+                return File(stream.ToArray(), "application/pdf", fileName);
+            }
         }
 
         // GET: Facturas

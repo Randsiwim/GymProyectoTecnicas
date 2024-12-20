@@ -77,6 +77,14 @@
               "target": "Package",
               "version": "[4.20.72, )"
             },
+            "itext.bouncy-castle-adapter": {
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
+            "itext7": {
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
             "xunit": {
               "target": "Package",
               "version": "[2.9.2, )"
